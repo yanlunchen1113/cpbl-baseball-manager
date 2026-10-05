@@ -52,7 +52,7 @@ def build(directory):
             # Game velocity is tuning, not a claimed real average velocity.
             speed = round(min(150, max(130, max_speed * .95))) if max_speed and 100 < max_speed < 180 else 143
             profile = dict(name=player['name'], id=player['id'], hand=hand, pitches=pitches,
-                           speed=speed, source='https://twbsball.dils.tku.edu.tw/wiki/index.php/' + quote(player['name']),
+                           speed=speed, source=(html.unescape(re.search(r'<link rel="canonical" href="([^"]+)"',source).group(1)) if re.search(r'<link rel="canonical" href="([^"]+)"',source) else 'https://twbsball.dils.tku.edu.tw/wiki/index.php/' + quote(player['name'])),
                            sourceLabel='台灣棒球維基館', listedPitches=raw)
             if max_speed:
                 profile['listedMaxSpeed'] = max_speed

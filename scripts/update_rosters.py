@@ -45,7 +45,7 @@ def make_snapshot(players):
         if pid in seen:
             raise ValueError('Duplicate CPBL player id')
         seen.add(pid)
-        name = raw['chName'].lstrip('*# ').strip()
+        name = raw['chName'].lstrip('*#◎ ').strip()
         position = str(raw.get('defendStation', ''))
         teams[TEAMS.index(base_name)]['players'].append({
             'id': pid, 'name': name, 'officialName': raw['chName'],

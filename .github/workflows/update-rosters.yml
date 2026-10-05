@@ -1,7 +1,7 @@
 name: Update official CPBL rosters and publish
 on:
   schedule:
-    - cron: '17 * * * *'
+    - cron: '17 20 * * *' # Daily at 04:17 Asia/Taipei
   workflow_dispatch:
   push:
     branches: [main]
