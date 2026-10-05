@@ -3,69 +3,71 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#071b19" />
+  <meta name="theme-color" content="#061c1a" />
   <title>職棒經理人｜CPBL 棒球模擬</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <a class="brand" href="#" aria-label="職棒經理人首頁"><span class="brand-ball">⚾</span><span>職棒<span class="brand-light">經理人</span></span></a>
-      <div class="season"><span class="live-dot"></span> 2026 球季・單場模式</div>
-      <button class="icon-button" id="soundToggle" title="切換音效" aria-label="切換音效">♪</button>
+      <a class="brand" href="#" aria-label="職棒經理人首頁"><span>⚾</span> 職棒<span>經理人</span></a>
+      <div class="season" id="seasonLabel"><i></i> 2026 球季・單場模式</div>
+      <button class="icon-button" id="soundToggle" aria-label="切換音效">♪</button>
     </header>
-
     <main>
       <section id="setupScreen" class="setup-screen">
         <div class="hero-copy">
           <div class="eyebrow"><span>CPBL</span> INTERACTIVE BASEBALL</div>
-          <h1>你的球賽，<br /><em>由你掌握。</em></h1>
-          <p>選擇你的主場球隊，走進球場。每一球都由你決定，每一次調度都可能改變戰局。</p>
-          <div class="feature-list"><span>◉ 投球配球</span><span>◉ 打擊策略</span><span>◉ 教練調度</span></div>
+          <h1>你的球賽，<br><em>由你掌握。</em></h1>
+          <p>即時觀看投球、揮棒與球的飛行落點。每一個決策都直接反映在球場上。</p>
+          <div class="feature-list"><span>● 投打動畫</span><span>● 落點追蹤</span><span>● 賽季戰績</span></div>
         </div>
         <div class="setup-card">
-          <div class="card-heading"><div><span class="eyebrow">GAME SETUP</span><h2>開啟一場比賽</h2></div><span class="setup-ball">⚾</span></div>
+          <div class="mode-tabs" role="tablist"><button class="mode-tab active" data-mode="single">單場模式</button><button class="mode-tab" data-mode="season">賽季模式</button></div>
+          <div class="card-heading"><div><span class="eyebrow" id="modeEyebrow">GAME SETUP</span><h2 id="setupTitle">開啟一場比賽</h2></div><span class="setup-ball">⚾</span></div>
           <label for="teamSelect">選擇你的主場球隊</label>
           <div class="select-wrap"><select id="teamSelect"></select><span>⌄</span></div>
           <div class="opponent-preview"><span>對手</span><strong id="opponentPreview">中信兄弟</strong><span class="away-tag">客場</span></div>
-          <div class="rules-note"><span>i</span><p>採九局制；九局平手進入延長賽，十局起二壘有人，最多十二局。</p></div>
+          <div id="seasonSummary" class="season-summary hidden"></div>
+          <div class="rules-note"><span>i</span><p>九局制；九局平手進入延長賽，十局起二壘有人，最多十二局。</p></div>
           <button id="startGame" class="primary-button">進入球場 <span>→</span></button>
-          <div class="setup-foot">2026 中華職棒六隊・模擬賽事</div>
+          <div class="setup-foot" id="setupFoot">2026 中華職棒六隊・模擬賽事</div>
         </div>
       </section>
 
       <section id="gameScreen" class="game-screen hidden">
-        <div class="game-topline"><div class="live-label"><span class="live-dot"></span> LIVE GAME</div><div class="game-date">中華職棒・例行賽 <span id="stadiumName">臺北大巨蛋</span></div><button class="text-button" id="newGame">重新開賽 ↗</button></div>
+        <div class="game-topline"><div class="live-label"><i></i> LIVE BROADCAST</div><div class="game-date"><span id="gameModeLabel">中華職棒・例行賽</span> <b id="stadiumName">臺北大巨蛋</b></div><button class="text-button" id="newGame">離開比賽 ↗</button></div>
         <div class="scoreboard">
-          <div class="team-side away-side"><div class="team-mark" id="awayMark">兄</div><div class="team-info"><span class="side-label">客場</span><strong id="awayName">中信兄弟</strong></div><div class="team-total"><strong id="awayScore">0</strong><span>R</span></div></div>
-          <div class="inning-display"><span id="inningHalf">▲</span><strong id="inningNumber">1</strong><small>局</small><div id="gameStatus" class="game-status">比賽進行中</div></div>
-          <div class="team-side home-side"><div class="team-total"><strong id="homeScore">0</strong><span>R</span></div><div class="team-info"><span class="side-label">主場・你</span><strong id="homeName">味全龍</strong></div><div class="team-mark" id="homeMark">龍</div></div>
-          <div class="inning-lines" id="inningLines"></div>
+          <div class="team-side"><div class="team-mark" id="awayMark">兄</div><div><small>客場</small><strong id="awayName">中信兄弟</strong></div><b id="awayScore">0</b></div>
+          <div class="inning-display"><span id="inningHalf">▲</span><strong id="inningNumber">1</strong><small>局</small><em id="gameStatus">比賽進行中</em></div>
+          <div class="team-side home-side"><b id="homeScore">0</b><div><small>主場・你</small><strong id="homeName">味全龍</strong></div><div class="team-mark" id="homeMark">龍</div></div>
         </div>
         <div class="game-layout">
           <section class="field-panel">
-            <div class="panel-head"><div><span class="eyebrow">THE DIAMOND</span><h2>球場實況</h2></div><div class="weather"><span>☀</span> 晴朗・26°</div></div>
-            <div class="field-scene">
-              <div class="field-label left-label">左外野</div><div class="field-label right-label">右外野</div><div class="outfield"></div><div class="infield"></div><div class="mound"><span>投手丘</span></div>
+            <div class="panel-head"><div><span class="eyebrow">LIVE CAMERA</span><h2 id="broadcastTitle">球場實況</h2></div><div class="broadcast-chip">● 轉播中</div></div>
+            <div class="field-scene" id="fieldScene">
+              <div class="stands"></div><div class="outfield"></div><div class="infield"></div><div class="mound"></div>
               <div class="base base-second" id="base2"></div><div class="base base-third" id="base3"></div><div class="base base-first" id="base1"></div><div class="home-plate"></div>
-              <div class="fielder f-cf">CF</div><div class="fielder f-lf">LF</div><div class="fielder f-rf">RF</div><div class="fielder f-ss">SS</div><div class="fielder f-2b">2B</div><div class="fielder f-3b">3B</div><div class="fielder f-1b">1B</div><div class="fielder f-c">C</div>
-              <div class="batter-dot"></div><div class="runner-dots" id="runnerDots"></div>
-              <div class="field-overlay" id="fieldMessage"><strong>PLAY BALL</strong><span>比賽即將開始</span></div>
+              <div class="fielder cf">CF</div><div class="fielder lf">LF</div><div class="fielder rf">RF</div><div class="fielder ss">SS</div><div class="fielder b2">2B</div><div class="fielder b3">3B</div><div class="fielder b1">1B</div>
+              <div class="pitcher-player" id="pitcherPlayer"><span></span><b>P</b></div><div class="batter-player" id="batterPlayer"><span></span><b>B</b></div>
+              <div id="runnerDots"></div><div id="baseball" class="baseball"></div><div id="impact" class="impact"></div><div id="landing" class="landing"></div>
+              <div id="fieldOverlay" class="field-overlay"><strong>PLAY BALL</strong><span>投打對決，現在開始</span></div>
+              <div id="broadcastCall" class="broadcast-call"></div>
             </div>
-            <div class="count-strip"><div class="count-group"><span>好球</span><div id="strikeLights" class="lights"><i></i><i></i></div></div><div class="count-group"><span>壞球</span><div id="ballLights" class="lights balls"><i></i><i></i><i></i></div></div><div class="count-group"><span>出局</span><div id="outLights" class="lights outs"><i></i><i></i><i></i></div></div><div class="bases-legend"><span class="occupied-key"></span>有人上壘</div></div>
+            <div class="broadcast-bottom"><div class="count-strip"><span>好球 <b id="strikeLights"></b></span><span>壞球 <b id="ballLights"></b></span><span>出局 <b id="outLights"></b></span></div><div id="pitchReadout">準備開打</div></div>
           </section>
           <aside class="action-panel">
-            <div class="batter-card"><div class="avatar" id="batterAvatar">林</div><div class="batter-copy"><span class="eyebrow" id="roleLabel">打擊・第 1 棒</span><strong id="batterName">林安可</strong><span id="batterStats">本場 0打數 0安打</span></div><div class="batter-badge" id="batterBadge">打</div></div>
-            <div class="action-content" id="actionContent"></div>
-            <div class="bench-controls"><div class="bench-title"><span>教練調度</span><span>MANAGER</span></div><div class="bench-actions"><button id="subButton" class="bench-button"><span>⇄</span><b>換投 / 代打</b></button><button id="stealButton" class="bench-button"><span>↗</span><b>盜壘 / 短打</b></button><button id="strategyButton" class="bench-button"><span>◈</span><b>守備佈陣</b></button></div><div id="coachMessage" class="coach-message">掌握節奏，等待最佳時機。</div></div>
+            <div class="batter-card"><div class="avatar" id="batterAvatar">林</div><div><span class="eyebrow" id="roleLabel">投球・第 1 棒</span><strong id="batterName">林安可</strong><small id="batterStats">本場 0 打數・0 安打</small></div><b id="batterBadge">投</b></div>
+            <div id="actionContent" class="action-content"></div>
+            <div class="bench-controls"><div class="bench-title"><b>教練調度</b><span>MANAGER</span></div><div class="bench-actions"><button id="subButton">⇄<small>換投 / 代打</small></button><button id="stealButton">↗<small>盜壘 / 短打</small></button><button id="strategyButton">◇<small>守備佈陣</small></button></div><p id="coachMessage">掌握節奏，等待最佳時機。</p></div>
           </aside>
         </div>
-        <section class="play-log"><div class="log-heading"><h3>賽事紀錄</h3><span>PLAY BY PLAY</span></div><div id="logList" class="log-list"></div></section>
-        <footer class="rule-footer">模擬規則：九局制・延長賽第 10 局起二壘有人・最多 12 局・DH 制　<span>以遊戲形式簡化部分裁判判決與年度細則</span></footer>
+        <section class="play-log"><div><h3>轉播紀錄</h3><span>PLAY BY PLAY</span></div><div id="logList"></div></section>
       </section>
+      <section id="seasonScreen" class="season-screen hidden"><div class="season-header"><div><span class="eyebrow">2026 CPBL SEASON</span><h2>賽季中心</h2></div><button class="text-button" id="backToSetup">← 返回設定</button></div><div class="season-grid"><section class="season-card"><h3 id="seasonTeamTitle">我的球隊</h3><div id="seasonProgress"></div><button id="nextSeasonGame" class="primary-button">進入下一場比賽 →</button></section><section class="season-card"><h3>聯盟戰績</h3><div id="standingsTable"></div></section><section class="season-card schedule-card"><h3>近期賽程</h3><div id="scheduleList"></div></section></div></section>
     </main>
   </div>
   <div id="modalRoot"></div>
-  <script src="game.js?v=2"></script>
+  <script src="game.js?v=3"></script>
 </body>
 </html>
