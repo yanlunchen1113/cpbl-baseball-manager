@@ -20,6 +20,7 @@ $('.field-panel').append(stage);
 const deck=document.createElement('div');deck.className='control-deck';deck.innerHTML='<div class="pitch-carousel" id="tvPitches"></div><button id="tvAction" class="primary-control">A 投球</button><button id="tvPower">X 強振</button><button id="tvCoach">Y 調度</button><button id="tvMusic">♪ 音樂</button><button id="tvPause">Ⅱ 暫停</button>';
 stage.append(deck);
 stage.append($('#newGame'));$('#newGame').classList.add('field-exit');
+$('#newGame').onclick=()=>leaveGame();
 const help=document.createElement('div');help.className='input-help';help.innerHTML='<span>左搖桿／方向鍵：瞄準　A／空白：投球・揮棒　LB/RB／Q/E：球種　X／Shift：強振　Y／C：調度　Start／Esc：暫停</span><span class="music-info" id="musicInfo">音樂關閉</span>';
 $('#gameScreen').append(help);
 const status=document.createElement('div');status.className='controller-status';status.id='controllerStatus';$('#gameScreen').append(status);
@@ -57,6 +58,9 @@ function cyclePitch(dir){if(tv.phase!=='ready')return;tv.pitchIndex=(tv.pitchInd
 $('#tvAction').onpointerdown=e=>{e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);controlDown()};$('#tvAction').onpointerup=controlUp;$('#tvAction').onpointercancel=controlUp;
 $('#tvPower').onclick=()=>{tv.power=!tv.power;render()};$('#tvPause').onclick=pause;$('#tvCoach').onclick=()=>{audioUnlock();openCoach()};$('#tvMusic').onclick=openMusic;
 const resumeButton=document.createElement('button');resumeButton.className='resume-game';resumeButton.textContent='▶ 點此繼續比賽';resumeButton.onclick=()=>{if(tv.paused)pause()};stage.append(resumeButton);
+const baseModal=modal,baseCloseModal=closeModal;let modalPausedGame=false;
+modal=function(...args){if(!$('#gameScreen').classList.contains('hidden')&&!tv.paused){pause();modalPausedGame=true}baseModal(...args)};
+closeModal=function(){baseCloseModal();if(modalPausedGame){modalPausedGame=false;if(tv.paused)pause()}};
 canvas.onpointerdown=e=>{const b=canvas.getBoundingClientRect();tv.aim.x=Math.max(-1.6,Math.min(1.6,((e.clientX-b.left)/b.width*1280-640)/35));tv.aim.y=Math.max(-1.6,Math.min(1.6,((e.clientY-b.top)/b.height*720-340)/40))};
 function inputAction(code){if(code==='Space')controlDown();if(code==='KeyQ')cyclePitch(-1);if(code==='KeyE')cyclePitch(1);if(code==='ShiftLeft'||code==='ShiftRight'){tv.power=!tv.power;render()}if(code==='KeyC')openCoach();if(code==='Escape'){if($('#modalRoot').innerHTML)closeModal();else pause()}}
 window.addEventListener('keydown',e=>{if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if(!e.repeat)inputAction(e.code);tv.keys.add(e.code);if(!$('#setupScreen').classList.contains('hidden')&&['ArrowLeft','ArrowRight'].includes(e.code))chooseTeam(e.code==='ArrowLeft'?-1:1)});
