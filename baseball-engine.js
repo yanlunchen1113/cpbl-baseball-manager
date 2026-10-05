@@ -11,13 +11,14 @@
   '曲球':{side:.17,drop:.70},'變速球':{side:-.15,drop:.32},'指叉球':{side:-.03,drop:.56},
   '掌心球':{side:-.10,drop:.54},'蝴蝶球':{side:.06,drop:.35}
  };
+ function releasePoint(f){return {x:f.hand==='L'?-.42:.42,y:f.style==='side'?1.78:1.93,z:17.5}}
  function pitchPoint(f,t){
   t=clamp(t);const config=pitchSettings[f.type]||pitchSettings['變速球'],sign=f.hand==='L'?-1:1;
-  const release=f.style==='side'?1.78:1.93,end=clamp(1.1-f.y*.35,.45,release-.06);
+  const origin=f.release||releasePoint(f),release=origin.y,end=clamp(1.1-f.y*.35,.45,release-.06);
   // A high control point delays the fall; it never creates a late upward hook.
   const control=mix((release+end)/2,release-.035,clamp(config.drop/.7));
-  const start=f.hand==='L'?-.40:.40,u=1-t;
-  return {x:mix(start,(f.viewSign||1)*f.x*.3,t)-sign*config.side*4*t*(1-t),y:u*u*release+2*u*t*control+t*t*end,z:mix(18.3,.2,t)};
+  const start=origin.x,u=1-t;
+  return {x:mix(start,(f.viewSign||1)*f.x*.3,t)+sign*config.side*4*t*(1-t),y:u*u*release+2*u*t*control+t*t*end,z:mix(origin.z,.2,t)};
  }
  function wallDistance(angle){return 122-22*Math.pow(Math.min(1,Math.abs(angle)/(Math.PI/4)),1.5)}
  function createPlay(quality,power,aim={x:0,y:0},random=Math.random,runners=[]){
@@ -50,17 +51,18 @@
    x:640+land.x*5,y:460-land.z*2.2};
  }
  function playPoint(h,elapsed){
+  const defensive=root.CPBLRules?.point(h,elapsed);if(defensive)return defensive;
   const t=clamp(elapsed/h.flightMs);
-  if(elapsed<h.flightMs)return {x:h.land.x*t,y:mix(1.1,h.event==='catch'?1.1:.07,t)+Math.sin(Math.PI*t)*h.height,z:h.land.z*t,phase:'air'};
+  if(elapsed<h.flightMs)return {x:h.land.x*t,y:mix(1.1,(h.caught||h.event==='catch')?1.1:.07,t)+Math.sin(Math.PI*t)*h.height,z:h.land.z*t,phase:'air'};
   if(h.event==='homer')return {x:h.land.x,y:.07,z:h.land.z,phase:'home-run'};
-  if(h.event==='catch')return {x:h.land.x,y:1.1,z:h.land.z,phase:'caught'};
+  if(h.caught||h.event==='catch')return {x:h.land.x,y:1.1,z:h.land.z,phase:'caught'};
   if(elapsed<h.pickupMs){const u=clamp((elapsed-h.flightMs)/(h.pickupMs-h.flightMs)),p=(1-Math.exp(-3*u))/(1-Math.exp(-3));return {x:mix(h.land.x,h.pickup.x,p),y:.07+.28*Math.exp(-u*5)*Math.abs(Math.sin(u*Math.PI*4)),z:mix(h.land.z,h.pickup.z,p),phase:'rolling'};}
   const passed=elapsed-h.pickupMs,target=h.throwTarget||bases[h.throwBase??0];
   let a=h.pickup,b=target,u=clamp(passed/h.throwMs);
   if(h.relay){if(passed<h.relayMs){b=h.relay;u=clamp(passed/h.relayMs)}else if(passed<h.relayMs+220)return {...h.relay,y:1.2,phase:'relay'};else{a=h.relay;u=clamp((passed-h.relayMs-220)/h.finalMs)}}
   return {x:mix(a.x,b.x,u),y:1.2+Math.sin(Math.PI*u)*Math.min(2.6,Math.hypot(b.x-a.x,b.z-a.z)*.025),z:mix(a.z,b.z,u),phase:u<1?'throw':'received'};
  }
- function fielderPoint(h,elapsed){const a=fielders[h.fielder],duration=h.event==='catch'?h.flightMs:h.pickupMs;const t=smooth(elapsed/duration);return {x:mix(a.x,h.fieldTarget.x,t),z:mix(a.z,h.fieldTarget.z,t),moving:t>0&&t<1};}
+ function fielderPoint(h,elapsed){const a=fielders[h.fielder],duration=(h.caught||h.event==='catch')?h.flightMs:h.pickupMs;const t=smooth(elapsed/duration);return {x:mix(a.x,h.fieldTarget.x,t),z:mix(a.z,h.fieldTarget.z,t),moving:t>0&&t<1};}
  // Lift, stride, arm cock, release, follow-through and recovery keyframes.
  const deliveryKeys=[
   [0,0,0,-.25,-.5,-.7,0,0,0],
@@ -72,5 +74,5 @@
   [2000,0,0,-.25,-.5,-.7,0,0,0]
  ];
  function delivery(elapsed){let a=deliveryKeys[0],b=a;for(let i=1;i<deliveryKeys.length;i++){b=deliveryKeys[i];if(elapsed<=b[0])break;a=b;}const t=smooth((elapsed-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,i)=>mix(v,b[i+1],t));}
- root.CPBLPhysics={wallDistance,bases,fielders,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,delivery,clamp,smooth};
+ root.CPBLPhysics={releasePoint,wallDistance,bases,fielders,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,delivery,clamp,smooth};
 })(typeof window==='undefined'?globalThis:window);

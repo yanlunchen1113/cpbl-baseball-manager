@@ -7,6 +7,7 @@ for(const type of Object.keys(P.pitchSettings))for(const hand of ['L','R'])for(c
  const f={type,hand,style,x:.4,y:target};let previous=Infinity;assert.equal(Math.sign(P.pitchPoint(f,0).x),hand==='L'?-1:1);
  for(let n=0;n<=200;n++){const p=P.pitchPoint(f,n/200);assert(Object.values(p).every(Number.isFinite));assert(p.y<=previous+1e-9,`${type} ${hand} ${style}: upward pitch at ${n}`);previous=p.y;samples++}
  const end=P.pitchPoint(f,1);assert(Math.abs(end.x-.12)<1e-8);assert(Math.abs(end.z-.2)<1e-8);
+ const side=P.pitchSettings[type].side;if(side){const before=P.pitchPoint({...f,x:0},.8).x,base=P.pitchPoint({...f,type:'四縫線',x:0},.8).x;assert.equal(Math.sign(before-base),(hand==='R'?1:-1)*Math.sign(side));}
  const mirrored=P.pitchPoint({...f,hand:hand==='R'?'L':'R',x:-f.x},.55);assert(Math.abs(mirrored.x+P.pitchPoint(f,.55).x)<1e-8);
 }
 const outcomes={},kinds={};

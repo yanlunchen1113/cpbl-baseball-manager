@@ -1,0 +1,9 @@
+const assert=require('node:assert/strict');require('../baseball-engine.js');require('../baseball-rules.js');const P=globalThis.CPBLPhysics,R=globalThis.CPBLRules;
+function ground(pickup,outs,bases){const h={kind:'ground',event:'groundout',type:'OUT',fielder:2,pickup,land:pickup,flightMs:650,pickupMs:1400,runnerMs:4100,relay:null};return R.plan(h,{outs,bases,batter:'打者',inning:8,runDifference:0});}
+const dp=ground({x:8,z:30},0,['甲',null,null]);assert.equal(dp.event,'doubleplay');assert.equal(dp.outcome.outsAdded,2);assert.equal(dp.outcome.bases[0],null);assert.deepEqual(dp.throwLegs.map(l=>l.base),[1,0]);
+const third=ground({x:8,z:30},2,['甲','乙','丙']);assert.equal(third.outcome.outsAdded,1);assert.equal(third.outcome.runs,0);
+function fly(outs){return R.plan({kind:'fly',event:'catch',type:'OUT',fielder:5,land:{x:0,z:105},pickup:{x:0,z:105},flightMs:4000,pickupMs:5000,runnerMs:4000,relay:{}},{outs,bases:[null,null,'跑者'],batter:'打者'});}
+const sf=fly(1);assert.equal(sf.event,'sacfly');assert.equal(sf.outcome.runs,1);assert.equal(sf.runnerPlans[0].start,4000);assert.equal(fly(2).outcome.runs,0);
+let seed=123456,dpCount=0,sfCount=0;const rand=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/2**32;};
+for(let i=0;i<15000;i++){const bases=[0,1,2].map(b=>i&(1<<b)?'跑者'+b:null),outs=i%3;const h=R.plan(P.createPlay(rand(),rand()<.3,{x:rand()*2-1},rand,bases),{bases,outs,batter:'打者',inning:8,runDifference:0});assert(h.outcome.outsAdded>=0&&h.outcome.outsAdded<=2);assert(outs+h.outcome.outsAdded<=3);assert(h.outcome.bases.length===3);if(outs+h.outcome.outsAdded===3)assert.equal(h.outcome.runs,0);if(h.event==='doubleplay')dpCount++;if(h.event==='sacfly')sfCount++;for(let t=0;t<h.durationMs;t+=150)assert(Object.values(P.playPoint(h,t)).filter(v=>typeof v==='number').every(Number.isFinite));}
+assert(dpCount>0&&sfCount>0);console.log({plays:15000,doublePlays:dpCount,sacrificeFlies:sfCount});

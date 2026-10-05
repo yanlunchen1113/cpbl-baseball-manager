@@ -14,3 +14,9 @@ HTML, CSS and JavaScript baseball game with a Three.js stadium and touch control
 Run `node scripts/check_physics.cjs` for 13 pitch types, both throwing hands, and 20,000 batted-ball plays. Run `node scripts/check_long_games.cjs` for 24 complete games using the actual game state and Three.js scene transforms. The latter mocks the WebGL renderer and does not substitute for device/GPU testing.
 
 WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices that cannot initialize WebGL still use the 2D fallback. Stadium figures and uniforms are procedural illustrations.
+
+## Situational fielding
+
+`baseball-rules.js` plans force outs, double plays, fielders choices and tag-ups using ball/runner arrival times. A third force out cancels scoring; a sacrifice fly requires a caught fly, fewer than two outs and a runner scoring after tagging up. Rule reference: [CPBL rules and umpire manual](https://cpbl.com.tw/theme/client/download/2021CPBL%E8%A3%81%E5%88%A4%E5%9F%B7%E6%B3%95%E6%89%8B%E5%86%8A%E8%A6%8F%E5%89%87%E8%A3%9C%E8%BF%B0_0608%E7%89%88.pdf). The current implementation is a simplified simulation, not an exhaustive rules engine.
+
+`audio/cheer-*.wav` contains short pre-rendered instrumental chance arrangements from the same credited MIDI collection, for reliable native playback on phones. No vocal recording was found at a verified downloadable source during this update. These fan arrangements are not asserted to be public domain.
