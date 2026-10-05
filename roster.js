@@ -45,15 +45,15 @@ CHEER_SONGS.push(...[{"team": 5, "order": 0, "url": "https://www.tsghawks.com/wp
 // Only published audio files are used as background audio. No video iframe.
 let cheerAudio=null,backgroundKey='';
 function chooseAudioSong(){const team=battingTeam()?state.homeIndex:state.awayIndex,order=state.orders[battingTeam()]%9,chance=!!(state.bases[1]||state.bases[2]),list=CHEER_SONGS.filter(s=>s.team===team&&s.url),midi=(window.CPBL_CHEER_MIDI||[]).filter(s=>s.team===team);return (chance?midi.find(s=>s.kind==='chance')||list.find(s=>s.kind==='chance'):null)||list.find(s=>s.batter===batterName())||midi.find(s=>s.batter===batterName())||list.find(s=>s.order===order)||midi.find(s=>s.batter==='全隊'||s.batter==='通用全')||midi.find(s=>s.kind!=='chance')||list.find(s=>s.order===undefined);}
-musicStop=function(){if(cheerAudio)cheerAudio.pause();window.CPBLMusic?.stop()};
+musicStop=function(){if(cheerAudio){cheerAudio.muted=true;cheerAudio.pause();}window.CPBLMusic?.stop()};
 musicUpdate=function(){
  const song=chooseAudioSong(),key=song?.url||'';
  const allowed=musicEnabled&&!masterMuted&&!tv.paused&&!state.over&&!$('#gameScreen').classList.contains('hidden');
  if(!allowed){musicStop();return}
- if(song?.midi){if(cheerAudio)cheerAudio.pause();window.CPBLMusic?.play(song);$('#musicInfo').textContent='應援 · '+song.title;return}
+ if(song?.midi){if(cheerAudio){cheerAudio.muted=true;cheerAudio.pause();}window.CPBLMusic?.play(song);$('#musicInfo').textContent='應援 · '+song.title;return}
  window.CPBLMusic?.stop();
  if(key!==backgroundKey){if(cheerAudio){cheerAudio.pause();cheerAudio.removeAttribute('src');cheerAudio.load()}backgroundKey=key;cheerAudio=key?new Audio(key):null;if(cheerAudio){cheerAudio.loop=true;cheerAudio.preload='auto';cheerAudio.volume=.3;}}
- if(!cheerAudio)return;$('#musicInfo').textContent='應援 · '+song.title;if(cheerAudio.paused)cheerAudio.play().catch(()=>{});
+ if(!cheerAudio)return;cheerAudio.muted=false;$('#musicInfo').textContent='應援 · '+song.title;if(cheerAudio.paused){const player=cheerAudio;player.play().then(()=>{if(player!==cheerAudio||!musicEnabled||masterMuted||tv.paused||chooseAudioSong()?.url!==key){player.muted=true;player.pause();}}).catch(()=>{});}
 };
 window.addEventListener('cheerready',()=>musicUpdate());
 openMusic=function(){audioUnlock();modal('遊戲設定','拖曳球棒形狀的打擊框；強振使用精準單點。', '<label class="music-row"><input type="checkbox" id="musicOn" '+(musicEnabled?'checked':'')+'> 背景應援曲</label><label class="music-row"><input type="checkbox" id="effectsOn" '+(effectsEnabled?'checked':'')+'> 球棒及手套音效</label><button class="roster-option" id="backPause"><strong>返回暫停選單</strong></button>');$('#musicOn').onchange=e=>{musicEnabled=e.target.checked;musicUpdate()};$('#effectsOn').onchange=e=>effectsEnabled=e.target.checked;$('#backPause').onclick=openPauseMenu;};
