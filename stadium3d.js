@@ -29,12 +29,11 @@
  const fans=new T.InstancedMesh(new T.SphereGeometry(.105,8,6),mat('#c49b7a'),800),fanShirts=new T.InstancedMesh(new T.CapsuleGeometry(.12,.16,3,6),mat('#b7bac0'),800);
  for(let i=0;i<800;i++){const row=i%18,col=(i*43)%150,x=(col-75)*.7,z=-10.4-row*1.2;dummy.position.set(x,2.75+row*.43,z);dummy.updateMatrix();fans.setMatrixAt(i,dummy.matrix);fans.setColorAt(i,new T.Color(['#ba906f','#d8b497','#a27a5f'][i%3]));dummy.position.set(x,2.43+row*.43,z);dummy.updateMatrix();fanShirts.setMatrixAt(i,dummy.matrix);fanShirts.setColorAt(i,new T.Color(['#f1d055','#e0e5e5','#ab343b','#374b6d','#b1b8b5'][i%5]));}scene.add(fans,fanShirts);
  for(let x=-50;x<=50;x+=10){cylinder(.14,13,metal,x,6.5,-30);segment(new T.Vector3(x,12,-32),new T.Vector3(x,11,-8),.1,metal)}const roof=box(116,.15,27,mat('#e1e4e1',{metalness:.25}),0,12,-22);roof.rotation.x=.035;
- for(let i=0;i<70;i++){const a=i/70*Math.PI*2;const x=Math.cos(a)*132,z=57+Math.sin(a)*132;const section=box(12,7,7,mat('#324f60'),x,3.5,z);section.rotation.y=-a;}
  // Continuous outfield seating, wall signage and a scoreboard in the batting view.
  const outfieldWall=mesh(new T.CylinderGeometry(129,129,4,96,1,true),mat('#254c43',{side:T.DoubleSide}),0,2,57);outfieldWall.castShadow=false;
  for(let row=0;row<22;row++){const ring=mesh(new T.CylinderGeometry(132+row*1.1,131+row*1.1,.65,96,1,true),mat(row%2?'#46627a':'#3a556d',{side:T.DoubleSide}),0,5+row*.65,57);ring.castShadow=false;}
  const board=box(24,12,1,mat('#182d3d'),0,18,119);board.castShadow=false;
- const boardFace=mesh(new T.PlaneGeometry(22,10),mat('#ffffff',{map:labelTexture('CPBL  •  PLAY BALL','#09212c','#f6d57e'),side:T.DoubleSide}),0,18,118.4);boardFace.castShadow=false;
+ const boardFace=mesh(new T.PlaneGeometry(22,10),mat('#ffffff',{map:labelTexture('CPBL  •  PLAY BALL','#09212c','#f6d57e'),side:T.DoubleSide}),0,18,118.4);boardFace.castShadow=false;boardFace.rotation.y=Math.PI;
  for(const x of [-11,11])cylinder(.25,12,metal,x,7,119);
  const skyCanvas=document.createElement('canvas');skyCanvas.width=16;skyCanvas.height=256;const skyContext=skyCanvas.getContext('2d'),skyGradient=skyContext.createLinearGradient(0,0,0,256);skyGradient.addColorStop(0,'#5286b4');skyGradient.addColorStop(.6,'#b2cfe0');skyGradient.addColorStop(1,'#d6e2df');skyContext.fillStyle=skyGradient;skyContext.fillRect(0,0,16,256);scene.background=new T.CanvasTexture(skyCanvas);scene.background.colorSpace=T.SRGBColorSpace;scene.fog.color.set('#b2cfe0');
  for(const [x,z] of [[-55,15],[55,15],[-75,90],[75,90]]){cylinder(.35,38,metal,x,19,z);box(10,4,.3,mat('#e3e7d6',{emissive:'#eee6d6',emissiveIntensity:.5}),x,37,z)}
