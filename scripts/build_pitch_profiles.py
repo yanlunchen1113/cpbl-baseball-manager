@@ -45,6 +45,8 @@ def build(directory):
                         break
             if not pitches:
                 continue
+            if not any(p in pitches for p in ['四縫線','二縫線','伸卡球','卡特球']):
+                pitches.insert(0, '快速球')  # Game fallback, not a verified four-seam claim.
             hand_text = field(source, '投打習慣')
             hand = 'L' if '左投' in hand_text else 'R' if '右投' in hand_text else '?'
             fast = re.search(r'\d+(?:\.\d+)?', field(source, '最快球速'))
@@ -54,6 +56,8 @@ def build(directory):
             profile = dict(name=player['name'], id=player['id'], hand=hand, pitches=pitches,
                            speed=speed, source=(html.unescape(re.search(r'<link rel="canonical" href="([^"]+)"',source).group(1)) if re.search(r'<link rel="canonical" href="([^"]+)"',source) else 'https://twbsball.dils.tku.edu.tw/wiki/index.php/' + quote(player['name'])),
                            sourceLabel='台灣棒球維基館', listedPitches=raw)
+            if '快速球' in pitches:
+                profile['gameFallbackPitches'] = ['快速球']
             if max_speed:
                 profile['listedMaxSpeed'] = max_speed
             profiles.append(profile)

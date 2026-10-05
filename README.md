@@ -38,3 +38,30 @@ WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices
 - **模型估計參數**：反應 0.22 秒、加速 5 m/s²、守備上限 7.7 m/s、跑者上限 8.1 m/s；土面 2.8 m/s²、草面 1.7 m/s² 減速。這些與落地恢復係數、升力、換手時間均非中職逐人逐場實測。投球仍保留手機觸控的放慢播放；程序模型無動作捕捉或完整人體碰撞解算。
 - 參考：[中職官方進階數據](https://stats.cpbl.com.tw/players/0000007239)、[MLB Sprint Speed](https://www.mlb.com/glossary/statcast/sprint-speed)、[Illinois 棒球空氣力學](https://baseball.physics.illinois.edu/aero.html)、[Baseball Canada 捕手姿勢](https://baseball.ca/?alias=playing-catcher-part-1&lang=english)、[WSU 投球教學](https://cdn2.sportngin.com/attachments/document/802c-3330691/Pitching_Manual_-_Final.pdf)。
 - 重建：`python3 scripts/build_motion_calibration.py <官方球員頁HTML>`。檢查：`node scripts/check_motion.cjs`、`node scripts/check_physics.cjs`、`node scripts/check_rules.cjs`、`node scripts/check_long_games.cjs`。完整比賽檢查包含狀態與 Three.js CPU 場景，未模擬手機 GPU。
+# v23：打擊方向、鏡頭切換與球場參考
+
+- 左打、右打的透明接觸球棒鏡像顯示；握柄在打者側，棒頭朝向本壘。擊球後以當次打者資料維持用手，避免打序更新使方向跳動。
+- 全螢幕先追蹤飛行、落地、滾動與拾球；野手取得球後切至內野跑壘／傳球鏡頭。兩個鏡頭使用同一組公尺座標與球員身高，沒有分割畫面。
+- `stadium-data.js` / `data/stadiums.json` 包含 2026 一軍例行賽的 11 座球場。單場可選球場；賽季使用主隊預設球場，尚未逐場重現官方實際場地安排。
+- 外野牆距離、標示、碰牆與全壘打判定共用場地資料。兩翼與中外野之間的牆線為插值模型，未取得完整實測輪廓；建築為簡化模型，包含大巨蛋封閉屋頂、天母公園外野、洲際縫線屋頂、花蓮草坡、臺東山景等特色。
+- `wallHeight:null` 表示沒有確認的實測牆高；`modelWallHeight` 為暫用遊戲參數，不能當作官方數值。大巨蛋、亞太主場、嘉義市的距離另標記為待第一手文件確認，沒有假裝已取得官方完整建築圖。
+- 名單內所有投手都保有速球選項。已查到四縫線、二縫線、伸卡或卡特的投手沿用資料；缺乏明確速球種類時使用「快速球」，不捏造四縫線資料。移除可選球種「變化球」；未知其他球種時只提供速球。
+- 球種資料擷取腳本加入同一個速球保底，名單畫面與實際投球共用整理後的球種。
+
+### 球場資料範圍與參考
+
+2026 使用場地範圍參考[中職賽季公告](https://cpbl.com.tw/xmdoc/cont?sid=0Q055689330649348741)。距離與建築細節來源逐場保存於資料檔，沒有放在比賽 HUD。
+
+| 球場 | 左／中／右（英呎） | 尺寸狀態 |
+| --- | --- | --- |
+| 大巨蛋 | 335／400／335 | 暫用，待第一手文件確認 |
+| 天母 | 325／400／325 | 中職場館介紹 |
+| 新莊 | 325／400／325 | 體育署場地調查 |
+| 樂天桃園 | 330／400／330 | 桃園市體育局平面圖說明 |
+| 洲際 | 325／400／325 | 臺中市政府球場介紹 |
+| 斗六 | 330／400／330 | 中職場館介紹 |
+| 亞太成棒主場 | 330／400／330 | 暫用，待第一手文件確認 |
+| 澄清湖 | 328／400／328 | iPlay／中職場館介紹 |
+| 嘉義市 | 350／400／350 | 暫用，待第一手文件確認 |
+| 花蓮 | 320／400／320 | 花蓮縣場館介紹 |
+| 臺東 | 320／400／320 | 中職場館介紹 |

@@ -6,21 +6,21 @@
  const bases=[{x:-19.4,z:19.4},{x:0,z:38.8},{x:19.4,z:19.4},{x:0,z:0}];
  const fielders=[{x:-20,z:20},{x:-9,z:33},{x:9,z:33},{x:20,z:20},{x:40,z:75},{x:0,z:92},{x:-40,z:75},{x:0,z:18.44}];
  const pitchSettings={
-  '快速球':{side:0,drop:.04},'變化球':{side:.20,drop:.32},'四縫線':{side:0,drop:.04},'二縫線':{side:-.20,drop:.14},'伸卡球':{side:-.28,drop:.19},
+  '快速球':{side:0,drop:.04},'四縫線':{side:0,drop:.04},'二縫線':{side:-.20,drop:.14},'伸卡球':{side:-.28,drop:.19},
   '卡特球':{side:.17,drop:.09},'滑球':{side:.42,drop:.24},'橫掃球':{side:.66,drop:.25},
   '曲球':{side:.17,drop:.70},'變速球':{side:-.15,drop:.32},'指叉球':{side:-.03,drop:.56},
   '掌心球':{side:-.10,drop:.54},'蝴蝶球':{side:.06,drop:.35}
  };
  function releasePoint(f){return {x:f.hand==='L'?-.42:.42,y:f.style==='side'?1.78:1.93,z:17.5}}
  function pitchPoint(f,t){
-  t=clamp(t);const config=pitchSettings[f.type]||pitchSettings['變速球'],sign=f.hand==='L'?-1:1;
+  t=clamp(t);const config=pitchSettings[f.type]||pitchSettings['快速球'],sign=f.hand==='L'?-1:1;
   const origin=f.release||releasePoint(f),release=origin.y,end=clamp(1.1-f.y*.35,.45,release-.06);
   // A high control point delays the fall; it never creates a late upward hook.
   const control=mix((release+end)/2,release-.035,clamp(config.drop/.7));
   const start=origin.x,u=1-t;
   return {x:mix(start,(f.viewSign||1)*f.x*.3,t)+sign*config.side*4*t*(1-t),y:u*u*release+2*u*t*control+t*t*end,z:mix(origin.z,.2,t)};
  }
- function wallDistance(angle){return 122-22*Math.pow(Math.min(1,Math.abs(angle)/(Math.PI/4)),1.5)}
+ function wallDistance(angle){return root.CPBLStadiums?root.CPBLStadiums.distance(angle):122-22*Math.pow(Math.min(1,Math.abs(angle)/(Math.PI/4)),1.5)}
  // Metres / seconds. CPBL exit speeds are km/h; surface/reaction parameters are model assumptions.
  const movement={reaction:.22,acceleration:5.0,runSpeed:8.1,fieldSpeed:7.7,dirtFriction:2.8,grassFriction:1.7,gravity:9.81,drag:.0062,lift:.0012};
  function runDistance(seconds,maxSpeed=movement.runSpeed){const t=Math.max(0,seconds),ramp=maxSpeed/movement.acceleration;return t<ramp?.5*movement.acceleration*t*t:.5*maxSpeed*ramp+maxSpeed*(t-ramp);}
@@ -30,7 +30,7 @@
   const r=random(),cal=root.CPBL_MOTION_DATA,profile=cal?.players?.[traits.id]||Object.values(cal?.players||{}).find(p=>p.name===traits.name),average=profile?.exitAvg||cal?.league?.exitAvg||135.75,max=profile?.exitMax||cal?.league?.exitMax||195.86;
   const exitSpeed=clamp(average+(quality-.65)*65+(random()-.5)*20+(power?7:0),65,max),v=exitSpeed/3.6;
   let kind=power&&quality>.8&&r>.76?'homer':r<.46?'ground':r<.685?'line':'fly';
-  const launchAngle=kind==='ground'?-12+random()*18:kind==='line'?8+random()*13:kind==='homer'?25+random()*10:25+random()*32,angle=clamp((random()-.5)*1.2+aim.x*.12,-.70,.70),wall=wallDistance(angle);
+  const launchAngle=kind==='ground'?-12+random()*18:kind==='line'?8+random()*13:kind==='homer'?25+random()*10:25+random()*32,angle=clamp((random()-.5)*1.2+aim.x*.12,-.70,.70),wall=wallDistance(angle),wallHeight=root.CPBLStadiums?.wallHeight(angle)??3.4;
   const radians=launchAngle*Math.PI/180,samples=[{distance:0,y:1.05,speed:v}],dt=.025;let vx=v*Math.cos(radians),vy=v*Math.sin(radians),distance=0,y=1.05,firstGround=null,catchAt=null,wallAt=null;
   for(let n=1;n<=720;n++){
    const speed=Math.hypot(vx,vy);if(y>.037||vy>.1){const oldVx=vx;vx-=movement.drag*speed*vx*dt;vy+=(-movement.gravity-movement.drag*speed*vy+(kind==='ground'?0:movement.lift*speed*oldVx))*dt;}else{vx=Math.max(0,vx-(distance<45?movement.dirtFriction:movement.grassFriction)*dt);vy=0;}
@@ -39,10 +39,10 @@
    if(y<=.037){y=.037;if(firstGround===null)firstGround=n*25;if(Math.abs(vy)>1.0){vy=Math.abs(vy)*.36;vx*=.77;}else vy=0;}
    if(wallAt===null&&distance>=wall)wallAt={ms:n*25,y};
    // Fence collision is distinct from a home run; horizontal speed loses energy.
-   if(distance>wall-.45&&y<3.4&&wallAt?.y<3.4){distance=wall-.45;vx=0;}
+   if(distance>wall-.45&&y<wallHeight&&wallAt?.y<wallHeight){distance=wall-.45;vx=0;}
    samples.push({distance,y,speed:Math.hypot(vx,vy)});if(firstGround!==null&&vx<.04&&vy===0)break;
   }
-  const homer=wallAt&&wallAt.y>3.4;if(kind==='homer'&&!homer)kind='fly';if(homer)kind='homer';
+  const homer=wallAt&&wallAt.y>wallHeight;if(kind==='homer'&&!homer)kind='fly';if(homer)kind='homer';
   const groundTime=firstGround||samples.length*25,descending=kind!=='ground'&&catchAt?catchAt:null;
   let fielder=0,nearest=Infinity;const targetAt=descending?.distance||samplePath(samples,groundTime).distance;fielders.forEach((p,i)=>{const d=Math.hypot(Math.sin(angle)*targetAt-p.x,Math.cos(angle)*targetAt-p.z);if(d<nearest){nearest=d;fielder=i}});
   const catchable=kind!=='ground'&&!homer&&descending&&runDistance(descending.ms/1000-movement.reaction,movement.fieldSpeed)>=nearest;

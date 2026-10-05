@@ -20,28 +20,42 @@
  cylinder(2.75,.28,soil,0,.12,18.44).castShadow=false;cylinder(4.7,.04,soil,0,.025,0).castShadow=false;box(.61,.04,.15,white,0,.29,18.44);
  const basePositions=CPBLPhysics.bases.map(p=>new T.Vector3(p.x,0,p.z));basePositions.slice(0,3).forEach(p=>box(.38,.1,.38,white,p.x,.04,p.z));box(.42,.04,.42,white,0,.07,0);
  function segment(a,b,r,m,parent=scene){const direction=new T.Vector3().subVectors(b,a);const o=mesh(new T.CylinderGeometry(r,r,direction.length(),14),m,0,0,0,parent);o.position.copy(a).add(b).multiplyScalar(.5);o.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),direction.normalize());return o}
- [-1,1].forEach(side=>{segment(new T.Vector3(0,.02,0),new T.Vector3(side*110,.02,110),.025,white);const outline=[[-.8,0],[.8,0],[.8,1.8],[-.8,1.8],[-.8,0]];for(let i=1;i<outline.length;i++)segment(new T.Vector3(side*1.25+outline[i-1][0]*.4,.065,outline[i-1][1]-.6),new T.Vector3(side*1.25+outline[i][0]*.4,.065,outline[i][1]-.6),.018,white)});
+ const foulLines=[];[-1,1].forEach(side=>{foulLines.push(segment(new T.Vector3(0,.02,0),new T.Vector3(side*110,.02,110),.025,white));const outline=[[-.8,0],[.8,0],[.8,1.8],[-.8,1.8],[-.8,0]];for(let i=1;i<outline.length;i++)segment(new T.Vector3(side*1.25+outline[i-1][0]*.4,.065,outline[i-1][1]-.6),new T.Vector3(side*1.25+outline[i][0]*.4,.065,outline[i][1]-.6),.018,white)});
  function labelTexture(text,bg='#142f3d',fg='#eee9d9',size=512){const c=document.createElement('canvas');c.width=size;c.height=128;const q=c.getContext('2d');q.fillStyle=bg;q.fillRect(0,0,size,128);q.fillStyle=fg;q.font='bold 48px system-ui';q.textAlign='center';q.textBaseline='middle';q.fillText(text,size/2,67);const texture=new T.CanvasTexture(c);texture.colorSpace=T.SRGBColorSpace;return texture}
  // Backstop wall, dugouts, layered grandstands and a structural canopy.
- const wall=mat('#203d49');box(86,1.8,.6,wall,0,.9,-9);for(let i=0;i<7;i++){const ad=mesh(new T.PlaneGeometry(11.5,1.25),mat('#ffffff',{map:labelTexture(['CPBL','TAIWAN BASEBALL','PLAY BALL','NEXT PITCH','CPBL','HOME OF BASEBALL','2026'][i])}),-36+i*12,1.1,-8.65);ad.castShadow=false;}
+ const beforeBackstop=new Set(scene.children);const wall=mat('#203d49');box(86,1.8,.6,wall,0,.9,-9);for(let i=0;i<7;i++){const ad=mesh(new T.PlaneGeometry(11.5,1.25),mat('#ffffff',{map:labelTexture(['CPBL','TAIWAN BASEBALL','PLAY BALL','NEXT PITCH','CPBL','HOME OF BASEBALL','2026'][i])}),-36+i*12,1.1,-8.65);ad.castShadow=false;}
  for(let row=0;row<18;row++){box(110,.34,1.15,mat('#4c6070'),0,1.8+row*.43,-10.5-row*1.2)}
  const seats=new T.InstancedMesh(new T.CapsuleGeometry(.19,.18,3,8),mat('#315a7f'),18*150);const dummy=new T.Object3D();let n=0;for(let row=0;row<18;row++)for(let col=0;col<150;col++){dummy.position.set((col-75)*.7,2.15+row*.43,-10.5-row*1.2);dummy.updateMatrix();seats.setMatrixAt(n,dummy.matrix);seats.setColorAt(n,new T.Color(['#355b81','#365a7d','#315675','#2d5274'][(col*7+row*19)%4]));n++}scene.add(seats);
  const fans=new T.InstancedMesh(new T.SphereGeometry(.105,8,6),mat('#c49b7a'),800),fanShirts=new T.InstancedMesh(new T.CapsuleGeometry(.12,.16,3,6),mat('#b7bac0'),800);
  for(let i=0;i<800;i++){const row=i%18,col=(i*43)%150,x=(col-75)*.7,z=-10.4-row*1.2;dummy.position.set(x,2.75+row*.43,z);dummy.updateMatrix();fans.setMatrixAt(i,dummy.matrix);fans.setColorAt(i,new T.Color(['#ba906f','#d8b497','#a27a5f'][i%3]));dummy.position.set(x,2.43+row*.43,z);dummy.updateMatrix();fanShirts.setMatrixAt(i,dummy.matrix);fanShirts.setColorAt(i,new T.Color(['#f1d055','#e0e5e5','#ab343b','#374b6d','#b1b8b5'][i%5]));}scene.add(fans,fanShirts);
  for(let x=-50;x<=50;x+=10){cylinder(.14,13,metal,x,6.5,-30);segment(new T.Vector3(x,12,-32),new T.Vector3(x,11,-8),.1,metal)}const roof=box(116,.15,27,mat('#e1e4e1',{metalness:.25}),0,12,-22);roof.rotation.x=.035;
- // Continuous outfield seating, wall signage and a scoreboard in the batting view.
- const fenceMaterial=mat('#245343'),capMaterial=mat('#f4ca54');
- for(let i=0;i<48;i++){
-  const a=-Math.PI/4+i*Math.PI/96,b=a+Math.PI/96,r=CPBLPhysics.wallDistance(a),r2=CPBLPhysics.wallDistance(b),x=Math.sin(a)*r,z=Math.cos(a)*r,x2=Math.sin(b)*r2,z2=Math.cos(b)*r2,length=Math.hypot(x2-x,z2-z),angle=Math.atan2(-(z2-z),x2-x);
-  const panel=box(length+.04,3.4,.45,fenceMaterial,(x+x2)/2,1.7,(z+z2)/2);panel.rotation.y=angle;panel.castShadow=false;
-  const cap=box(length+.05,.16,.55,capMaterial,(x+x2)/2,3.45,(z+z2)/2);cap.rotation.y=angle;cap.castShadow=false;
-  for(let row=0;row<8;row++){const far=4+row*1.5,stand=box(length*(1+far/r)+.08,.5,1.45,mat(row%2?'#46627a':'#3a556d'),(x+x2)/2*(1+far/r),4+row*.55,(z+z2)/2*(1+far/r));stand.rotation.y=angle;stand.castShadow=false;}
+ const backstopGroup=new T.Group();for(const child of scene.children.slice())if(!beforeBackstop.has(child))backstopGroup.add(child);scene.add(backstopGroup);
+ // Each park owns its fence contour, signs, seating and architectural accents.
+ const parkGroup=new T.Group();scene.add(parkGroup);let parkKey='';
+ function updatePark(){const p=CPBLStadiums.active;if(parkKey===p.id)return;parkKey=p.id;
+  const geometries=new Set(),materials=new Set(),textures=new Set();parkGroup.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material){for(const m of Array.isArray(o.material)?o.material:[o.material]){materials.add(m);if(m.map)textures.add(m.map)}}});parkGroup.traverse(o=>{if(o.isInstancedMesh)o.dispose();});parkGroup.clear();geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());
+  const rows=p.outfield==='tiers'?6*p.levels:p.outfield==='low'?3:0,stands=rows?new T.InstancedMesh(new T.BoxGeometry(1,.38,1.15),mat(p.seat),48*rows):null;if(stands){stands.receiveShadow=true;parkGroup.add(stands);}const standPose=new T.Object3D();
+  backstopGroup.position.z=9-p.modelBackstopMetres;foulLines.forEach((line,i)=>{const a=(i?1:-1)*Math.PI/4,r=CPBLPhysics.wallDistance(a);line.scale.y=r/(110*Math.sqrt(2));line.position.set(Math.sin(a)*r/2,.02,Math.cos(a)*r/2);});
+  const fenceMaterial=mat(p.indoor?'#303b3e':'#245343'),capMaterial=mat('#f4ca54'),seatMaterial=mat(p.seat),height=CPBLStadiums.wallHeight();
+  for(let i=0;i<48;i++){const a=-Math.PI/4+i*Math.PI/96,b=a+Math.PI/96,r=CPBLPhysics.wallDistance(a),r2=CPBLPhysics.wallDistance(b),x=Math.sin(a)*r,z=Math.cos(a)*r,x2=Math.sin(b)*r2,z2=Math.cos(b)*r2,length=Math.hypot(x2-x,z2-z),angle=Math.atan2(-(z2-z),x2-x);
+   const panel=box(length+.04,height,.45,fenceMaterial,(x+x2)/2,height/2,(z+z2)/2,parkGroup);panel.rotation.y=angle;panel.castShadow=false;
+   const cap=box(length+.05,.16,.55,capMaterial,(x+x2)/2,height+.05,(z+z2)/2,parkGroup);cap.rotation.y=angle;cap.castShadow=false;
+   for(let row=0;row<rows;row++){const far=4+row*1.2;standPose.position.set((x+x2)/2*(1+far/r),height+1+row*.43,(z+z2)/2*(1+far/r));standPose.rotation.y=angle;standPose.scale.set(length*(1+far/r)+.08,1,1);standPose.updateMatrix();stands.setMatrixAt(i*rows+row,standPose.matrix);}
+   if(p.outfield==='berm'){const berm=box(length*1.18,2,12,mat('#487d42'),(x+x2)/2*1.12,1,(z+z2)/2*1.12,parkGroup);berm.rotation.y=angle;}
+  }
+  for(const [i,angle] of [[2,-Math.PI/4],[1,0],[0,Math.PI/4]]){const r=CPBLPhysics.wallDistance(angle),sign=mesh(new T.PlaneGeometry(5,1.25),mat('#ffffff',{map:labelTexture(p.feet[i]+' FT','#245343'),side:T.DoubleSide}),Math.sin(angle)*(r-.3),Math.min(1.8,height/2),Math.cos(angle)*(r-.3),parkGroup);sign.rotation.y=angle+Math.PI;sign.castShadow=false;}
+  for(const angle of [-Math.PI/4,Math.PI/4]){const r=CPBLPhysics.wallDistance(angle);cylinder(.10,p.modelFoulPoleHeight,capMaterial,Math.sin(angle)*r,p.modelFoulPoleHeight/2,Math.cos(angle)*r,parkGroup);}
+  const cf=CPBLPhysics.wallDistance(0),board=box(24,10,1,mat('#182d3d'),0,17,cf+8,parkGroup);board.castShadow=false;
+  const face=mesh(new T.PlaneGeometry(22,8),mat('#ffffff',{map:labelTexture(p.name,'#09212c','#f6d57e'),side:T.DoubleSide}),0,17,cf+7.4,parkGroup);face.rotation.y=Math.PI;face.castShadow=false;
+  seats.material.color.set(p.seat);grass.color.set(p.surface==='artificial'?'#317851':'#3e7040');center.material=p.surface==='dirt-infield'?soil:grass;
+  roof.visible=!p.indoor;const oldBackground=scene.background;if(oldBackground?.isTexture)oldBackground.dispose();
+  if(p.indoor){const shell=mesh(new T.SphereGeometry(1,48,24,0,Math.PI*2,0,Math.PI/2),mat('#aeb5b9',{side:T.BackSide}),0,0,51,parkGroup);shell.scale.set(112,p.modelRoofHeight,135);shell.castShadow=false;for(let z=-20;z<150;z+=20){const ring=new T.EllipseCurve(0,0,109,70,0,Math.PI,false,0),points=ring.getPoints(40).map(v=>new T.Vector3(v.x,v.y,z));const rib=new T.Line(new T.BufferGeometry().setFromPoints(points),new T.LineBasicMaterial({color:'#697980'}));parkGroup.add(rib);}scene.background=new T.Color('#54606a');sun.intensity=1.3;}
+  else{scene.background=new T.CanvasTexture(skyCanvas);scene.background.colorSpace=T.SRGBColorSpace;sun.intensity=2.8;}
+  if(p.id==='intercontinental'){for(let i=0;i<12;i++){const x=-50+i*9,curve=new T.CatmullRomCurve3([new T.Vector3(x,12,-29),new T.Vector3(x+2,16,-20),new T.Vector3(x+4,12,-9)]);mesh(new T.TubeGeometry(curve,16,.12,6,false),mat('#e0e5df'),0,0,0,parkGroup);}}
+  if(p.outfield==='park'||p.id==='chiayi'){for(let i=0;i<18;i++){const a=-.85+i*.10,r=140,crown=sphere(3.2,mat('#294f38'),Math.sin(a)*r,6,Math.cos(a)*r,parkGroup);crown.scale.y=1.4;cylinder(.25,4,mat('#72533e'),Math.sin(a)*r,2,Math.cos(a)*r,parkGroup);}}
+  if(p.id==='taitung'){for(let i=0;i<6;i++){const hill=mesh(new T.ConeGeometry(40+i*4,32+i*7,12),mat('#63837d'),-120+i*45,14,210,parkGroup);hill.castShadow=false;}}
+  stage.dataset.stadium=p.id;
  }
- for(const angle of [-Math.PI/4,0,Math.PI/4]){const r=CPBLPhysics.wallDistance(angle);const sign=mesh(new T.PlaneGeometry(5,1.5),mat('#ffffff',{map:labelTexture(angle===0?'400 FT':'328 FT','#245343'),side:T.DoubleSide}),Math.sin(angle)*(r-.3),1.8,Math.cos(angle)*(r-.3));sign.rotation.y=angle+Math.PI;sign.castShadow=false;}
- for(const side of [-1,1])cylinder(.10,14,capMaterial,side*100/Math.sqrt(2),7,100/Math.sqrt(2));
- const board=box(24,12,1,mat('#182d3d'),0,18,119);board.castShadow=false;
- const boardFace=mesh(new T.PlaneGeometry(22,10),mat('#ffffff',{map:labelTexture('CPBL  •  PLAY BALL','#09212c','#f6d57e'),side:T.DoubleSide}),0,18,118.4);boardFace.castShadow=false;boardFace.rotation.y=Math.PI;
- for(const x of [-11,11])cylinder(.25,12,metal,x,7,119);
  const skyCanvas=document.createElement('canvas');skyCanvas.width=16;skyCanvas.height=256;const skyContext=skyCanvas.getContext('2d'),skyGradient=skyContext.createLinearGradient(0,0,0,256);skyGradient.addColorStop(0,'#5286b4');skyGradient.addColorStop(.6,'#b2cfe0');skyGradient.addColorStop(1,'#d6e2df');skyContext.fillStyle=skyGradient;skyContext.fillRect(0,0,16,256);scene.background=new T.CanvasTexture(skyCanvas);scene.background.colorSpace=T.SRGBColorSpace;scene.fog.color.set('#b2cfe0');
  for(const [x,z] of [[-55,15],[55,15],[-75,90],[75,90]]){cylinder(.35,38,metal,x,19,z);box(10,4,.3,mat('#e3e7d6',{emissive:'#eee6d6',emissiveIntensity:.5}),x,37,z)}
  // Procedural articulated athlete: independent shoulders, elbows, hips and knees.
@@ -77,6 +91,7 @@
  const aimBat=new T.Group();scene.add(aimBat);const cursorFill=new T.Mesh(new T.ShapeGeometry(cursorShape),new T.MeshBasicMaterial({color:'#8edaf5',transparent:true,opacity:.15,side:T.DoubleSide,depthTest:false,depthWrite:false}));aimBat.add(cursorFill);
  const contour=new T.LineLoop(new T.BufferGeometry().setFromPoints(outline.map(([x,y])=>new T.Vector3(x,y,0))),new T.LineBasicMaterial({color:'#a5e8ff',transparent:true,opacity:.95,depthTest:false}));aimBat.add(contour);aimBat.renderOrder=10;
  const swingTrail=new T.Line(new T.BufferGeometry(),new T.LineBasicMaterial({color:'#c4ecff',transparent:true,opacity:.7,depthTest:false}));swingTrail.frustumCulled=false;scene.add(swingTrail);const swingTrailPoints=new Float32Array(24*3);swingTrail.geometry.setAttribute('position',new T.BufferAttribute(swingTrailPoints,3));
+ const runnerCamera=new T.PerspectiveCamera(43,16/9,.1,400);
  const projected=new T.Vector3(),cameraTarget=new T.Vector3(),lookTarget=new T.Vector3(),gloveWorld=new T.Vector3();
  const ballShadow=mesh(new T.CircleGeometry(.10,20),new T.MeshBasicMaterial({color:'#17251b',transparent:true,opacity:.4,depthWrite:false}),0,.05,0);ballShadow.rotation.x=-Math.PI/2;ballShadow.castShadow=false;
  const fieldActors=[...fielders,pitcher],positions=['一壘手','二壘手','游擊手','三壘手','左外野手','中外野手','右外野手'];
@@ -115,10 +130,10 @@
  function render3d(now){requestAnimationFrame(render3d);if(contextLost||document.hidden||$('#gameScreen').classList.contains('hidden')||now-lastPaint<1000/30)return;
   const paintStart=performance.now();lastPaint=now;try{const stamp=tv.paused?tv.pauseAt:now,elapsed=stamp-tv.start,width=stage.clientWidth,height=stage.clientHeight;if(!width||!height)return;
   if(width!==cssWidth||height!==cssHeight){cssWidth=width;cssHeight=height;renderer.setSize(width,height,false);}camera.aspect=width/height;
-  const h=tv.hit,tracking=!!h&&(tv.phase==='hit'||tv.phase==='result'),fs=tracking?1-h.batSide:fieldingTeam(),bs=1-fs,profile=tv.pitchers[fs]||activePitcher();
+  updatePark();const h=tv.hit,tracking=!!h&&(tv.phase==='hit'||tv.phase==='result'),fs=tracking?1-h.batSide:fieldingTeam(),bs=1-fs,profile=tv.pitchers[fs]||activePitcher();
   dress(pitcher,profile.name,teamFor(fs));dress(batter,tracking?h.batter:batterName(),teamFor(bs));resetPose(pitcher);resetPose(batter);resetPose(catcher);resetPose(umpire);
   pitcher.group.rotation.y=Math.PI;pitcher.group.position.set(0,.28,18.44);applyDelivery(pitcher,profile,stamp);
-  const battingLeft=playerTraits.get(tv.lineupIds?.[bs]?.[state.orders[bs]%9])?.batHand==='L';batter.group.position.set(battingLeft?-1.1:1.1,0,.15);batter.group.rotation.y=battingLeft?Math.PI/2:-Math.PI/2;
+  const battingLeft=(tracking?playerData(h.batter).batHand:playerTraits.get(tv.lineupIds?.[bs]?.[state.orders[bs]%9])?.batHand)==='L';stage.dataset.batHand=battingLeft?'L':'R';batter.group.position.set(battingLeft?-1.1:1.1,0,.15);batter.group.rotation.y=battingLeft?Math.PI/2:-Math.PI/2;
   catcherPose(catcher,tv.flight,tv.phase==='pitch'?Math.min(1,elapsed/(tv.flight?.duration||1)):tv.phase==='result'?1:0);umpirePose(umpire,battingLeft);
   const swing=tv.swung?CPBLPhysics.smooth((stamp-(tv.swingStart||stamp))/520):0;battingPose(batter,battingLeft,stamp);
   stage.dataset.ballPhase='none';ball.visible=false;landing.visible=false;trail.visible=false;ballShadow.visible=false;ballMarker.classList.add('hidden');batter.group.visible=!playerBatting()&&(!tracking||stamp-h.start<350);catcher.group.visible=umpire.group.visible=!playerBatting()||tracking;
@@ -148,13 +163,19 @@
    ballMarker.querySelector('span').textContent='';
    if(p.phase==='rolling'){const roll=CPBLPhysics.playPoint(h,playElapsed-25),distance=Math.hypot(p.x-roll.x,p.z-roll.z);ball.rotateOnWorldAxis(new T.Vector3(Math.cos(h.angle),0,-Math.sin(h.angle)),distance/.037);}
   }else if(playerBatting()){camera.fov=camera.aspect<1?52:43;camera.position.set(0,1.65,-2.6);camera.lookAt(0,1.2,18.44);}else{camera.fov=camera.aspect<1?13:10;camera.position.set(2.3,3.3,49);camera.lookAt(0,1,7);}
-  const swingAge=stamp-(tv.swingStart||0);viewBat.visible=playerBatting()&&tv.swung&&swingAge<1050;viewForearms.forEach(a=>a.visible=viewBat.visible);if(viewBat.visible){firstPersonSwing(battingLeft,swingAge);if(tracking){camera.fov=camera.aspect<1?52:43;camera.position.set(0,1.65,-2.6);camera.lookAt(0,1.2,18.44);}}
+  const swingAge=stamp-(tv.swingStart||0);viewBat.visible=playerBatting()&&tv.swung&&swingAge<(tracking?220:1050);viewForearms.forEach(a=>a.visible=viewBat.visible);if(viewBat.visible){firstPersonSwing(battingLeft,swingAge);if(tracking){camera.fov=camera.aspect<1?52:43;camera.position.set(0,1.65,-2.6);camera.lookAt(0,1.2,18.44);}}
   const swingActive=tv.swung&&stamp-(tv.swingStart||0)<350,aim=tv.swung?(tv.swingAim||tv.aim):tv.aim;
-  aimBat.visible=playerBatting()&&!tv.power&&!tracking&&!tv.swung;aimBat.position.set(-aim.x*.3,1.1-aim.y*.35,.22);aimBat.rotation.z=swingActive?-.55+swing*1.1:0;
+  aimBat.visible=playerBatting()&&!tv.power&&!tracking&&!tv.swung;aimBat.position.set(-aim.x*.3,1.1-aim.y*.35,.22);aimBat.scale.x=battingLeft?-1:1;aimBat.rotation.z=(battingLeft?-1:1)*(swingActive?-.55+swing*1.1:0);stage.dataset.aimBatMirror=String(aimBat.scale.x);
   swingTrail.visible=aimBat.visible&&swingActive;if(swingTrail.visible){for(let j=0;j<24;j++){const angle=-.6+Math.max(0,swing-j*.025)*1.2;swingTrailPoints[j*3]=-aim.x*.3+Math.cos(angle)*.48;swingTrailPoints[j*3+1]=1.1-aim.y*.35+Math.sin(angle)*.48;swingTrailPoints[j*3+2]=.23;}swingTrail.geometry.attributes.position.needsUpdate=true;}
   if(ball.visible){ballShadow.visible=true;ballShadow.position.set(ball.position.x,.06,ball.position.z);ballShadow.scale.setScalar(1+Math.min(3,ball.position.y*.13));ballShadow.material.opacity=Math.max(.15,.55-ball.position.y*.012);}
-  camera.updateProjectionMatrix();renderer.shadowMap.needsUpdate=frameCount++%3===0;renderer.render(scene,camera);window.CPBL_RENDER_STATS.frames++;if(frameCount%30===0){stage.dataset.frames=String(window.CPBL_RENDER_STATS.frames);stage.dataset.errors=String(window.CPBL_RENDER_STATS.errors);stage.dataset.contextLosses=String(window.CPBL_RENDER_STATS.contextLosses)}
-  if(ball.visible&&tracking){projected.copy(ball.position).project(camera);if(projected.z<1){ballMarker.classList.remove('hidden');ballMarker.style.left=((projected.x+1)*width/2)+'px';ballMarker.style.top=((1-projected.y)*height/2)+'px';ballMarker.classList.toggle('in-flight',tracking);}}
+  // Follow the ball through flight / rolling / pickup, then cut to the infield play.
+  const fieldingAt=h?.event==='catch'?h.flightMs:h?.fieldAtMs,runView=tracking&&stamp-h.start>Math.max(900,fieldingAt||h.flightMs)+240;
+  const activeCamera=runView?runnerCamera:camera;
+  if(runView){runnerCamera.aspect=width/height;runnerCamera.fov=2*Math.atan(Math.tan(43*Math.PI/360)/Math.min(1,width/height))*180/Math.PI;runnerCamera.position.set(36,30,-14);runnerCamera.lookAt(0,0,20);viewBat.visible=false;viewForearms.forEach(a=>a.visible=false);}
+  stage.classList.toggle('is-live-play',tracking);stage.dataset.cameraMode=runView?'baserunning':tracking?'ball-tracking':playerBatting()?'batter':'pitcher';
+  activeCamera.updateProjectionMatrix();renderer.shadowMap.needsUpdate=frameCount++%3===0;renderer.render(scene,activeCamera);
+  window.CPBL_RENDER_STATS.frames++;if(frameCount%30===0){stage.dataset.frames=String(window.CPBL_RENDER_STATS.frames);stage.dataset.errors=String(window.CPBL_RENDER_STATS.errors);stage.dataset.contextLosses=String(window.CPBL_RENDER_STATS.contextLosses)}
+  if(ball.visible&&tracking){projected.copy(ball.position).project(activeCamera);if(projected.z<1&&Math.abs(projected.x)<1&&Math.abs(projected.y)<1){ballMarker.classList.remove('hidden');ballMarker.style.left=((projected.x+1)*width/2)+'px';ballMarker.style.top=((1-projected.y)*height/2)+'px';ballMarker.classList.toggle('in-flight',tracking);}}
   if(performance.now()-paintStart>45)slowFrames++;else slowFrames=Math.max(0,slowFrames-1);if(slowFrames>30){renderer.setPixelRatio(1);renderer.shadowMap.enabled=false;slowFrames=0;}
   }catch(error){console.error('3D frame',error);window.CPBL_RENDER_STATS.errors++;if(++sceneError.count===1){if(!tv.paused)pause();announce('畫面暫停 · 請繼續');}}
  }

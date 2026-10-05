@@ -36,3 +36,6 @@ body{overscroll-behavior:none}.opponent-chooser{display:flex;align-items:center;
 
 /* Ball location is shown by the ball and its shadow, without flight-type labels. */
 .ball-marker span{display:none!important}.ball-marker b{width:9px;height:9px;opacity:.6}
+#parkPreview{display:block;font-size:11px;line-height:1.6;color:#b4c9bf;margin-top:8px}
+
+.broadcast-stage.is-live-play .control-deck,.broadcast-stage.is-live-play .duel-hud,.broadcast-stage.is-live-play .touch-hint{display:none}
