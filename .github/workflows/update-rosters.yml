@@ -1,0 +1,59 @@
+name: Update official CPBL rosters and publish
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-rosters.yml'
+      - 'scripts/update_rosters.py'
+      - '*.html'
+      - '*.css'
+      - '*.js'
+      - 'data/**'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: cpbl-pages
+  cancel-in-progress: false
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch official roster (preserve snapshot if source is down)
+        id: sync
+        continue-on-error: true
+        run: python scripts/update_rosters.py
+      - name: Report unavailable source
+        if: steps.sync.outcome == 'failure'
+        run: echo '::warning::CPBL source unavailable or format changed. Last good roster preserved.'
+      - name: Save changed rosters
+        run: |
+          git config user.name 'cpbl-roster-sync[bot]'
+          git config user.email 'cpbl-roster-sync[bot]@users.noreply.github.com'
+          git add data/rosters.json rosters-data.js
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update official CPBL roster snapshot'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+  deploy:
+    needs: synchronize
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish updated site
+        id: deployment
+        uses: actions/deploy-pages@v4

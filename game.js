@@ -18,6 +18,9 @@ const $=s=>document.querySelector(s);
 const state={mode:'single',homeIndex:4,awayIndex:0,inning:1,half:'top',outs:0,balls:0,strikes:0,bases:[null,null,null],runs:[0,0],orders:[0,0],over:false,busy:false,logs:[],season:null};
 let chosenPitch='速球',chosenZone=4,chosenSwing='一般';
 const zones=['內高','中高','外高','內中','中間','外中','內低','中低','外低'];
+state.playerSide=1;
+function playerBatting(){return battingTeam()===state.playerSide}
+function playerTeamIndex(){return state.playerSide===1?state.homeIndex:state.awayIndex}
 
 function init(){
   $('#teamSelect').innerHTML=TEAMS.map((t,i)=>'<option value="'+i+'" '+(i===4?'selected':'')+'>'+t.name+'</option>').join('');
