@@ -58,7 +58,7 @@
  const ballMarker=document.createElement('div');ballMarker.className='ball-marker hidden';ballMarker.innerHTML='<b></b><span>球</span>';stage.append(ballMarker);
  const trailGeometry=new T.BufferGeometry(),trailArray=new Float32Array(32*3);trailGeometry.setAttribute('position',new T.BufferAttribute(trailArray,3));const trail=new T.Line(trailGeometry,new T.LineBasicMaterial({color:'#fff2ac',transparent:true,opacity:.8,depthTest:false}));trail.frustumCulled=false;scene.add(trail);
  let cssWidth=0,cssHeight=0,contextLost=false,lastPaint=0;
- const aimBat=new T.Group();scene.add(aimBat);segment(new T.Vector3(-.48,0,0),new T.Vector3(.48,0,0),.028,mat('#dbb979',{emissive:'#80632c'}),aimBat);segment(new T.Vector3(-.48,0,0),new T.Vector3(-.22,0,0),.022,dark,aimBat);
+ const aimBat=new T.Group();scene.add(aimBat);segment(new T.Vector3(-.22,0,0),new T.Vector3(.48,0,0),.028,mat('#dbb979',{emissive:'#80632c'}),aimBat);segment(new T.Vector3(-.48,0,0),new T.Vector3(-.22,0,0),.022,dark,aimBat);
  const swingTrail=new T.Line(new T.BufferGeometry(),new T.LineBasicMaterial({color:'#ffe3a3',transparent:true,opacity:.65,depthTest:false}));swingTrail.frustumCulled=false;scene.add(swingTrail);const swingTrailPoints=new Float32Array(24*3);swingTrail.geometry.setAttribute('position',new T.BufferAttribute(swingTrailPoints,3));
  const projected=new T.Vector3();const povBat=new T.Group();camera.add(povBat);scene.add(camera);segment(new T.Vector3(.25,-.3,-.8),new T.Vector3(.48,.22,-1.1),.024,mat('#cfae76'),povBat);sphere(.035,skin,.25,-.3,-.8,povBat);
  function flightPoint(h,t){return new T.Vector3((h.x-640)/440*70*t,1.1*(1-t)+Math.sin(t*Math.PI)*(h.type==='HR'?32:19),(h.type==='HR'?195:45+(460-h.y)/230*50)*t)}
