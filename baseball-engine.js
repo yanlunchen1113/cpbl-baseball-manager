@@ -21,37 +21,43 @@
   return {x:mix(start,(f.viewSign||1)*f.x*.3,t)+sign*config.side*4*t*(1-t),y:u*u*release+2*u*t*control+t*t*end,z:mix(origin.z,.2,t)};
  }
  function wallDistance(angle){return 122-22*Math.pow(Math.min(1,Math.abs(angle)/(Math.PI/4)),1.5)}
- function createPlay(quality,power,aim={x:0,y:0},random=Math.random,runners=[]){
-  const r=random(),kind=power&&quality>.8&&r>.76?'homer':r<.43?'ground':r<.74?'line':'fly';
-  const angle=clamp((random()-.5)*1.2+aim.x*.12,-.70,.70);
-  const rawDistance=kind==='homer'?125+random()*20:kind==='ground'?12+random()*49:kind==='line'?48+random()*48:55+random()*54;
-  const distance=kind==='homer'?rawDistance:Math.min(rawDistance,wallDistance(angle)-3);
-  const land={x:Math.sin(angle)*distance,z:Math.cos(angle)*distance};
-  const roll=kind==='ground'?14+random()*12:kind==='line'?7+random()*10:4+random()*7;
-  const pickupDistance=Math.min(distance+roll,wallDistance(angle)-1);
-  const pickup={x:Math.sin(angle)*pickupDistance,z:Math.cos(angle)*pickupDistance};
-  let fielder=0,nearest=Infinity;fielders.forEach((p,i)=>{const d=Math.hypot((kind==='ground'?pickup.x:land.x)-p.x,(kind==='ground'?pickup.z:land.z)-p.z);if(d<nearest){nearest=d;fielder=i}});
-  const flightMs=kind==='ground'?650:kind==='line'?1550:kind==='homer'?4400:3500+random()*800;
-  const runMs=nearest/7*1000,catchable=kind!=='ground'&&kind!=='homer'&&runMs+180<flightMs;
-  const pickupMs=Math.max(flightMs+(kind==='ground'?1400:1100),runMs+200);
-  const firstThrowMs=clamp(Math.hypot(pickup.x-bases[0].x,pickup.z-bases[0].z)/28*1000,500,3000);
-  const runnerMs=4000+(1-quality)*350;
-  const groundOut=kind==='ground'&&fielder<4&&pickupMs+firstThrowMs<runnerMs;
-  const type=kind==='homer'?'HR':catchable||groundOut?'OUT':distance>82&&! (kind==='ground')?'2B':'1B';
-  const event=kind==='homer'?'homer':catchable?'catch':groundOut?'groundout':'hit';
-  const fieldTarget=catchable?land:pickup;
-  const throwBase=groundOut?0:runners[2]||runners[1]?3:runners[0]?2:1;
-  const throwTarget=bases[throwBase],relay=fielder>=4&&fielder<=6&&Math.hypot(pickup.x-throwTarget.x,pickup.z-throwTarget.z)>55?{x:pickup.x*.36+throwTarget.x*.64,z:pickup.z*.36+throwTarget.z*.64}:null;
-  const relayMs=relay?Math.max(500,Math.hypot(pickup.x-relay.x,pickup.z-relay.z)/30*1000):0;
-  const finalMs=Math.max(500,Math.hypot((relay||pickup).x-throwTarget.x,(relay||pickup).z-throwTarget.z)/28*1000);
-  const throwMs=relay?relayMs+220+finalMs:finalMs;
-  const runnerDurationMs=type==='HR'?12000:runnerMs*(type==='2B'?2:1);const durationMs=kind==='homer'?runnerDurationMs+500:catchable?flightMs+650:Math.max(pickupMs+throwMs+650,runnerDurationMs+300);
-  return {type,kind,event,quality,land,pickup,fieldTarget,fielder,flightMs,pickupMs,throwMs,throwBase,throwTarget,relay,relayMs,finalMs,runnerMs,runnerDurationMs,durationMs,
-   height:kind==='ground'?.30:kind==='line'?3.8:kind==='homer'?25:18,
-   x:640+land.x*5,y:460-land.z*2.2};
+ // Metres / seconds. CPBL exit speeds are km/h; surface/reaction parameters are model assumptions.
+ const movement={reaction:.22,acceleration:5.0,runSpeed:8.1,fieldSpeed:7.7,dirtFriction:2.8,grassFriction:1.7,gravity:9.81,drag:.0062,lift:.0012};
+ function runDistance(seconds,maxSpeed=movement.runSpeed){const t=Math.max(0,seconds),ramp=maxSpeed/movement.acceleration;return t<ramp?.5*movement.acceleration*t*t:.5*maxSpeed*ramp+maxSpeed*(t-ramp);}
+ function runTime(distance,maxSpeed=movement.runSpeed){const ramp=maxSpeed/movement.acceleration,d=.5*maxSpeed*ramp;return distance<d?Math.sqrt(2*distance/movement.acceleration):ramp+(distance-d)/maxSpeed;}
+ function samplePath(samples,time){const at=clamp(time/25,0,samples.length-1),i=Math.floor(at),f=at-i,a=samples[i],b=samples[Math.min(i+1,samples.length-1)];return {distance:mix(a.distance,b.distance,f),y:mix(a.y,b.y,f),speed:mix(a.speed,b.speed,f)};}
+ function createPlay(quality,power,aim={x:0,y:0},random=Math.random,runners=[],traits={}){
+  const r=random(),cal=root.CPBL_MOTION_DATA,profile=cal?.players?.[traits.id]||Object.values(cal?.players||{}).find(p=>p.name===traits.name),average=profile?.exitAvg||cal?.league?.exitAvg||135.75,max=profile?.exitMax||cal?.league?.exitMax||195.86;
+  const exitSpeed=clamp(average+(quality-.65)*65+(random()-.5)*20+(power?7:0),65,max),v=exitSpeed/3.6;
+  let kind=power&&quality>.8&&r>.76?'homer':r<.46?'ground':r<.685?'line':'fly';
+  const launchAngle=kind==='ground'?-12+random()*18:kind==='line'?8+random()*13:kind==='homer'?25+random()*10:25+random()*32,angle=clamp((random()-.5)*1.2+aim.x*.12,-.70,.70),wall=wallDistance(angle);
+  const radians=launchAngle*Math.PI/180,samples=[{distance:0,y:1.05,speed:v}],dt=.025;let vx=v*Math.cos(radians),vy=v*Math.sin(radians),distance=0,y=1.05,firstGround=null,catchAt=null,wallAt=null;
+  for(let n=1;n<=720;n++){
+   const speed=Math.hypot(vx,vy);if(y>.037||vy>.1){const oldVx=vx;vx-=movement.drag*speed*vx*dt;vy+=(-movement.gravity-movement.drag*speed*vy+(kind==='ground'?0:movement.lift*speed*oldVx))*dt;}else{vx=Math.max(0,vx-(distance<45?movement.dirtFriction:movement.grassFriction)*dt);vy=0;}
+   distance+=vx*dt;y+=vy*dt;
+   if(catchAt===null&&firstGround===null&&vy<0&&y<=1.15&&n>2)catchAt={ms:n*25,distance,y:Math.max(.037,y)};
+   if(y<=.037){y=.037;if(firstGround===null)firstGround=n*25;if(Math.abs(vy)>1.0){vy=Math.abs(vy)*.36;vx*=.77;}else vy=0;}
+   if(wallAt===null&&distance>=wall)wallAt={ms:n*25,y};
+   // Fence collision is distinct from a home run; horizontal speed loses energy.
+   if(distance>wall-.45&&y<3.4&&wallAt?.y<3.4){distance=wall-.45;vx=0;}
+   samples.push({distance,y,speed:Math.hypot(vx,vy)});if(firstGround!==null&&vx<.04&&vy===0)break;
+  }
+  const homer=wallAt&&wallAt.y>3.4;if(kind==='homer'&&!homer)kind='fly';if(homer)kind='homer';
+  const groundTime=firstGround||samples.length*25,descending=kind!=='ground'&&catchAt?catchAt:null;
+  let fielder=0,nearest=Infinity;const targetAt=descending?.distance||samplePath(samples,groundTime).distance;fielders.forEach((p,i)=>{const d=Math.hypot(Math.sin(angle)*targetAt-p.x,Math.cos(angle)*targetAt-p.z);if(d<nearest){nearest=d;fielder=i}});
+  const catchable=kind!=='ground'&&!homer&&descending&&runDistance(descending.ms/1000-movement.reaction,movement.fieldSpeed)>=nearest;
+  let fieldAtMs=catchable?descending.ms:groundTime,fieldSample=samplePath(samples,fieldAtMs);
+  if(!catchable&&!homer){for(let ms=groundTime;ms<samples.length*25;ms+=50){const p=samplePath(samples,ms),reachable=runDistance(ms/1000-movement.reaction,movement.fieldSpeed);let best=-1,bestDistance=Infinity;fielders.forEach((f,i)=>{const d=Math.hypot(Math.sin(angle)*p.distance-f.x,Math.cos(angle)*p.distance-f.z);if(d<=reachable&&d<bestDistance){best=i;bestDistance=d;}});if(best>=0){fielder=best;fieldAtMs=ms;fieldSample=p;break;}}
+   const final=samplePath(samples,fieldAtMs);const f=fielders[fielder],need=runTime(Math.hypot(Math.sin(angle)*final.distance-f.x,Math.cos(angle)*final.distance-f.z),movement.fieldSpeed)+movement.reaction;if(need*1000>fieldAtMs){fieldAtMs=need*1000;fieldSample=samplePath(samples,fieldAtMs);}}
+  const flightMs=catchable?descending.ms:groundTime,landSample=samplePath(samples,flightMs),land={x:Math.sin(angle)*landSample.distance,z:Math.cos(angle)*landSample.distance},pickup={x:Math.sin(angle)*fieldSample.distance,z:Math.cos(angle)*fieldSample.distance};
+  const transferMs=kind==='ground'?420:560,pickupMs=fieldAtMs+transferMs,runnerMs=(runTime(Math.hypot(19.4,19.4),movement.runSpeed)+.35)*1000,groundOut=kind==='ground'&&fielder<4&&pickupMs+Math.hypot(pickup.x-bases[0].x,pickup.z-bases[0].z)/30*1000<runnerMs;
+  const distanceHit=Math.hypot(land.x,land.z),type=homer?'HR':catchable||groundOut?'OUT':distanceHit>80&&kind!=='ground'?'2B':'1B',event=homer?'homer':catchable?'catch':groundOut?'groundout':'hit',fieldTarget=catchable?land:pickup,throwBase=groundOut?0:runners[2]||runners[1]?3:runners[0]?2:1,throwTarget=bases[throwBase],relay=fielder>=4&&fielder<=6&&Math.hypot(pickup.x-throwTarget.x,pickup.z-throwTarget.z)>55?{x:pickup.x*.36+throwTarget.x*.64,z:pickup.z*.36+throwTarget.z*.64}:null;
+  const relayMs=relay?Math.max(220,Math.hypot(pickup.x-relay.x,pickup.z-relay.z)/30*1000):0,finalMs=Math.max(220,Math.hypot((relay||pickup).x-throwTarget.x,(relay||pickup).z-throwTarget.z)/30*1000),throwMs=relay?relayMs+220+finalMs:finalMs,runnerDurationMs=type==='HR'?14000:runnerMs*(type==='2B'?2:1),durationMs=homer?runnerDurationMs+500:catchable?flightMs+650:Math.max(pickupMs+throwMs+650,runnerDurationMs+300);
+  return {type,kind,event,quality,exitSpeed,launchAngle,trajectory:samples,angle,fieldAtMs,transferMs,land,pickup,fieldTarget,fielder,flightMs,pickupMs,throwMs,throwBase,throwTarget,relay,relayMs,finalMs,runnerMs,runnerDurationMs,durationMs,height:Math.max(...samples.map(p=>p.y)),x:640+land.x*5,y:460-land.z*2.2};
  }
  function playPoint(h,elapsed){
   const defensive=root.CPBLRules?.point(h,elapsed);if(defensive)return defensive;
+  if(h.trajectory){if((h.caught||h.event==='catch')&&elapsed>=h.flightMs)return {...h.land,y:1.15,phase:'caught'};if(h.event!=='homer'&&elapsed>=h.fieldAtMs&&elapsed<h.pickupMs)return {...h.pickup,y:.20,phase:'fielded'};if(elapsed<h.pickupMs||h.event==='homer'){const p=samplePath(h.trajectory,elapsed);return {x:Math.sin(h.angle)*p.distance,z:Math.cos(h.angle)*p.distance,y:p.y,phase:h.event==='homer'&&elapsed>=h.flightMs?'home-run':elapsed<h.flightMs?'air':'rolling',speed:p.speed};}}
   const t=clamp(elapsed/h.flightMs);
   if(elapsed<h.flightMs)return {x:h.land.x*t,y:mix(1.1,(h.caught||h.event==='catch')?1.1:.07,t)+Math.sin(Math.PI*t)*h.height,z:h.land.z*t,phase:'air'};
   if(h.event==='homer')return {x:h.land.x,y:.07,z:h.land.z,phase:'home-run'};
@@ -62,7 +68,7 @@
   if(h.relay){if(passed<h.relayMs){b=h.relay;u=clamp(passed/h.relayMs)}else if(passed<h.relayMs+220)return {...h.relay,y:1.2,phase:'relay'};else{a=h.relay;u=clamp((passed-h.relayMs-220)/h.finalMs)}}
   return {x:mix(a.x,b.x,u),y:1.2+Math.sin(Math.PI*u)*Math.min(2.6,Math.hypot(b.x-a.x,b.z-a.z)*.025),z:mix(a.z,b.z,u),phase:u<1?'throw':'received'};
  }
- function fielderPoint(h,elapsed){const a=fielders[h.fielder],duration=(h.caught||h.event==='catch')?h.flightMs:h.pickupMs;const t=smooth(elapsed/duration);return {x:mix(a.x,h.fieldTarget.x,t),z:mix(a.z,h.fieldTarget.z,t),moving:t>0&&t<1};}
+ function fielderPoint(h,elapsed){const a=fielders[h.fielder],duration=(h.caught||h.event==='catch')?h.flightMs:(h.fieldAtMs||h.pickupMs),distance=Math.hypot(h.fieldTarget.x-a.x,h.fieldTarget.z-a.z),seconds=Math.max(0,(elapsed-220)/1000),arrival=Math.max(.01,(duration-220)/1000),total=runDistance(arrival,movement.fieldSpeed),travelled=runDistance(seconds,movement.fieldSpeed),t=clamp(travelled/Math.max(.01,total));return {x:mix(a.x,h.fieldTarget.x,t),z:mix(a.z,h.fieldTarget.z,t),moving:t>0&&t<1,speed:t<1?Math.min(movement.fieldSpeed,seconds*movement.acceleration)*distance/Math.max(.01,total):0};}
  // Lift, stride, arm cock, release, follow-through and recovery keyframes.
  const deliveryKeys=[
   [0,0,0,-.25,-.5,-.7,0,0,0],
@@ -74,5 +80,5 @@
   [2000,0,0,-.25,-.5,-.7,0,0,0]
  ];
  function delivery(elapsed){let a=deliveryKeys[0],b=a;for(let i=1;i<deliveryKeys.length;i++){b=deliveryKeys[i];if(elapsed<=b[0])break;a=b;}const t=smooth((elapsed-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,i)=>mix(v,b[i+1],t));}
- root.CPBLPhysics={releasePoint,wallDistance,bases,fielders,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,delivery,clamp,smooth};
+ root.CPBLPhysics={releasePoint,wallDistance,bases,fielders,movement,runDistance,runTime,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,delivery,clamp,smooth};
 })(typeof window==='undefined'?globalThis:window);

@@ -20,7 +20,7 @@ sandbox.window=sandbox;sandbox.addEventListener=(k,fn)=>(events[k]??=[]).push(fn
 const THREE={...require('../vendor/three.min.js')};
 THREE.WebGLRenderer=class{constructor(){this.domElement=new Element('canvas');this.shadowMap={};this.pixelRatio=1}setPixelRatio(n){this.pixelRatio=n}setSize(){}render(scene,camera){scene.updateMatrixWorld();camera.updateMatrixWorld()}getContext(){return {getExtension:()=>({restoreContext(){}})}}};sandbox.THREE=THREE;
 const context=vm.createContext(sandbox),run=code=>vm.runInContext(code,context);
-for(const file of ['game.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
+for(const file of ['game.js','motion-calibration.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
 run('musicEnabled=false;effectsEnabled=false;');
 function tick(ms=100){time+=ms;const current=frames;frames=[];for(const fn of current)fn(time)}
 let games=0,pitches=0,contacts=0,catches=0,grounders=0,rolled=0;
@@ -42,5 +42,7 @@ for(let game=0;game<24;game++){
  assert(run('state.over'),'Expected a completed game');games++;
 }
 assert(run('(CPBL_RENDER_STATS.releaseError||0)<.08'),'Pitch release must originate at throwing hand');
+assert(run('(CPBL_RENDER_STATS.shoulderLoadError||0)<.001'),'Throwing shoulder must move behind glove shoulder while loading');
+assert(run('(CPBL_RENDER_STATS.shoulderReleaseError||0)<.001'),'Throwing shoulder must move toward home at release');
 assert.equal(errors.length,0,errors.join('\n'));assert(contacts>100&&catches>30&&grounders>30&&rolled>50);
 console.log(JSON.stringify({games,pitches,contacts,catches,grounders,rollingFrames:rolled,renderedFrames:run('CPBL_RENDER_STATS.frames'),renderErrors:run('CPBL_RENDER_STATS.errors')}));

@@ -1,23 +1,26 @@
 /* Time-based defensive choices. Force outs, double plays and legal tag-ups. */
 (function(root){const P=root.CPBLPhysics,B=P.bases;
- const travel=(a,b,speed=28)=>Math.max(220,Math.hypot(a.x-b.x,a.z-b.z)/speed*1000);
- function plan(h,context){const occupied=context.bases.slice(),next=occupied.slice(),outs=context.outs,batter=context.batter,run=h.runnerMs,plans=[],legs=[];let outsAdded=0,runs=0,label='',event=h.event;
- const addRun=(index,steps,start=0,duration=run*steps)=>{plans.push({index,from:index<0?3:index,steps,start,duration});};
- function route(from,start,base,relay=false){let at=start,point=from;if(relay){const cut={x:from.x*.36+B[base].x*.64,z:from.z*.36+B[base].z*.64};const end=at+travel(point,cut);legs.push({from:point,to:cut,start:at,end,base:null,receiver:2});at=end+220;point=cut;}const end=at+travel(point,B[base]);legs.push({from:point,to:B[base],start:at,end,base,receiver:base===3?8:base===2?(h.fielder===3?2:3):base===1?(h.fielder===1?2:1):(h.fielder===0?7:0)});return end;}
+ const travel=(a,b,speed=30)=>Math.max(220,Math.hypot(a.x-b.x,a.z-b.z)/speed*1000);
+ function plan(h,context){const occupied=context.bases.slice(),next=occupied.slice(),outs=context.outs,batter=context.batter,run=h.runnerMs,baseRun=Math.max(1000,h.runnerMs-350),plans=[],legs=[];let outsAdded=0,runs=0,label='',event=h.event;
+ const addRun=(index,steps,start=0,duration=steps===1?run:(P.runTime(27.436*steps,event==='homer'?5.5:8.1)+.35)*1000)=>{if(index<0){start+=350;if(event!=='homer')duration=Math.max(500,duration-350);}else if(event!=='homer')duration=Math.max(500,duration-350);plans.push({index,from:index<0?3:index,steps,start,duration});};
+ function route(from,start,base,relay=false){let at=start,point=from;
+ function legTo(foot,receiver,outBase){const d=Math.hypot(foot.x-point.x,foot.z-point.z)||1,dx=(foot.x-point.x)/d,dz=(foot.z-point.z)/d,release={x:point.x+dx*.30-dz*.18,z:point.z+dz*.30+dx*.18,y:1.35},receive={x:foot.x-dx*.38,z:foot.z-dz*.38,y:1.15},end=at+travel(release,receive,30);legs.push({from:release,to:receive,receiverPosition:foot,start:at,end,base:outBase,receiver});at=end;point=foot;return end;}
+ if(relay){const cut={x:from.x*.36+B[base].x*.64,z:from.z*.36+B[base].z*.64};legTo(cut,2,null);at+=220;}
+ return legTo(B[base],base===3?8:base===2?(h.fielder===3?2:3):base===1?(h.fielder===1?2:1):(h.fielder===0?7:0),base);}
  if(event==='homer'||event==='hit'&&h.kind!=='ground'||event==='hit'&&h.fielder>=4&&h.fielder<=6){const steps=h.type==='HR'?4:h.type==='2B'?2:1;next.fill(null);occupied.forEach((name,i)=>{if(name){addRun(i,Math.min(steps,3-i));if(i+steps>=3)runs++;else next[i+steps]=name;}});addRun(-1,steps);if(steps===4)runs++;else next[steps-1]=batter;if(event!=='homer')route(h.pickup,h.pickupMs,h.throwBase,h.relay!==null);label=steps===4?'全壘打':steps===2?'二壘安打':'安打';}
  else if(event==='catch'){
   outsAdded=1;label='接殺';if(outs<2&&h.kind==='fly'){
    // Runners hold their bags until the catch; attempt only when a safe advance is available.
    const returnTime=h.flightMs+650+travel(h.land,B[3])+(h.fielder>=4?220:0);
-   if(occupied[2]&&Math.hypot(h.land.x,h.land.z)>60&&h.flightMs+run<returnTime){next[2]=null;runs++;event='sacfly';label='高飛犧牲打';addRun(2,1,h.flightMs,run);route(h.land,h.flightMs+650,3,h.fielder>=4);}
+   if(occupied[2]&&Math.hypot(h.land.x,h.land.z)>60&&h.flightMs+baseRun<returnTime){next[2]=null;runs++;event='sacfly';label='高飛犧牲打';addRun(2,1,h.flightMs,run);route(h.land,h.flightMs+650,3,h.fielder>=4);}
    if(occupied[1]&&!next[2]&&(event==='sacfly'||h.land.x<-15&&Math.hypot(h.land.x,h.land.z)>90)){next[2]=occupied[1];next[1]=null;addRun(1,1,h.flightMs,run);}
   }
  }
  else{
   const atFirst=h.pickupMs+travel(h.pickup,B[0]),atSecond=h.pickupMs+travel(h.pickup,B[1]),turn=atSecond+180+travel(B[1],B[0]);
   const forceHome=occupied.every(Boolean),homeTime=h.pickupMs+travel(h.pickup,B[3]);
-  let force=occupied[0]&&atSecond<run?1:null;
-  if(forceHome&&homeTime<run&&(outs===2||context.inning>=7&&Math.abs(context.runDifference)<=2))force=3;
+  let force=occupied[0]&&atSecond<baseRun?1:null;
+  if(forceHome&&homeTime<baseRun&&(outs===2||context.inning>=7&&Math.abs(context.runDifference)<=2))force=3;
   if(force!==null){
    const arrival=route(h.pickup,h.pickupMs,force);outsAdded=1;event='fielderschoice';label='野手選擇';
    const removed=force===3?2:force-1;next[removed]=null;
@@ -35,6 +38,6 @@
  h.durationMs=Math.max(h.flightMs+650,...legs.map(l=>l.end+650),...plans.map(r=>r.start+r.duration+300));if(outs+outsAdded>=3)h.durationMs=Math.max(h.flightMs+650,...legs.map(l=>l.end+650));
  return h;
  }
- function point(h,elapsed){if(!h.throwLegs?.length)return null;const first=h.throwLegs[0];if(elapsed<first.start)return null;let previous=null;for(const leg of h.throwLegs){if(elapsed<leg.start)return {...previous.to,y:1.2,phase:'relay',receiver:previous.receiver,base:previous.base};if(elapsed<=leg.end){const t=P.clamp((elapsed-leg.start)/(leg.end-leg.start));return {x:leg.from.x+(leg.to.x-leg.from.x)*t,z:leg.from.z+(leg.to.z-leg.from.z)*t,y:1.2+Math.sin(Math.PI*t)*1.8,phase:'throw',receiver:leg.receiver,base:leg.base};}previous=leg;}return {...previous.to,y:1.2,phase:'received',receiver:previous.receiver,base:previous.base};}
+ function point(h,elapsed){if(!h.throwLegs?.length)return null;const first=h.throwLegs[0];if(elapsed<first.start)return null;let previous=null;for(const leg of h.throwLegs){if(elapsed<leg.start)return {...previous.to,y:previous.to.y||1.15,phase:'relay',receiver:previous.receiver,base:previous.base};if(elapsed<=leg.end){const t=P.clamp((elapsed-leg.start)/(leg.end-leg.start));return {x:leg.from.x+(leg.to.x-leg.from.x)*t,z:leg.from.z+(leg.to.z-leg.from.z)*t,y:(leg.from.y||1.35)+((leg.to.y||1.15)-(leg.from.y||1.35))*t+.5*9.81*Math.pow((leg.end-leg.start)/1000,2)*t*(1-t),phase:'throw',receiver:leg.receiver,base:leg.base};}previous=leg;}return {...previous.to,y:previous.to.y||1.15,phase:'received',receiver:previous.receiver,base:previous.base};}
  root.CPBLRules={plan,point};
 })(typeof window==='undefined'?globalThis:window);
