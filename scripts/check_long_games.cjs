@@ -28,7 +28,7 @@ function tick(ms=100){time+=ms;const current=frames;frames=[];for(const fn of cu
 let games=0,pitches=0,contacts=0,catches=0,grounders=0,rolled=0;const cameraFrames={};
 for(let game=0;game<24;game++){
  get('#opponentSelect').value='random';get('#stadiumSelect').value=sandbox.CPBLStadiums.parks[game%11].id;run(`state.mode='single';stage.clientWidth=${game%2?900:390};stage.clientHeight=${game%2?500:780};startGame(${game%6});`);
- for(let attempts=0;attempts<12000&&!run('state.over');attempts++){
+ for(let attempts=0;attempts<22000&&!run('state.over');attempts++){
   const phase=run('tv.phase');assert(!run('tv.paused'),'Unexpected pause: '+errors.join('\n'));
   if(phase==='ready'){run('controlDown();controlUp();');pitches++;}
   else if(phase==='pitch'&&run('playerBatting()&&!tv.swung')){const progress=run('(performance.now()-tv.start)/tv.flight.duration');if(progress>.72&&progress<.98)run('tv.aim={x:tv.flight.x,y:tv.flight.y};controlDown();');}
@@ -39,12 +39,13 @@ for(let game=0;game<24;game++){
   tick(120);const mode=run('stage.dataset.cameraMode');cameraFrames[mode]=(cameraFrames[mode]||0)+1;
   assert(run('Number.isFinite(state.runs[0])&&Number.isFinite(state.runs[1])'));
   assert(run('state.bases.length===3'));assert(run('state.outs>=0&&state.outs<3'));
-  if(attempts===11999)throw Error('Game did not finish: '+run('JSON.stringify({inning:state.inning,half:state.half,phase:tv.phase,runs:state.runs,outs:state.outs})'));
+  if(attempts===21999)throw Error('Game did not finish: '+run('JSON.stringify({inning:state.inning,half:state.half,phase:tv.phase,runs:state.runs,outs:state.outs})'));
  }
  assert(run('state.over'),'Expected a completed game');games++;
 }
+assert(run('(CPBL_RENDER_STATS.maxGroundGap||0)<.009'),'Visible actors must plant a foot on the terrain');
 assert(run('(CPBL_RENDER_STATS.releaseError||0)<.08'),'Pitch release must originate at throwing hand');
 assert(run('(CPBL_RENDER_STATS.shoulderLoadError||0)<.001'),'Throwing shoulder must move behind glove shoulder while loading');
 assert(run('(CPBL_RENDER_STATS.shoulderReleaseError||0)<.001'),'Throwing shoulder must move toward home at release');
-assert(cameraFrames['ball-tracking']>100&&cameraFrames.baserunning>100,'Both sequential cameras must be used');assert.equal(errors.length,0,errors.join('\n'));assert(contacts>100&&catches>30&&grounders>30&&rolled>50);
+assert(cameraFrames['ball-tracking']>100&&cameraFrames.baserunning>100&&cameraFrames['throw-follow']>100&&cameraFrames['catcher-return']>100,'Adaptive full-screen cameras and catcher return must all be used');assert.equal(errors.length,0,errors.join('\n'));assert(contacts>100&&catches>30&&grounders>30&&rolled>50);
 console.log(JSON.stringify({pitchers: pitcherAudit.length,parks:11,cameraFrames,games,pitches,contacts,catches,grounders,rollingFrames:rolled,renderedFrames:run('CPBL_RENDER_STATS.frames'),renderErrors:run('CPBL_RENDER_STATS.errors')}));

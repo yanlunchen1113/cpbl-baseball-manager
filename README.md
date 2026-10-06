@@ -40,7 +40,7 @@ WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices
 - 重建：`python3 scripts/build_motion_calibration.py <官方球員頁HTML>`。檢查：`node scripts/check_motion.cjs`、`node scripts/check_physics.cjs`、`node scripts/check_rules.cjs`、`node scripts/check_long_games.cjs`。完整比賽檢查包含狀態與 Three.js CPU 場景，未模擬手機 GPU。
 # v23：打擊方向、鏡頭切換與球場參考
 
-- 左打、右打的透明接觸球棒鏡像顯示；握柄在打者側，棒頭朝向本壘。擊球後以當次打者資料維持用手，避免打序更新使方向跳動。
+- 左打、右打的透明接觸球棒鏡像顯示；方向在 v24 再次校正。擊球後以當次打者資料維持用手，避免打序更新使方向跳動。
 - 全螢幕先追蹤飛行、落地、滾動與拾球；野手取得球後切至內野跑壘／傳球鏡頭。兩個鏡頭使用同一組公尺座標與球員身高，沒有分割畫面。
 - `stadium-data.js` / `data/stadiums.json` 包含 2026 一軍例行賽的 11 座球場。單場可選球場；賽季使用主隊預設球場，尚未逐場重現官方實際場地安排。
 - 外野牆距離、標示、碰牆與全壘打判定共用場地資料。兩翼與中外野之間的牆線為插值模型，未取得完整實測輪廓；建築為簡化模型，包含大巨蛋封閉屋頂、天母公園外野、洲際縫線屋頂、花蓮草坡、臺東山景等特色。
@@ -65,3 +65,17 @@ WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices
 | 嘉義市 | 350／400／350 | 暫用，待第一手文件確認 |
 | 花蓮 | 320／400／320 | 花蓮縣場館介紹 |
 | 臺東 | 320／400／320 | 中職場館介紹 |
+
+## v24：球場建築、接傳球與自動轉播鏡頭
+
+- 11 座球場重建弧形內野看台與實體看台底板。依球場配置不同層數、遮棚輪廓、洲際縫線棚架、大巨蛋放射屋架與室內照明、天母公園與都市背景、花蓮曲面草坡、臺東連續山景。新增進場全景，讓屋頂與看台在遊戲中實際可見。建築仍為照片參考的程序模型，並非建築圖精確復刻。
+- 鏡頭按飛球、滾地追球、接球、傳球兩端與跑壘切換，維持單一全螢幕；切換有最短停留時間與位置、焦點、視角插值。
+- 接滾地球後 850 ms、一般接球後 750 ms、轉傳 550 ms，動畫依同一時間表完成吸收來球、雙手取球、起身、跨步、肩膀轉動、出手與 650 ms 收尾。雙殺是否成立也重新使用轉傳時間判定，不靠瞬間切換姿勢。
+- 跑步採用左右腳分開落地／抬腳的反向運動學，腳底依場地高度定位；投球跨步腳使用土丘坡面高度。
+- 投手丘改成直徑 18 ft 的曲面土丘，投手板高 10 in，板前 6 in 起以 1 in/ft 下坡，含平頂、側坡與後坡。參考 [Official Baseball Rules 2.01 與附圖 3](https://img.mlbstatic.com/mlb-images/image/upload/mlb/ub08blsefk8wkkd2oemz.pdf)。
+- 右打透明棒頭朝畫面右側，左打朝左側，對應第一人稱備棒方向。強振仍保留點狀準星。
+- 一般接到投球後保持球在捕手手套，起身取球、回傳、投手接球收回，完成後才開放下一球。三出局換邊時，回傳仍沿用原守備隊投手。
+- 新增三位壘審及主審判決動作，包含好球、出局、安全上壘、界外與全壘打；壞球不加手勢。動作參考 [Little League 裁判教學](https://www.littleleague.org/umpires/umpire-registry/training-materials/)。
+- 長時間測試使用 CPU Three.js 場景與完整比賽狀態；不能代替真實手機 GPU 效能驗證。另用瀏覽器檢查左右打、起身傳球、捕手回傳與球場全景。
+
+球場造型主要參考[臺中市政府洲際介紹](https://www.taichung.gov.tw/2266137/2266304/2266421/2280951)、[富邦新莊場館介紹](https://www.fubonguardians.com/content/stadium/Index)，其餘逐場來源保留於 `stadium-data.js`。
