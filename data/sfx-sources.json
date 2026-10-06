@@ -1,5 +1,17 @@
 {
- "bat":{"title":"Bat Hit 7 FF097.aif","creator":"martinimeniscus / Florentine Films SFX","source":"https://freesound.org/people/martinimeniscus/sounds/162883/","license":"CC0","file":"audio/bat-contact.mp3"},
- "glove":{"title":"Baseball into Glove","creator":"Yoo-toob-FX","source":"https://directory.audio/sound-effects/sports/171-baseball-into-glove","license":"CC0","file":"audio/glove-contact.mp3"},
- "processing":"Detect attack transients; play a single short hit with slight rate variation and a quiet 45 ms reflection. Synthetic contact sound is used only until decoding succeeds."
+  "bat": {
+    "title": "Bat Hit 7 FF097.aif",
+    "creator": "martinimeniscus / Florentine Films SFX",
+    "source": "https://freesound.org/people/martinimeniscus/sounds/162883/",
+    "license": "CC0",
+    "file": "audio/bat-contact.mp3"
+  },
+  "glove": {
+    "title": "Baseball into Glove",
+    "creator": "Yoo-toob-FX",
+    "source": "https://directory.audio/sound-effects/sports/171-baseball-into-glove",
+    "license": "CC0",
+    "file": "audio/glove-contact.mp3"
+  },
+  "processing": "Bat: choose only the strongest energy transient, remove duplicate reflection, 240 ms decay gate, 180 Hz highpass and modest presence EQ. Foul contacts have reduced level. Glove: separate short recorded transients. Synthetic fallback only before decoding."
 }

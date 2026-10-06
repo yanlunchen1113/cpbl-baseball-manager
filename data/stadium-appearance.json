@@ -1,0 +1,168 @@
+{
+  "updatedAt": "2026-10-06",
+  "status": "visual-estimates-from-reviewed-video",
+  "reference": "stadium-visual-references.json",
+  "note": "分區主色與結構比例參照影片；非逐椅位測繪或2026完整復刻",
+  "seatPalettes": {
+    "dome": {
+      "lower": [
+        "#c9ccca",
+        "#858d8a"
+      ],
+      "upper": [
+        "#c8c9c7",
+        "#686f70"
+      ],
+      "outfield": [
+        "#bcc2c1",
+        "#798280"
+      ]
+    },
+    "tianmu": {
+      "lower": [
+        "#2876aa",
+        "#3b8db9",
+        "#26719f"
+      ],
+      "upper": [
+        "#285889",
+        "#30689f"
+      ],
+      "outfield": []
+    },
+    "xinzhuang": {
+      "lower": [
+        "#287ab7",
+        "#24669b",
+        "#327db0"
+      ],
+      "upper": [
+        "#214f85",
+        "#2870a5"
+      ],
+      "outfield": [
+        "#276a9f",
+        "#3187b6",
+        "#225c90"
+      ]
+    },
+    "taoyuan": {
+      "lower": [
+        "#3287ad",
+        "#468da9",
+        "#2d6f95"
+      ],
+      "upper": [
+        "#235777",
+        "#396a89"
+      ],
+      "outfield": [
+        "#30718e",
+        "#438877",
+        "#c5ac4f",
+        "#328498"
+      ]
+    },
+    "intercontinental": {
+      "lower": [
+        "#2686ae",
+        "#3d9ab7",
+        "#277897"
+      ],
+      "upper": [
+        "#315d8e",
+        "#3878a3"
+      ],
+      "outfield": [
+        "#438978",
+        "#347fa1",
+        "#c7b15b",
+        "#337fa1",
+        "#438978"
+      ]
+    },
+    "douliu": {
+      "lower": [
+        "#3b927e",
+        "#4da08e"
+      ],
+      "upper": [
+        "#2e6c99",
+        "#4285b0"
+      ],
+      "outfield": [
+        "#296d9f",
+        "#3682b1"
+      ]
+    },
+    "asia": {
+      "lower": [
+        "#347d60",
+        "#42906f",
+        "#2c6b50"
+      ],
+      "upper": [
+        "#3a856c",
+        "#4e957c"
+      ],
+      "outfield": [
+        "#3f886e",
+        "#4b9175",
+        "#347c60"
+      ]
+    },
+    "chengcing": {
+      "lower": [
+        "#399b85",
+        "#4baa94",
+        "#318471"
+      ],
+      "upper": [
+        "#316c9d",
+        "#4283af"
+      ],
+      "outfield": [
+        "#3e9b83",
+        "#3786a2",
+        "#4aa38d",
+        "#347c9b"
+      ]
+    },
+    "chiayi": {
+      "lower": [
+        "#6c68a0",
+        "#3e77a8",
+        "#7973ac"
+      ],
+      "upper": [],
+      "outfield": [
+        "#54779f",
+        "#7b70a8",
+        "#486b9b"
+      ]
+    },
+    "hualien": {
+      "lower": [
+        "#338e81",
+        "#43a093"
+      ],
+      "upper": [
+        "#d28a51",
+        "#c47c40"
+      ],
+      "outfield": []
+    },
+    "taitung": {
+      "lower": [
+        "#468ba3",
+        "#62a3b2",
+        "#427d92"
+      ],
+      "upper": [],
+      "outfield": [
+        "#5c8da0",
+        "#73a2ae"
+      ]
+    }
+  }
+}

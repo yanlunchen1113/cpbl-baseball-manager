@@ -47,5 +47,5 @@ assert(run('(CPBL_RENDER_STATS.maxGroundGap||0)<.009'),'Visible actors must plan
 assert(run('(CPBL_RENDER_STATS.releaseError||0)<.08'),'Pitch release must originate at throwing hand');
 assert(run('(CPBL_RENDER_STATS.shoulderLoadError||0)<.001'),'Throwing shoulder must move behind glove shoulder while loading');
 assert(run('(CPBL_RENDER_STATS.shoulderReleaseError||0)<.001'),'Throwing shoulder must move toward home at release');
-assert(cameraFrames['ball-tracking']>100&&cameraFrames.baserunning>100&&cameraFrames['throw-follow']>100&&cameraFrames['catcher-return']>100,'Adaptive full-screen cameras and catcher return must all be used');assert.equal(errors.length,0,errors.join('\n'));assert(contacts>100&&catches>30&&grounders>30&&rolled>50);
+assert(cameraFrames['ball-tracking']>100&&cameraFrames.baserunning>100&&cameraFrames['throw-follow']>100,'Adaptive full-screen cameras must all be used; catcher return retains pitcher/batter view');assert.equal(errors.length,0,errors.join('\n'));assert(contacts>100&&catches>30&&grounders>30&&rolled>50);
 console.log(JSON.stringify({pitchers: pitcherAudit.length,parks:11,cameraFrames,games,pitches,contacts,catches,grounders,rollingFrames:rolled,renderedFrames:run('CPBL_RENDER_STATS.frames'),renderErrors:run('CPBL_RENDER_STATS.errors')}));
