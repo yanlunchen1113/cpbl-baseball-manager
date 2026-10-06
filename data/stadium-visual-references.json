@@ -7,67 +7,111 @@
       "id": "asia",
       "video": "https://www.youtube.com/watch?v=Ly3yLDnXR94",
       "frames": "6:57;5:14",
-      "observations": "綠色雙層座席、玻璃包廂、平緩懸臂棚、外野入口通道"
+      "observations": "綠色雙層座席、玻璃包廂、平緩懸臂棚、外野入口通道",
+      "additionalVideo": "https://www.youtube.com/watch?v=3X96iGERuu0",
+      "additionalFrames": "0:11 日場投打;0:16 日場外野;7:30 夜场投打;7:31 夜場外野",
+      "additionalObservations": "深淺黃綠割草條帶，本壘圓圈白線，紅土偏紅褐；前排灰色座椅、後方綠色看台，夜間草皮仍明亮，高機位跟球再切側面跑壘。",
+      "limits": "色票、燈光強度與鏡位為目視估值，未標定相機；原創紋理，未截取影片製作素材。",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "intercontinental",
       "video": "https://www.youtube.com/watch?v=36PngnnQnjo",
       "frames": "2:10",
-      "observations": "開放外野、紅色棚頂拱架、綠色護牆與黄色牆頂"
+      "observations": "開放外野、紅色棚頂拱架、綠色護牆與黄色牆頂",
+      "additionalVideo": "https://www.youtube.com/watch?v=ZxRwVOyCaj0",
+      "additionalFrames": "0:10 日場投打;0:15 日場外野;9:11 夜場跑壘",
+      "additionalObservations": "深藍座席與牆面廣告、黃牆頂；草皮黃綠，投手丘與本壘土偏紅褐，夜間跑壘側面鏡頭。",
+      "limits": "色票、相對位置、燈光和鏡位為目視估值，非測繪；未取用影片貼圖。",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "taoyuan",
       "video": "https://www.youtube.com/watch?v=36PngnnQnjo",
       "frames": "3:18",
-      "observations": "深色外野牆、黃色牆頂、SKECHERS與信守信人力看板"
+      "observations": "深色外野牆、黃色牆頂、SKECHERS與信守信人力看板",
+      "additionalVideo": "https://www.youtube.com/watch?v=-58IRyhdIy0&t=490s",
+      "additionalFrames": "8:06 投打;8:41 外野跟球;8:46 壘上側面",
+      "additionalObservations": "影片中夜間草皮為帶黃綠的深淺割草帶，紅土淡褐帶紅，丘前及打擊區有深色踩踏痕；本壘到投手丘有紅土連接；內野下層褐色、上層藍色座席。外野跟球從本壘後方高機位平移，壘上跑者使用側面鏡頭。",
+      "limits": "色票、磨損、燈光強度和鏡位為目視模型估值，未進行相機標定或取用影片貼圖。",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "xinzhuang",
       "video": "https://www.youtube.com/watch?v=qCXmY9vpFis",
       "frames": "4:42;6:35;7:32",
-      "observations": "藍色座椅與燈帶、白色膜棚、雙螢幕和中央打者視線背景"
+      "observations": "藍色座椅與燈帶、白色膜棚、雙螢幕和中央打者視線背景",
+      "additionalVideo": "https://www.youtube.com/watch?v=V7ZxSA6AJOw",
+      "videoPublishedAt": "2026-10-04",
+      "gameDate": "2026-10-04",
+      "scheduleSource": "https://stats.cpbl.com.tw/schedule/2026-A-252",
+      "matchup": "統一7-ELEVEn獅 @ 富邦悍將",
+      "additionalFrames": "0:00,0:05 本壘全景;0:16 中外野投球;0:19 高機位內野;0:38 壘上近景;1:15 跑者與紅土",
+      "additionalObservations": "藍色分區座椅、分瓣膜棚與藍色燈帶；黃綠斜向割草帶、粉褐紅土；本壘後方暗灰綠招牌包含好立善、富邦人壽、FOOTER、台灣大哥大、中保無限。擊球後切高機位跟球，再切跑者近景。",
+      "limits": "比賽及發布日期已核對；色票、位置、廣告比例與鏡位是目視估值，並非测繪或逐格動作捕捉。"
     },
     {
       "id": "tianmu",
       "video": "https://www.youtube.com/watch?v=36PngnnQnjo",
       "frames": "6:37",
-      "observations": "藍色座椅、木質野餐包廂；外野公園輪廓另参照球團場館頁"
+      "observations": "藍色座椅、木質野餐包廂；外野公園輪廓另参照球團場館頁",
+      "additionalVideo": "https://www.youtube.com/watch?v=YrALKIjpQQ0&t=886s",
+      "additionalFrames": "14:45 本壘後方投打;1:59 外野與記分板",
+      "additionalObservations": "人工草皮偏冷綠，壘間帶紅褐、丘與本壘區較淺土色；外野無高層看台，公園樹林、紅色罩頂三角網格玻璃包廂、偏側記分板。",
+      "limits": "色票、相對位置、燈光和鏡位為目視估值，非測繪；未取用影片貼圖。",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "dome",
       "video": "https://www.youtube.com/watch?v=p42h5lQedz8",
       "frames": "3:00;5:00;7:00",
-      "observations": "灰色棋盤座席、紅色人工草皮壘線、上方大型LED螢幕"
+      "observations": "灰色棋盤座席、紅色人工草皮壘線、上方大型LED螢幕",
+      "additionalVideo": "https://www.youtube.com/watch?v=uP-z97245vc",
+      "additionalFrames": "0:12 全景;0:52 投打",
+      "additionalObservations": "室內光線均勻、人工草皮偏灰綠，壘包周圍與界外區紅色，壘間路徑保持綠色；灰色座席與深色牆面。",
+      "limits": "色票、燈光強度與鏡位為目視估值，未標定相機；原創紋理，未截取影片製作素材。",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "chengcing",
       "video": "https://www.youtube.com/watch?v=kAkMLb9v-t8",
       "frames": "1:00;1:40",
-      "observations": "白色弧形棚、下層綠上層藍內野、低層外野座席及警戒區"
+      "observations": "白色弧形棚、下層綠上層藍內野、低層外野座席及警戒區",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "douliu",
       "video": "https://www.youtube.com/watch?v=Zl01bROEEj0",
       "frames": "1:08",
-      "observations": "雙層內野、白色懸臂棚、偏側記分板、低層外野藍椅"
+      "observations": "雙層內野、白色懸臂棚、偏側記分板、低層外野藍椅",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "chiayi",
       "video": "https://www.youtube.com/shorts/u8S2q66fkQg",
       "frames": "Short開場",
-      "observations": "紫藍色低層座椅、黃色通道、白色前緣、草皮內野"
+      "observations": "紫藍色低層座椅、黃色通道、白色前緣、草皮內野",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "hualien",
       "video": "https://www.youtube.com/watch?v=m4tCreUKIvY",
       "frames": "0:39–0:45",
-      "observations": "環弧形外野草坡、低層內野綠橘座椅、白色薄棚；2015舊影像僅用輪廓參考"
+      "observations": "環弧形外野草坡、低層內野綠橘座椅、白色薄棚；2015舊影像僅用輪廓參考",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     },
     {
       "id": "taitung",
       "video": "https://www.youtube.com/watch?v=BVpyw7631AU",
       "frames": "49:36",
-      "observations": "紅土內野、綠色後方建築及窗戶；2025賽事影像"
+      "observations": "紅土內野、綠色後方建築及窗戶；2025賽事影像",
+      "videoDateStatus": "本次未核對完整發布日期；不能據此宣稱為最新2026場地配置。"
     }
-  ]
+  ],
+  "selectionPolicy": {
+    "asOf": "2026-10-06",
+    "priority": "2026當季最近已完成比賽，優先球團與聯盟官方精華；用官網日期＋對戰組合定位影片。",
+    "dateCheck": "發布日期和比賽日期分別核對；未核對日期的舊參考不宣稱為2026最新配置。",
+    "fallback": "當季無可辨識畫面時保留歷史參考，標記日期未知及不確定部分。"
+  }
 }

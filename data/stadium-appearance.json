@@ -48,13 +48,13 @@
     },
     "taoyuan": {
       "lower": [
-        "#3287ad",
-        "#468da9",
-        "#2d6f95"
+        "#92654d",
+        "#a2745b",
+        "#835b46"
       ],
       "upper": [
-        "#235777",
-        "#396a89"
+        "#278dd0",
+        "#369cda"
       ],
       "outfield": [
         "#30718e",
@@ -65,13 +65,13 @@
     },
     "intercontinental": {
       "lower": [
-        "#2686ae",
-        "#3d9ab7",
-        "#277897"
+        "#325b98",
+        "#3e68a4",
+        "#2a558d"
       ],
       "upper": [
-        "#315d8e",
-        "#3878a3"
+        "#35578b",
+        "#41619b"
       ],
       "outfield": [
         "#438978",
@@ -164,5 +164,34 @@
         "#73a2ae"
       ]
     }
-  }
+  },
+  "surfacePalettes": {
+    "taoyuan": {
+      "grass": "#6b8b4e",
+      "soil": "#ac8069"
+    },
+    "dome": {
+      "grass": "#67785e",
+      "soil": "#bb8c80"
+    },
+    "asia": {
+      "grass": "#73884f",
+      "soil": "#aa7168"
+    },
+    "intercontinental": {
+      "grass": "#6c8d50",
+      "soil": "#a86c60"
+    },
+    "tianmu": {
+      "grass": "#689579",
+      "soil": "#a28d77",
+      "basepath": "#935b53"
+    },
+    "xinzhuang": {
+      "grass": "#6a8d51",
+      "soil": "#b88573",
+      "stripe": 0.04
+    }
+  },
+  "surfaceNote": "世界座標連續原創紋理，割草條帶、含水深淺與踩踏痕為程序生成；色票非影片色彩標定結果。"
 }

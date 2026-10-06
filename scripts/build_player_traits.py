@@ -34,7 +34,7 @@ def build(directory):
                 except (ValueError,AttributeError): pass
             traits.append({'id':p['id'],'name':p['name'].lstrip('*#◎ '),'hand':basic.get('pitchingHabbit') or '?',
                 'batHand':basic.get('strikeHabbit') or '?','birthDate':basic.get('birthDate',''),
-                'height':basic.get('height') or p['height'],'number':basic.get('uniformNo') or p['number'],'pitchSpeeds':speeds})
+                'weight':basic.get('weight'),'height':basic.get('height') or p['height'],'number':basic.get('uniformNo') or p['number'],'pitchSpeeds':speeds})
     (ROOT/'data/player-traits.json').write_text(json.dumps(traits,ensure_ascii=False,indent=2)+'\n')
     (ROOT/'player-traits.js').write_text('window.CPBL_PLAYER_TRAITS='+json.dumps(traits,ensure_ascii=False,separators=(',',':'))+';\n')
     Path('/private/tmp/cpbl-missing-details.json').write_text(json.dumps(missing))

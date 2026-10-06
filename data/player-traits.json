@@ -10,7 +10,8 @@
     "pitchSpeeds": {
       "breakingball": 123.8,
       "fastball": 134.6
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000001232",
@@ -23,7 +24,8 @@
     "pitchSpeeds": {
       "breakingball": 132.9,
       "fastball": 144.8
-    }
+    },
+    "weight": 95
   },
   {
     "id": "0000003331",
@@ -36,7 +38,8 @@
     "pitchSpeeds": {
       "fastball": 144.0,
       "breakingball": 129.8
-    }
+    },
+    "weight": 87
   },
   {
     "id": "0000005604",
@@ -49,7 +52,8 @@
     "pitchSpeeds": {
       "breakingball": 129.4,
       "fastball": 145.8
-    }
+    },
+    "weight": 95
   },
   {
     "id": "0000005151",
@@ -62,7 +66,8 @@
     "pitchSpeeds": {
       "breakingball": 133.3,
       "fastball": 147.9
-    }
+    },
+    "weight": 110
   },
   {
     "id": "0000002345",
@@ -75,7 +80,8 @@
     "pitchSpeeds": {
       "breakingball": 128.9,
       "fastball": 146.0
-    }
+    },
+    "weight": 105
   },
   {
     "id": "0000006176",
@@ -88,7 +94,8 @@
     "pitchSpeeds": {
       "breakingball": 140.8,
       "fastball": 145.7
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000000778",
@@ -101,7 +108,8 @@
     "pitchSpeeds": {
       "breakingball": 128.5,
       "fastball": 140.2
-    }
+    },
+    "weight": 88
   },
   {
     "id": "0000006923",
@@ -114,7 +122,8 @@
     "pitchSpeeds": {
       "breakingball": 134.7,
       "fastball": 148.4
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000003639",
@@ -127,7 +136,8 @@
     "pitchSpeeds": {
       "breakingball": 128.1,
       "fastball": 141.7
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000000771",
@@ -140,7 +150,8 @@
     "pitchSpeeds": {
       "breakingball": 130.8,
       "fastball": 146.9
-    }
+    },
+    "weight": 108
   },
   {
     "id": "0000007276",
@@ -153,7 +164,8 @@
     "pitchSpeeds": {
       "breakingball": 128.7,
       "fastball": 142.8
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000006224",
@@ -163,7 +175,8 @@
     "birthDate": "2002-02-04T00:00:00",
     "height": 179,
     "number": "0",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000005569",
@@ -173,7 +186,8 @@
     "birthDate": "2000-01-08T00:00:00",
     "height": 178,
     "number": "1",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 105
   },
   {
     "id": "0000007085",
@@ -183,7 +197,8 @@
     "birthDate": "2005-03-16T00:00:00",
     "height": 180,
     "number": "4",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000000929",
@@ -193,7 +208,8 @@
     "birthDate": "1991-07-03T00:00:00",
     "height": 185,
     "number": "9",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000007278",
@@ -203,7 +219,8 @@
     "birthDate": "2005-10-30T00:00:00",
     "height": 182,
     "number": "13",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000006730",
@@ -213,7 +230,8 @@
     "birthDate": "2003-05-01T00:00:00",
     "height": 171,
     "number": "28",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 77
   },
   {
     "id": "0000003609",
@@ -223,7 +241,8 @@
     "birthDate": "1988-11-01T00:00:00",
     "height": 183,
     "number": "29",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 105
   },
   {
     "id": "0000002297",
@@ -233,7 +252,8 @@
     "birthDate": "1994-02-24T00:00:00",
     "height": 183,
     "number": "39",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000002285",
@@ -243,7 +263,8 @@
     "birthDate": "1997-07-17T00:00:00",
     "height": 184,
     "number": "65",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 94
   },
   {
     "id": "0000005298",
@@ -253,7 +274,8 @@
     "birthDate": "1999-02-19T00:00:00",
     "height": 183,
     "number": "66",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 96
   },
   {
     "id": "0000005567",
@@ -263,7 +285,8 @@
     "birthDate": "2001-04-06T00:00:00",
     "height": 181,
     "number": "75",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000006225",
@@ -273,7 +296,8 @@
     "birthDate": "2002-08-14T00:00:00",
     "height": 182,
     "number": "88",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 82
   },
   {
     "id": "0000004636",
@@ -283,7 +307,8 @@
     "birthDate": "2000-07-04T00:00:00",
     "height": 175,
     "number": "90",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000005571",
@@ -293,7 +318,8 @@
     "birthDate": "2001-01-29T00:00:00",
     "height": 182,
     "number": "92",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000007088",
@@ -303,7 +329,8 @@
     "birthDate": "2001-03-11T00:00:00",
     "height": 178,
     "number": "97",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 93
   },
   {
     "id": "0000002291",
@@ -313,7 +340,8 @@
     "birthDate": "1995-10-19T00:00:00",
     "height": 179,
     "number": "98",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007285",
@@ -326,7 +354,8 @@
     "pitchSpeeds": {
       "breakingball": 124.1,
       "fastball": 139.0
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007049",
@@ -339,7 +368,8 @@
     "pitchSpeeds": {
       "breakingball": 129.7,
       "fastball": 145.1
-    }
+    },
+    "weight": 93
   },
   {
     "id": "0000005572",
@@ -352,7 +382,8 @@
     "pitchSpeeds": {
       "breakingball": 128.8,
       "fastball": 138.6
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000000776",
@@ -365,7 +396,8 @@
     "pitchSpeeds": {
       "breakingball": 137.6,
       "fastball": 133.9
-    }
+    },
+    "weight": 105
   },
   {
     "id": "0000007003",
@@ -375,7 +407,8 @@
     "birthDate": "2004-03-21T00:00:00",
     "height": 194,
     "number": "18",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 108
   },
   {
     "id": "0000007625",
@@ -388,7 +421,8 @@
     "pitchSpeeds": {
       "fastball": 140.9,
       "breakingball": 127.7
-    }
+    },
+    "weight": 86
   },
   {
     "id": "0000007281",
@@ -401,7 +435,8 @@
     "pitchSpeeds": {
       "breakingball": 122.8,
       "fastball": 137.4
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000007560",
@@ -414,7 +449,8 @@
     "pitchSpeeds": {
       "fastball": 144.4,
       "breakingball": 132.4
-    }
+    },
+    "weight": 105
   },
   {
     "id": "0000007279",
@@ -427,7 +463,8 @@
     "pitchSpeeds": {
       "breakingball": 132.6,
       "fastball": 138.5
-    }
+    },
+    "weight": 82
   },
   {
     "id": "0000007626",
@@ -440,7 +477,8 @@
     "pitchSpeeds": {
       "fastball": 143.7,
       "breakingball": 134.3
-    }
+    },
+    "weight": 73
   },
   {
     "id": "0000007623",
@@ -453,7 +491,8 @@
     "pitchSpeeds": {
       "fastball": 137.1,
       "breakingball": 122.7
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000006815",
@@ -466,7 +505,8 @@
     "pitchSpeeds": {
       "breakingball": 124.9,
       "fastball": 143.6
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000006006",
@@ -479,7 +519,8 @@
     "pitchSpeeds": {
       "fastball": 142.9,
       "breakingball": 129.8
-    }
+    },
+    "weight": 105
   },
   {
     "id": "0000004626",
@@ -492,7 +533,8 @@
     "pitchSpeeds": {
       "fastball": 143.9,
       "breakingball": 133.2
-    }
+    },
+    "weight": 93
   },
   {
     "id": "0000006875",
@@ -505,7 +547,8 @@
     "pitchSpeeds": {
       "breakingball": 123.7,
       "fastball": 137.1
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000006869",
@@ -518,7 +561,8 @@
     "pitchSpeeds": {
       "breakingball": 129.4,
       "fastball": 137.2
-    }
+    },
+    "weight": 94
   },
   {
     "id": "0000002271",
@@ -531,7 +575,8 @@
     "pitchSpeeds": {
       "breakingball": 130.7,
       "fastball": 142.5
-    }
+    },
+    "weight": 110
   },
   {
     "id": "0000007620",
@@ -544,7 +589,8 @@
     "pitchSpeeds": {
       "breakingball": 128.5,
       "fastball": 142.5
-    }
+    },
+    "weight": 105
   },
   {
     "id": "0000006867",
@@ -557,7 +603,8 @@
     "pitchSpeeds": {
       "breakingball": 128.0,
       "fastball": 141.0
-    }
+    },
+    "weight": 101
   },
   {
     "id": "0000007827",
@@ -570,7 +617,8 @@
     "pitchSpeeds": {
       "breakingball": 125.7,
       "fastball": 141.3
-    }
+    },
+    "weight": 100
   },
   {
     "id": "0000006874",
@@ -583,7 +631,8 @@
     "pitchSpeeds": {
       "breakingball": 130.6,
       "fastball": 146.1
-    }
+    },
+    "weight": 72
   },
   {
     "id": "0000007280",
@@ -593,7 +642,8 @@
     "birthDate": "2002-10-07T00:00:00",
     "height": 179,
     "number": "73",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000003506",
@@ -606,7 +656,8 @@
     "pitchSpeeds": {
       "breakingball": 128.6,
       "fastball": 142.5
-    }
+    },
+    "weight": 101
   },
   {
     "id": "0000007283",
@@ -619,7 +670,8 @@
     "pitchSpeeds": {
       "fastball": 141.8,
       "breakingball": 128.6
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007622",
@@ -632,7 +684,8 @@
     "pitchSpeeds": {
       "breakingball": 127.0,
       "fastball": 138.4
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000006876",
@@ -645,7 +698,8 @@
     "pitchSpeeds": {
       "breakingball": 126.1,
       "fastball": 142.7
-    }
+    },
+    "weight": 89
   },
   {
     "id": "0000004625",
@@ -658,7 +712,8 @@
     "pitchSpeeds": {
       "breakingball": 128.2,
       "fastball": 142.7
-    }
+    },
+    "weight": 78
   },
   {
     "id": "0000007286",
@@ -671,7 +726,8 @@
     "pitchSpeeds": {
       "breakingball": 127.1,
       "fastball": 140.1
-    }
+    },
+    "weight": 98
   },
   {
     "id": "0000007880",
@@ -681,7 +737,8 @@
     "birthDate": "2006-06-06T00:00:00",
     "height": 179,
     "number": "106",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000007877",
@@ -691,7 +748,8 @@
     "birthDate": "2008-01-02T00:00:00",
     "height": 179,
     "number": "110",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 81
   },
   {
     "id": "0000007875",
@@ -701,7 +759,8 @@
     "birthDate": "2008-04-23T00:00:00",
     "height": 180,
     "number": "111",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 82
   },
   {
     "id": "0000007879",
@@ -711,7 +770,8 @@
     "birthDate": "2008-01-07T00:00:00",
     "height": 175,
     "number": "112",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000007584",
@@ -724,7 +784,8 @@
     "pitchSpeeds": {
       "fastball": 140.5,
       "breakingball": 124.0
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000007585",
@@ -737,7 +798,8 @@
     "pitchSpeeds": {
       "fastball": 140.8,
       "breakingball": 127.3
-    }
+    },
+    "weight": 89
   },
   {
     "id": "0000007029",
@@ -750,7 +812,8 @@
     "pitchSpeeds": {
       "breakingball": 128.8,
       "fastball": 140.2
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000005656",
@@ -760,7 +823,8 @@
     "birthDate": "1997-05-06T00:00:00",
     "height": 175,
     "number": "2",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007086",
@@ -770,7 +834,8 @@
     "birthDate": "2003-01-12T00:00:00",
     "height": 180,
     "number": "6",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000003183",
@@ -780,7 +845,8 @@
     "birthDate": "1987-05-15T00:00:00",
     "height": 181,
     "number": "7",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 92
   },
   {
     "id": "0000007277",
@@ -790,7 +856,8 @@
     "birthDate": "2002-03-22T00:00:00",
     "height": 181,
     "number": "17",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 96
   },
   {
     "id": "0000007621",
@@ -800,7 +867,8 @@
     "birthDate": "2007-02-10T00:00:00",
     "height": 179,
     "number": "38",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007624",
@@ -810,7 +878,8 @@
     "birthDate": "2007-03-30T00:00:00",
     "height": 173,
     "number": "44",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 98
   },
   {
     "id": "0000005342",
@@ -820,7 +889,8 @@
     "birthDate": "1999-02-13T00:00:00",
     "height": 178,
     "number": "47",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000006732",
@@ -830,7 +900,8 @@
     "birthDate": "2001-09-19T00:00:00",
     "height": 178,
     "number": "48",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000007087",
@@ -840,7 +911,8 @@
     "birthDate": "2005-08-01T00:00:00",
     "height": 161,
     "number": "52",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000006734",
@@ -850,7 +922,8 @@
     "birthDate": "2003-07-21T00:00:00",
     "height": 176,
     "number": "60",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 81
   },
   {
     "id": "0000002307",
@@ -860,7 +933,8 @@
     "birthDate": "1996-10-30T00:00:00",
     "height": 175,
     "number": "61",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000007284",
@@ -870,7 +944,8 @@
     "birthDate": "2005-11-19T00:00:00",
     "height": 184,
     "number": "69",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 110
   },
   {
     "id": "0000007282",
@@ -880,7 +955,8 @@
     "birthDate": "2004-12-20T00:00:00",
     "height": 173,
     "number": "72",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000001119",
@@ -890,7 +966,8 @@
     "birthDate": "1992-07-22T00:00:00",
     "height": 189,
     "number": "74",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 112
   },
   {
     "id": "0000006221",
@@ -900,7 +977,8 @@
     "birthDate": "2002-01-19T00:00:00",
     "height": 177,
     "number": "85",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007792",
@@ -910,7 +988,8 @@
     "birthDate": "2001-10-26T00:00:00",
     "height": 178,
     "number": "89",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 93
   },
   {
     "id": "0000007627",
@@ -920,7 +999,8 @@
     "birthDate": "2007-06-27T00:00:00",
     "height": 168,
     "number": "102",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 82
   },
   {
     "id": "0000007835",
@@ -930,7 +1010,8 @@
     "birthDate": "2008-05-27T00:00:00",
     "height": 172,
     "number": "104",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000007876",
@@ -940,7 +1021,8 @@
     "birthDate": "2007-09-14T00:00:00",
     "height": 186,
     "number": "105",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 93
   },
   {
     "id": "0000007878",
@@ -950,7 +1032,8 @@
     "birthDate": "2004-09-04T00:00:00",
     "height": 170,
     "number": "107",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007873",
@@ -960,7 +1043,8 @@
     "birthDate": "2007-10-25T00:00:00",
     "height": 186,
     "number": "108",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 82
   },
   {
     "id": "0000007874",
@@ -970,7 +1054,8 @@
     "birthDate": "2005-02-21T00:00:00",
     "height": 178,
     "number": "109",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000007586",
@@ -980,7 +1065,8 @@
     "birthDate": "2006-11-21T00:00:00",
     "height": 173,
     "number": "115",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007027",
@@ -990,7 +1076,8 @@
     "birthDate": "2001-12-07T00:00:00",
     "height": 183,
     "number": "120",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007319",
@@ -1000,7 +1087,8 @@
     "birthDate": "2003-10-19T00:00:00",
     "height": 173,
     "number": "121",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000006963",
@@ -1010,7 +1098,8 @@
     "birthDate": "2001-02-10T00:00:00",
     "height": 183,
     "number": "122",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000006818",
@@ -1023,7 +1112,8 @@
     "pitchSpeeds": {
       "fastball": 142.4,
       "breakingball": 122.0
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000007293",
@@ -1036,7 +1126,8 @@
     "pitchSpeeds": {
       "fastball": 150.1,
       "breakingball": 136.3
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000007044",
@@ -1049,7 +1140,8 @@
     "pitchSpeeds": {
       "fastball": 140.6,
       "breakingball": 121.8
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000002303",
@@ -1062,7 +1154,8 @@
     "pitchSpeeds": {
       "breakingball": 130.5,
       "fastball": 144.1
-    }
+    },
+    "weight": 93
   },
   {
     "id": "0000007294",
@@ -1075,7 +1168,8 @@
     "pitchSpeeds": {
       "fastball": 142.7,
       "breakingball": 127.4
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000001719",
@@ -1088,7 +1182,8 @@
     "pitchSpeeds": {
       "fastball": 145.2,
       "breakingball": 136.9
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000006740",
@@ -1098,7 +1193,8 @@
     "birthDate": "2002-09-22T00:00:00",
     "height": 175,
     "number": "59",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007292",
@@ -1111,7 +1207,8 @@
     "pitchSpeeds": {
       "fastball": 147.4,
       "breakingball": 128.5
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000005282",
@@ -1124,7 +1221,8 @@
     "pitchSpeeds": {
       "fastball": 140.9,
       "breakingball": 128.2
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007778",
@@ -1137,7 +1235,8 @@
     "pitchSpeeds": {
       "fastball": 149.7,
       "breakingball": 137.8
-    }
+    },
+    "weight": 97
   },
   {
     "id": "0000007781",
@@ -1147,7 +1246,8 @@
     "birthDate": "2005-11-28T00:00:00",
     "height": 177,
     "number": "93",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000006223",
@@ -1157,7 +1257,8 @@
     "birthDate": "2002-03-29T00:00:00",
     "height": 185,
     "number": "2",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000006716",
@@ -1167,7 +1268,8 @@
     "birthDate": "2003-01-22T00:00:00",
     "height": 180,
     "number": "4",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000004641",
@@ -1177,7 +1279,8 @@
     "birthDate": "2000-08-08T00:00:00",
     "height": 176,
     "number": "6",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000005522",
@@ -1187,7 +1290,8 @@
     "birthDate": "2001-01-15T00:00:00",
     "height": 175,
     "number": "8",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007009",
@@ -1197,7 +1301,8 @@
     "birthDate": "1999-06-09T00:00:00",
     "height": 185,
     "number": "9",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000005531",
@@ -1207,7 +1312,8 @@
     "birthDate": "2000-11-26T00:00:00",
     "height": 168,
     "number": "14",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007070",
@@ -1217,7 +1323,8 @@
     "birthDate": "2005-01-11T00:00:00",
     "height": 182,
     "number": "20",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 74
   },
   {
     "id": "0000001804",
@@ -1227,7 +1334,8 @@
     "birthDate": "1994-01-07T00:00:00",
     "height": 173,
     "number": "24",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000006851",
@@ -1237,7 +1345,8 @@
     "birthDate": "2004-01-26T00:00:00",
     "height": 188,
     "number": "25",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 93
   },
   {
     "id": "0000002707",
@@ -1247,7 +1356,8 @@
     "birthDate": "1994-02-03T00:00:00",
     "height": 184,
     "number": "35",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000003645",
@@ -1257,7 +1367,8 @@
     "birthDate": "1997-11-14T00:00:00",
     "height": 175,
     "number": "36",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 77
   },
   {
     "id": "0000007037",
@@ -1267,7 +1378,8 @@
     "birthDate": "2005-06-03T00:00:00",
     "height": 176,
     "number": "38",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 66
   },
   {
     "id": "0000001339",
@@ -1277,7 +1389,8 @@
     "birthDate": "1991-05-13T00:00:00",
     "height": 176,
     "number": "39",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000002298",
@@ -1287,7 +1400,8 @@
     "birthDate": "1995-09-14T00:00:00",
     "height": 183,
     "number": "65",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000002289",
@@ -1297,7 +1411,8 @@
     "birthDate": "1995-09-14T00:00:00",
     "height": 181,
     "number": "66",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 81
   },
   {
     "id": "0000007071",
@@ -1307,7 +1422,8 @@
     "birthDate": "2005-08-11T00:00:00",
     "height": 176,
     "number": "67",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007268",
@@ -1317,7 +1433,8 @@
     "birthDate": "2000-10-27T00:00:00",
     "height": 176,
     "number": "73",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000007600",
@@ -1330,7 +1447,8 @@
     "pitchSpeeds": {
       "fastball": 135.4,
       "breakingball": 121.4
-    }
+    },
+    "weight": 74
   },
   {
     "id": "0000002688",
@@ -1343,7 +1461,8 @@
     "pitchSpeeds": {
       "fastball": 149.9,
       "breakingball": 139.7
-    }
+    },
+    "weight": 97
   },
   {
     "id": "0000007290",
@@ -1356,7 +1475,8 @@
     "pitchSpeeds": {
       "fastball": 140.7,
       "breakingball": 129.1
-    }
+    },
+    "weight": 68
   },
   {
     "id": "0000002695",
@@ -1369,7 +1489,8 @@
     "pitchSpeeds": {
       "fastball": 140.4,
       "breakingball": 113.8
-    }
+    },
+    "weight": 78
   },
   {
     "id": "0000006210",
@@ -1382,7 +1503,8 @@
     "pitchSpeeds": {
       "fastball": 145.0,
       "breakingball": 129.1
-    }
+    },
+    "weight": 76
   },
   {
     "id": "0000007604",
@@ -1395,7 +1517,8 @@
     "pitchSpeeds": {
       "fastball": 144.6,
       "breakingball": 134.6
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000004637",
@@ -1408,7 +1531,8 @@
     "pitchSpeeds": {
       "fastball": 140.4,
       "breakingball": 129.7
-    }
+    },
+    "weight": 88
   },
   {
     "id": "0000006222",
@@ -1421,7 +1545,8 @@
     "pitchSpeeds": {
       "fastball": 142.3,
       "breakingball": 127.0
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000006127",
@@ -1434,7 +1559,8 @@
     "pitchSpeeds": {
       "fastball": 143.9,
       "breakingball": 131.2
-    }
+    },
+    "weight": 73
   },
   {
     "id": "0000000998",
@@ -1447,7 +1573,8 @@
     "pitchSpeeds": {
       "breakingball": 133.2,
       "fastball": 143.9
-    }
+    },
+    "weight": 70
   },
   {
     "id": "0000003393",
@@ -1460,7 +1587,8 @@
     "pitchSpeeds": {
       "breakingball": 127.2,
       "fastball": 135.1
-    }
+    },
+    "weight": 93
   },
   {
     "id": "0000007597",
@@ -1470,7 +1598,8 @@
     "birthDate": "1994-05-11T00:00:00",
     "height": 188,
     "number": "42",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 100
   },
   {
     "id": "0000007599",
@@ -1483,7 +1612,8 @@
     "pitchSpeeds": {
       "fastball": 139.8,
       "breakingball": 116.9
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000007063",
@@ -1496,7 +1626,8 @@
     "pitchSpeeds": {
       "fastball": 136.4,
       "breakingball": 131.8
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000006850",
@@ -1509,7 +1640,8 @@
     "pitchSpeeds": {
       "fastball": 144.6,
       "breakingball": 130.6
-    }
+    },
+    "weight": 74
   },
   {
     "id": "0000005731",
@@ -1519,7 +1651,8 @@
     "birthDate": "1994-07-02T00:00:00",
     "height": 206,
     "number": "50",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 120
   },
   {
     "id": "0000005482",
@@ -1532,7 +1665,8 @@
     "pitchSpeeds": {
       "fastball": 136.2,
       "breakingball": 125.5
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000002276",
@@ -1545,7 +1679,8 @@
     "pitchSpeeds": {
       "fastball": 143.2,
       "breakingball": 133.3
-    }
+    },
+    "weight": 95
   },
   {
     "id": "0000005315",
@@ -1558,7 +1693,8 @@
     "pitchSpeeds": {
       "fastball": 143.7,
       "breakingball": 129.5
-    }
+    },
+    "weight": 86
   },
   {
     "id": "0000007061",
@@ -1571,7 +1707,8 @@
     "pitchSpeeds": {
       "fastball": 140.8,
       "breakingball": 127.6
-    }
+    },
+    "weight": 100
   },
   {
     "id": "0000006848",
@@ -1584,7 +1721,8 @@
     "pitchSpeeds": {
       "fastball": 141.6,
       "breakingball": 125.5
-    }
+    },
+    "weight": 69
   },
   {
     "id": "0000001260",
@@ -1597,7 +1735,8 @@
     "pitchSpeeds": {
       "breakingball": 127.0,
       "fastball": 139.5
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000001412",
@@ -1610,7 +1749,8 @@
     "pitchSpeeds": {
       "fastball": 147.2,
       "breakingball": 135.7
-    }
+    },
+    "weight": 94
   },
   {
     "id": "0000007606",
@@ -1623,7 +1763,8 @@
     "pitchSpeeds": {
       "fastball": 145.1,
       "breakingball": 133.6
-    }
+    },
+    "weight": 88
   },
   {
     "id": "0000006849",
@@ -1633,7 +1774,8 @@
     "birthDate": "2004-04-30T00:00:00",
     "height": 176,
     "number": "84",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000006711",
@@ -1646,7 +1788,8 @@
     "pitchSpeeds": {
       "fastball": 138.8,
       "breakingball": 127.6
-    }
+    },
+    "weight": 76
   },
   {
     "id": "0000006295",
@@ -1656,7 +1799,8 @@
     "birthDate": "1996-11-02T00:00:00",
     "height": 190,
     "number": "88",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 100
   },
   {
     "id": "0000006712",
@@ -1669,7 +1813,8 @@
     "pitchSpeeds": {
       "fastball": 138.5,
       "breakingball": 120.4
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000003620",
@@ -1682,7 +1827,8 @@
     "pitchSpeeds": {
       "breakingball": 125.1,
       "fastball": 134.4
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007861",
@@ -1692,7 +1838,8 @@
     "birthDate": "2007-09-10T00:00:00",
     "height": 174,
     "number": "152",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007868",
@@ -1702,7 +1849,8 @@
     "birthDate": "2007-11-10T00:00:00",
     "height": 187,
     "number": "153",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007862",
@@ -1712,7 +1860,8 @@
     "birthDate": "2008-07-29T00:00:00",
     "height": 173,
     "number": "154",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 64
   },
   {
     "id": "0000007866",
@@ -1722,7 +1871,8 @@
     "birthDate": "2008-07-23T00:00:00",
     "height": 179,
     "number": "157",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000007036",
@@ -1732,7 +1882,8 @@
     "birthDate": "2004-02-28T00:00:00",
     "height": 173,
     "number": "0",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007601",
@@ -1742,7 +1893,8 @@
     "birthDate": "2007-07-07T00:00:00",
     "height": 173,
     "number": "5",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 71
   },
   {
     "id": "0000006213",
@@ -1752,7 +1904,8 @@
     "birthDate": "2001-10-12T00:00:00",
     "height": 185,
     "number": "7",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000005306",
@@ -1762,7 +1915,8 @@
     "birthDate": "1998-01-16T00:00:00",
     "height": 176,
     "number": "10",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000002661",
@@ -1772,7 +1926,8 @@
     "birthDate": "1983-07-13T00:00:00",
     "height": 179,
     "number": "13",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 89
   },
   {
     "id": "0000007605",
@@ -1782,7 +1937,8 @@
     "birthDate": "2007-07-04T00:00:00",
     "height": 178,
     "number": "15",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000007291",
@@ -1792,7 +1948,8 @@
     "birthDate": "2006-01-12T00:00:00",
     "height": 171,
     "number": "27",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000006955",
@@ -1802,7 +1959,8 @@
     "birthDate": "2004-02-12T00:00:00",
     "height": 178,
     "number": "31",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000001474",
@@ -1812,7 +1970,8 @@
     "birthDate": "1994-07-28T00:00:00",
     "height": 180,
     "number": "32",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007602",
@@ -1822,7 +1981,8 @@
     "birthDate": "2007-02-18T00:00:00",
     "height": 179,
     "number": "44",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 69
   },
   {
     "id": "0000005565",
@@ -1832,7 +1992,8 @@
     "birthDate": "2001-05-11T00:00:00",
     "height": 175,
     "number": "46",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000006847",
@@ -1842,7 +2003,8 @@
     "birthDate": "2003-09-10T00:00:00",
     "height": 175,
     "number": "49",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000004627",
@@ -1852,7 +2014,8 @@
     "birthDate": "1997-12-07T00:00:00",
     "height": 168,
     "number": "52",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 65
   },
   {
     "id": "0000006843",
@@ -1862,7 +2025,8 @@
     "birthDate": "2004-04-27T00:00:00",
     "height": 181,
     "number": "54",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 105
   },
   {
     "id": "0000004642",
@@ -1872,7 +2036,8 @@
     "birthDate": "2000-07-22T00:00:00",
     "height": 170,
     "number": "64",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007860",
@@ -1882,7 +2047,8 @@
     "birthDate": "2007-11-02T00:00:00",
     "height": 170,
     "number": "151",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007864",
@@ -1892,7 +2058,8 @@
     "birthDate": "2007-10-13T00:00:00",
     "height": 170,
     "number": "155",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007863",
@@ -1902,7 +2069,8 @@
     "birthDate": "2008-08-01T00:00:00",
     "height": 175,
     "number": "156",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000005558",
@@ -1915,7 +2083,8 @@
     "pitchSpeeds": {
       "breakingball": 131.0,
       "fastball": 144.7
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000006857",
@@ -1928,7 +2097,8 @@
     "pitchSpeeds": {
       "fastball": 147.6,
       "breakingball": 131.4
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000000941",
@@ -1941,7 +2111,8 @@
     "pitchSpeeds": {
       "breakingball": 127.7,
       "fastball": 146.0
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000004624",
@@ -1954,7 +2125,8 @@
     "pitchSpeeds": {
       "fastball": 146.8,
       "breakingball": 133.2
-    }
+    },
+    "weight": 74
   },
   {
     "id": "0000006906",
@@ -1967,7 +2139,8 @@
     "pitchSpeeds": {
       "breakingball": 132.9,
       "fastball": 145.2
-    }
+    },
+    "weight": 104
   },
   {
     "id": "0000007074",
@@ -1980,7 +2153,8 @@
     "pitchSpeeds": {
       "fastball": 144.4,
       "breakingball": 128.7
-    }
+    },
+    "weight": 70
   },
   {
     "id": "0000006720",
@@ -1993,7 +2167,8 @@
     "pitchSpeeds": {
       "breakingball": 128.6,
       "fastball": 143.7
-    }
+    },
+    "weight": 86
   },
   {
     "id": "0000005372",
@@ -2006,7 +2181,8 @@
     "pitchSpeeds": {
       "fastball": 146.6,
       "breakingball": 131.7
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000007062",
@@ -2019,7 +2195,8 @@
     "pitchSpeeds": {
       "breakingball": 134.4,
       "fastball": 149.0
-    }
+    },
+    "weight": 79
   },
   {
     "id": "0000004629",
@@ -2032,7 +2209,8 @@
     "pitchSpeeds": {
       "fastball": 142.5,
       "breakingball": 135.1
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007073",
@@ -2045,7 +2223,8 @@
     "pitchSpeeds": {
       "fastball": 149.1,
       "breakingball": 133.1
-    }
+    },
+    "weight": 65
   },
   {
     "id": "0000006228",
@@ -2058,7 +2237,8 @@
     "pitchSpeeds": {
       "fastball": 133.4,
       "breakingball": 119.9
-    }
+    },
+    "weight": 72
   },
   {
     "id": "0000007316",
@@ -2071,7 +2251,8 @@
     "pitchSpeeds": {
       "fastball": 145.8,
       "breakingball": 129.4
-    }
+    },
+    "weight": 78
   },
   {
     "id": "0000006854",
@@ -2081,7 +2262,8 @@
     "birthDate": "2004-07-22T00:00:00",
     "height": 183,
     "number": "2",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000000132",
@@ -2091,7 +2273,8 @@
     "birthDate": "1995-03-25T00:00:00",
     "height": 180,
     "number": "5",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000000153",
@@ -2101,7 +2284,8 @@
     "birthDate": "1997-04-08T00:00:00",
     "height": 180,
     "number": "6",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000003467",
@@ -2111,7 +2295,8 @@
     "birthDate": "1986-03-21T00:00:00",
     "height": 181,
     "number": "11",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 103
   },
   {
     "id": "0000001618",
@@ -2121,7 +2306,8 @@
     "birthDate": "1994-02-15T00:00:00",
     "height": 175,
     "number": "15",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000000159",
@@ -2131,7 +2317,8 @@
     "birthDate": "1998-11-13T00:00:00",
     "height": 184,
     "number": "35",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000003563",
@@ -2141,7 +2328,8 @@
     "birthDate": "1988-06-12T00:00:00",
     "height": 180,
     "number": "36",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000002286",
@@ -2151,7 +2339,8 @@
     "birthDate": "1996-01-01T00:00:00",
     "height": 182,
     "number": "39",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000000158",
@@ -2161,7 +2350,8 @@
     "birthDate": "1998-09-28T00:00:00",
     "height": 178,
     "number": "58",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000004032",
@@ -2171,7 +2361,8 @@
     "birthDate": "1997-04-30T00:00:00",
     "height": 165,
     "number": "62",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007822",
@@ -2181,7 +2372,8 @@
     "birthDate": "1991-10-18T00:00:00",
     "height": 196,
     "number": "74",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 110
   },
   {
     "id": "0000003345",
@@ -2191,7 +2383,8 @@
     "birthDate": "1985-03-23T00:00:00",
     "height": 178,
     "number": "79",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 77
   },
   {
     "id": "0000006240",
@@ -2201,7 +2394,8 @@
     "birthDate": "2002-05-15T00:00:00",
     "height": 180,
     "number": "94",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007076",
@@ -2211,7 +2405,8 @@
     "birthDate": "2005-01-20T00:00:00",
     "height": 187,
     "number": "95",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 96
   },
   {
     "id": "0000004633",
@@ -2221,7 +2416,8 @@
     "birthDate": "1997-12-12T00:00:00",
     "height": 180,
     "number": "98",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 72
   },
   {
     "id": "0000007619",
@@ -2234,7 +2430,8 @@
     "pitchSpeeds": {
       "fastball": 145.7,
       "breakingball": 133.2
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000000779",
@@ -2247,7 +2444,8 @@
     "pitchSpeeds": {
       "fastball": 143.2,
       "breakingball": 134.9
-    }
+    },
+    "weight": 88
   },
   {
     "id": "0000006860",
@@ -2260,7 +2458,8 @@
     "pitchSpeeds": {
       "fastball": 143.0,
       "breakingball": 129.6
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000007789",
@@ -2273,7 +2472,8 @@
     "pitchSpeeds": {
       "breakingball": 132.2,
       "fastball": 144.2
-    }
+    },
+    "weight": 95
   },
   {
     "id": "0000007831",
@@ -2286,7 +2486,8 @@
     "pitchSpeeds": {
       "breakingball": 124.8,
       "fastball": 136.3
-    }
+    },
+    "weight": 67
   },
   {
     "id": "0000000128",
@@ -2299,7 +2500,8 @@
     "pitchSpeeds": {
       "breakingball": 130.9,
       "fastball": 146.9
-    }
+    },
+    "weight": 70
   },
   {
     "id": "0000007616",
@@ -2312,7 +2514,8 @@
     "pitchSpeeds": {
       "fastball": 139.1,
       "breakingball": 126.3
-    }
+    },
+    "weight": 68
   },
   {
     "id": "0000007615",
@@ -2325,7 +2528,8 @@
     "pitchSpeeds": {
       "fastball": 140.2,
       "breakingball": 123.0
-    }
+    },
+    "weight": 73
   },
   {
     "id": "0000007314",
@@ -2338,7 +2542,8 @@
     "pitchSpeeds": {
       "fastball": 146.3,
       "breakingball": 133.3
-    }
+    },
+    "weight": 72
   },
   {
     "id": "0000007617",
@@ -2351,7 +2556,8 @@
     "pitchSpeeds": {
       "fastball": 125.0,
       "breakingball": 108.4
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000006237",
@@ -2361,7 +2567,8 @@
     "birthDate": "2002-03-22T00:00:00",
     "height": 178,
     "number": "54",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007793",
@@ -2374,7 +2581,8 @@
     "pitchSpeeds": {
       "breakingball": 122.4,
       "fastball": 138.8
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000002858",
@@ -2387,7 +2595,8 @@
     "pitchSpeeds": {
       "fastball": 147.0,
       "breakingball": 133.5
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000006855",
@@ -2400,7 +2609,8 @@
     "pitchSpeeds": {
       "fastball": 142.3,
       "breakingball": 126.1
-    }
+    },
+    "weight": 93
   },
   {
     "id": "0000007790",
@@ -2410,7 +2620,8 @@
     "birthDate": "1997-03-03T00:00:00",
     "height": 190,
     "number": "70",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007077",
@@ -2423,7 +2634,8 @@
     "pitchSpeeds": {
       "breakingball": 130.2,
       "fastball": 141.8
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000005509",
@@ -2433,7 +2645,8 @@
     "birthDate": "2000-10-19T00:00:00",
     "height": 181,
     "number": "77",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 91
   },
   {
     "id": "0000007072",
@@ -2446,7 +2659,8 @@
     "pitchSpeeds": {
       "fastball": 137.2,
       "breakingball": 126.4
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000007047",
@@ -2459,7 +2673,8 @@
     "pitchSpeeds": {
       "fastball": 144.1,
       "breakingball": 132.6
-    }
+    },
+    "weight": 78
   },
   {
     "id": "0000007772",
@@ -2472,7 +2687,8 @@
     "pitchSpeeds": {
       "fastball": 141.3,
       "breakingball": 120.0
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000006954",
@@ -2485,7 +2701,8 @@
     "pitchSpeeds": {
       "breakingball": 127.9,
       "fastball": 139.2
-    }
+    },
+    "weight": 98
   },
   {
     "id": "0000007803",
@@ -2498,7 +2715,8 @@
     "pitchSpeeds": {
       "fastball": 136.7,
       "breakingball": 112.6
-    }
+    },
+    "weight": 70
   },
   {
     "id": "0000007828",
@@ -2511,7 +2729,8 @@
     "pitchSpeeds": {
       "fastball": 144.6,
       "breakingball": 128.4
-    }
+    },
+    "weight": 78
   },
   {
     "id": "0000007830",
@@ -2524,7 +2743,8 @@
     "pitchSpeeds": {
       "fastball": 136.6,
       "breakingball": 124.6
-    }
+    },
+    "weight": 65
   },
   {
     "id": "0000007839",
@@ -2534,7 +2754,8 @@
     "birthDate": "2007-12-06T00:00:00",
     "height": 178,
     "number": "196",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000007838",
@@ -2547,7 +2768,8 @@
     "pitchSpeeds": {
       "fastball": 141.6,
       "breakingball": 120.5
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000006859",
@@ -2557,7 +2779,8 @@
     "birthDate": "2004-06-10T00:00:00",
     "height": 175,
     "number": "3",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000007075",
@@ -2567,7 +2790,8 @@
     "birthDate": "2005-04-17T00:00:00",
     "height": 174,
     "number": "7",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000006858",
@@ -2577,7 +2801,8 @@
     "birthDate": "2003-09-26T00:00:00",
     "height": 183,
     "number": "8",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 97
   },
   {
     "id": "0000007612",
@@ -2587,7 +2812,8 @@
     "birthDate": "2007-04-10T00:00:00",
     "height": 180,
     "number": "12",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000006234",
@@ -2597,7 +2823,8 @@
     "birthDate": "2001-10-10T00:00:00",
     "height": 176,
     "number": "14",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000005536",
@@ -2607,7 +2834,8 @@
     "birthDate": "1996-10-30T00:00:00",
     "height": 175,
     "number": "16",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 105
   },
   {
     "id": "0000007315",
@@ -2617,7 +2845,8 @@
     "birthDate": "2006-07-18T00:00:00",
     "height": 177,
     "number": "24",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007837",
@@ -2627,7 +2856,8 @@
     "birthDate": "2003-09-17T00:00:00",
     "height": 174,
     "number": "26",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000002282",
@@ -2637,7 +2867,8 @@
     "birthDate": "1994-08-08T00:00:00",
     "height": 177,
     "number": "28",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000006770",
@@ -2647,7 +2878,8 @@
     "birthDate": "1998-10-25T00:00:00",
     "height": 170,
     "number": "29",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000007078",
@@ -2657,7 +2889,8 @@
     "birthDate": "2005-02-22T00:00:00",
     "height": 174,
     "number": "31",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 67
   },
   {
     "id": "0000007312",
@@ -2667,7 +2900,8 @@
     "birthDate": "2006-03-19T00:00:00",
     "height": 181,
     "number": "33",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000006856",
@@ -2677,7 +2911,8 @@
     "birthDate": "2004-03-13T00:00:00",
     "height": 181,
     "number": "38",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 81
   },
   {
     "id": "0000007313",
@@ -2687,7 +2922,8 @@
     "birthDate": "2006-02-15T00:00:00",
     "height": 180,
     "number": "55",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000007018",
@@ -2697,7 +2933,8 @@
     "birthDate": "2002-08-05T00:00:00",
     "height": 178,
     "number": "56",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 82
   },
   {
     "id": "0000007317",
@@ -2707,7 +2944,8 @@
     "birthDate": "2005-12-13T00:00:00",
     "height": 175,
     "number": "60",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 92
   },
   {
     "id": "0000006235",
@@ -2717,7 +2955,8 @@
     "birthDate": "2001-09-22T00:00:00",
     "height": 173,
     "number": "65",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000007288",
@@ -2727,7 +2966,8 @@
     "birthDate": "2005-09-08T00:00:00",
     "height": 183,
     "number": "66",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 79
   },
   {
     "id": "0000006853",
@@ -2737,7 +2977,8 @@
     "birthDate": "2003-12-22T00:00:00",
     "height": 180,
     "number": "76",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000007614",
@@ -2747,7 +2988,8 @@
     "birthDate": "2006-10-24T00:00:00",
     "height": 167,
     "number": "80",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007806",
@@ -2757,7 +2999,8 @@
     "birthDate": "1995-05-19T00:00:00",
     "height": 188,
     "number": "84",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 98
   },
   {
     "id": "0000007589",
@@ -2767,7 +3010,8 @@
     "birthDate": "2003-02-09T00:00:00",
     "height": 176,
     "number": "85",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000006718",
@@ -2777,7 +3021,8 @@
     "birthDate": "2003-04-04T00:00:00",
     "height": 170,
     "number": "89",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000006714",
@@ -2787,7 +3032,8 @@
     "birthDate": "2003-02-10T00:00:00",
     "height": 181,
     "number": "97",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 77
   },
   {
     "id": "0000007477",
@@ -2797,7 +3043,8 @@
     "birthDate": "2004-04-15T00:00:00",
     "height": 180,
     "number": "111",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000007829",
@@ -2807,7 +3054,8 @@
     "birthDate": "2007-07-25T00:00:00",
     "height": 175,
     "number": "162",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 65
   },
   {
     "id": "0000007841",
@@ -2817,7 +3065,8 @@
     "birthDate": "2008-03-19T00:00:00",
     "height": 177,
     "number": "177",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000005479",
@@ -2830,7 +3079,8 @@
     "pitchSpeeds": {
       "breakingball": 129.0,
       "fastball": 142.4
-    }
+    },
+    "weight": 84
   },
   {
     "id": "0000002280",
@@ -2843,7 +3093,8 @@
     "pitchSpeeds": {
       "fastball": 147.8,
       "breakingball": 127.9
-    }
+    },
+    "weight": 141
   },
   {
     "id": "0000005790",
@@ -2856,7 +3107,8 @@
     "pitchSpeeds": {
       "breakingball": 137.7,
       "fastball": 150.0
-    }
+    },
+    "weight": 86
   },
   {
     "id": "0000003292",
@@ -2869,7 +3121,8 @@
     "pitchSpeeds": {
       "fastball": 142.4,
       "breakingball": 130.0
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000007568",
@@ -2882,7 +3135,8 @@
     "pitchSpeeds": {
       "breakingball": 127.0,
       "fastball": 141.0
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000006749",
@@ -2895,7 +3149,8 @@
     "pitchSpeeds": {
       "breakingball": 129.8,
       "fastball": 144.1
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000007832",
@@ -2908,7 +3163,8 @@
     "pitchSpeeds": {
       "fastball": 149.6,
       "breakingball": 133.0
-    }
+    },
+    "weight": 74
   },
   {
     "id": "0000006739",
@@ -2921,7 +3177,8 @@
     "pitchSpeeds": {
       "breakingball": 130.9,
       "fastball": 145.6
-    }
+    },
+    "weight": 74
   },
   {
     "id": "0000007228",
@@ -2934,7 +3191,8 @@
     "pitchSpeeds": {
       "breakingball": 134.4,
       "fastball": 147.8
-    }
+    },
+    "weight": 86
   },
   {
     "id": "0000000938",
@@ -2947,7 +3205,8 @@
     "pitchSpeeds": {
       "fastball": 140.2,
       "breakingball": 126.6
-    }
+    },
+    "weight": 87
   },
   {
     "id": "0000007090",
@@ -2960,7 +3219,8 @@
     "pitchSpeeds": {
       "fastball": 145.4,
       "breakingball": 131.2
-    }
+    },
+    "weight": 107
   },
   {
     "id": "0000000363",
@@ -2973,7 +3233,8 @@
     "pitchSpeeds": {
       "breakingball": 129.8,
       "fastball": 140.4
-    }
+    },
+    "weight": 88
   },
   {
     "id": "0000006864",
@@ -2983,7 +3244,8 @@
     "birthDate": "2003-11-17T00:00:00",
     "height": 178,
     "number": "96",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 94
   },
   {
     "id": "0000005336",
@@ -2993,7 +3255,8 @@
     "birthDate": "1999-11-01T00:00:00",
     "height": 188,
     "number": "00",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000005510",
@@ -3003,7 +3266,8 @@
     "birthDate": "1998-12-23T00:00:00",
     "height": 177,
     "number": "2",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007091",
@@ -3013,7 +3277,8 @@
     "birthDate": "2002-08-22T00:00:00",
     "height": 178,
     "number": "4",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 89
   },
   {
     "id": "0000007089",
@@ -3023,7 +3288,8 @@
     "birthDate": "2005-04-29T00:00:00",
     "height": 183,
     "number": "5",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 96
   },
   {
     "id": "0000005310",
@@ -3033,7 +3299,8 @@
     "birthDate": "1998-10-22T00:00:00",
     "height": 185,
     "number": "7",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 89
   },
   {
     "id": "0000001754",
@@ -3043,7 +3310,8 @@
     "birthDate": "1993-05-20T00:00:00",
     "height": 181,
     "number": "25",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000001606",
@@ -3053,7 +3321,8 @@
     "birthDate": "1992-06-23T00:00:00",
     "height": 175,
     "number": "31",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 87
   },
   {
     "id": "0000000361",
@@ -3063,7 +3332,8 @@
     "birthDate": "1998-09-01T00:00:00",
     "height": 178,
     "number": "33",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000006909",
@@ -3073,7 +3343,8 @@
     "birthDate": "1999-10-02T00:00:00",
     "height": 176,
     "number": "43",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007297",
@@ -3083,7 +3354,8 @@
     "birthDate": "2002-03-07T00:00:00",
     "height": 175,
     "number": "63",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 74
   },
   {
     "id": "0000007578",
@@ -3093,7 +3365,8 @@
     "birthDate": "2004-01-28T00:00:00",
     "height": 181,
     "number": "64",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000005496",
@@ -3103,7 +3376,8 @@
     "birthDate": "1999-06-04T00:00:00",
     "height": 178,
     "number": "67",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 92
   },
   {
     "id": "0000006737",
@@ -3113,7 +3387,8 @@
     "birthDate": "2003-02-28T00:00:00",
     "height": 182,
     "number": "78",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000006743",
@@ -3123,7 +3398,8 @@
     "birthDate": "2002-02-20T00:00:00",
     "height": 179,
     "number": "85",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000004645",
@@ -3133,7 +3409,8 @@
     "birthDate": "2000-01-07T00:00:00",
     "height": 182,
     "number": "95",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000007299",
@@ -3146,7 +3423,8 @@
     "pitchSpeeds": {
       "fastball": 137.1,
       "breakingball": 125.1
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000007856",
@@ -3156,7 +3434,8 @@
     "birthDate": "2006-02-04T00:00:00",
     "height": 186,
     "number": "012",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 89
   },
   {
     "id": "0000004632",
@@ -3169,7 +3448,8 @@
     "pitchSpeeds": {
       "fastball": 138.4,
       "breakingball": 124.6
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007577",
@@ -3182,7 +3462,8 @@
     "pitchSpeeds": {
       "breakingball": 126.9,
       "fastball": 135.8
-    }
+    },
+    "weight": 77
   },
   {
     "id": "0000006863",
@@ -3195,7 +3476,8 @@
     "pitchSpeeds": {
       "fastball": 139.4,
       "breakingball": 123.9
-    }
+    },
+    "weight": 72
   },
   {
     "id": "0000005561",
@@ -3208,7 +3490,8 @@
     "pitchSpeeds": {
       "fastball": 144.9,
       "breakingball": 134.1
-    }
+    },
+    "weight": 106
   },
   {
     "id": "0000007596",
@@ -3218,7 +3501,8 @@
     "birthDate": "2006-10-17T00:00:00",
     "height": 178,
     "number": "018",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 87
   },
   {
     "id": "0000006871",
@@ -3231,7 +3515,8 @@
     "pitchSpeeds": {
       "breakingball": 125.4,
       "fastball": 137.2
-    }
+    },
+    "weight": 94
   },
   {
     "id": "0000005284",
@@ -3244,7 +3529,8 @@
     "pitchSpeeds": {
       "fastball": 133.2,
       "breakingball": 115.9
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000007593",
@@ -3257,7 +3543,8 @@
     "pitchSpeeds": {
       "fastball": 142.6,
       "breakingball": 127.0
-    }
+    },
+    "weight": 91
   },
   {
     "id": "0000007854",
@@ -3267,7 +3554,8 @@
     "birthDate": "2006-12-22T00:00:00",
     "height": 175,
     "number": "031",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000002347",
@@ -3280,7 +3568,8 @@
     "pitchSpeeds": {
       "breakingball": 133.6,
       "fastball": 144.7
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000000773",
@@ -3293,7 +3582,8 @@
     "pitchSpeeds": {
       "fastball": 136.9,
       "breakingball": 118.7
-    }
+    },
+    "weight": 97
   },
   {
     "id": "0000007851",
@@ -3303,7 +3593,8 @@
     "birthDate": "2006-12-24T00:00:00",
     "height": 185,
     "number": "040",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000005292",
@@ -3313,7 +3604,8 @@
     "birthDate": "1999-06-01T00:00:00",
     "height": 180,
     "number": "48",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007782",
@@ -3326,7 +3618,8 @@
     "pitchSpeeds": {
       "breakingball": 130.8,
       "fastball": 141.8
-    }
+    },
+    "weight": 104
   },
   {
     "id": "0000007296",
@@ -3339,7 +3632,8 @@
     "pitchSpeeds": {
       "fastball": 141.9,
       "breakingball": 125.5
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000000367",
@@ -3349,7 +3643,8 @@
     "birthDate": "1999-01-13T00:00:00",
     "height": 180,
     "number": "50",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007804",
@@ -3359,7 +3654,8 @@
     "birthDate": "1999-01-23T00:00:00",
     "height": 193,
     "number": "55",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000007859",
@@ -3369,7 +3665,8 @@
     "birthDate": "2007-09-13T00:00:00",
     "height": 177,
     "number": "056",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000004628",
@@ -3379,7 +3676,8 @@
     "birthDate": "1993-02-11T00:00:00",
     "height": 180,
     "number": "57",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 77
   },
   {
     "id": "0000006227",
@@ -3389,7 +3687,8 @@
     "birthDate": "2001-11-07T00:00:00",
     "height": 174,
     "number": "60",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 68
   },
   {
     "id": "0000007857",
@@ -3399,7 +3698,8 @@
     "birthDate": "2005-09-23T00:00:00",
     "height": 181,
     "number": "068",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007295",
@@ -3412,7 +3712,8 @@
     "pitchSpeeds": {
       "fastball": 142.8,
       "breakingball": 132.5
-    }
+    },
+    "weight": 95
   },
   {
     "id": "0000000368",
@@ -3422,7 +3723,8 @@
     "birthDate": "1997-10-11T00:00:00",
     "height": 178,
     "number": "80",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 81
   },
   {
     "id": "0000007802",
@@ -3435,7 +3737,8 @@
     "pitchSpeeds": {
       "fastball": 145.5,
       "breakingball": 125.4
-    }
+    },
+    "weight": 84
   },
   {
     "id": "0000001404",
@@ -3448,7 +3751,8 @@
     "pitchSpeeds": {
       "fastball": 137.5,
       "breakingball": 127.9
-    }
+    },
+    "weight": 74
   },
   {
     "id": "0000007834",
@@ -3458,7 +3762,8 @@
     "birthDate": "1996-05-12T00:00:00",
     "height": 193,
     "number": "90",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000001524",
@@ -3471,7 +3776,8 @@
     "pitchSpeeds": {
       "breakingball": 123.1,
       "fastball": 138.6
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000007852",
@@ -3484,7 +3790,8 @@
     "pitchSpeeds": {
       "fastball": 142.6,
       "breakingball": 118.5
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000006870",
@@ -3494,7 +3801,8 @@
     "birthDate": "2000-06-07T00:00:00",
     "height": 195,
     "number": "94",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 87
   },
   {
     "id": "0000006865",
@@ -3507,7 +3815,8 @@
     "pitchSpeeds": {
       "breakingball": 119.6,
       "fastball": 135.5
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000007041",
@@ -3517,7 +3826,8 @@
     "birthDate": "2003-06-30T00:00:00",
     "height": 175,
     "number": "580",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 71
   },
   {
     "id": "0000006810",
@@ -3527,7 +3837,8 @@
     "birthDate": "2002-09-04T00:00:00",
     "height": 188,
     "number": "0",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 87
   },
   {
     "id": "0000003339",
@@ -3537,7 +3848,8 @@
     "birthDate": "1988-09-21T00:00:00",
     "height": 180,
     "number": "1",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000003211",
@@ -3547,7 +3859,8 @@
     "birthDate": "1984-04-01T00:00:00",
     "height": 180,
     "number": "3",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 87
   },
   {
     "id": "0000006229",
@@ -3557,7 +3870,8 @@
     "birthDate": "1998-01-07T00:00:00",
     "height": 170,
     "number": "6",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 72
   },
   {
     "id": "0000007031",
@@ -3567,7 +3881,8 @@
     "birthDate": "2001-04-16T00:00:00",
     "height": 183,
     "number": "9",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000007592",
@@ -3577,7 +3892,8 @@
     "birthDate": "2006-10-04T00:00:00",
     "height": 181,
     "number": "013",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000006736",
@@ -3587,7 +3903,8 @@
     "birthDate": "2003-05-01T00:00:00",
     "height": 185,
     "number": "14",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000007576",
@@ -3597,7 +3914,8 @@
     "birthDate": "1998-11-01T00:00:00",
     "height": 185,
     "number": "015",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 100
   },
   {
     "id": "0000001473",
@@ -3607,7 +3925,8 @@
     "birthDate": "1994-06-29T00:00:00",
     "height": 178,
     "number": "22",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007043",
@@ -3617,7 +3936,8 @@
     "birthDate": "2003-11-07T00:00:00",
     "height": 175,
     "number": "23",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000000362",
@@ -3627,7 +3947,8 @@
     "birthDate": "1997-09-12T00:00:00",
     "height": 183,
     "number": "29",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000002305",
@@ -3637,7 +3958,8 @@
     "birthDate": "1995-09-17T00:00:00",
     "height": 177,
     "number": "35",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 82
   },
   {
     "id": "0000002352",
@@ -3647,7 +3969,8 @@
     "birthDate": "1994-11-25T00:00:00",
     "height": 183,
     "number": "46",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 100
   },
   {
     "id": "0000000910",
@@ -3657,7 +3980,8 @@
     "birthDate": "1993-05-17T00:00:00",
     "height": 179,
     "number": "47",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 97
   },
   {
     "id": "0000007094",
@@ -3667,7 +3991,8 @@
     "birthDate": "2004-07-02T00:00:00",
     "height": 176,
     "number": "56",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007298",
@@ -3677,7 +4002,8 @@
     "birthDate": "2003-09-14T00:00:00",
     "height": 180,
     "number": "58",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000007850",
@@ -3687,7 +4013,8 @@
     "birthDate": "2008-01-01T00:00:00",
     "height": 188,
     "number": "59",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 87
   },
   {
     "id": "0000004622",
@@ -3697,7 +4024,8 @@
     "birthDate": "1999-11-21T00:00:00",
     "height": 175,
     "number": "61",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 99
   },
   {
     "id": "0000006872",
@@ -3707,7 +4035,8 @@
     "birthDate": "2001-10-20T00:00:00",
     "height": 178,
     "number": "62",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 71
   },
   {
     "id": "0000006861",
@@ -3717,7 +4046,8 @@
     "birthDate": "2002-07-09T00:00:00",
     "height": 183,
     "number": "65",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 89
   },
   {
     "id": "0000006220",
@@ -3727,7 +4057,8 @@
     "birthDate": "2002-04-14T00:00:00",
     "height": 185,
     "number": "71",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 96
   },
   {
     "id": "0000007591",
@@ -3737,7 +4068,8 @@
     "birthDate": "2007-03-17T00:00:00",
     "height": 185,
     "number": "74",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 93
   },
   {
     "id": "0000007093",
@@ -3747,7 +4079,8 @@
     "birthDate": "2005-07-06T00:00:00",
     "height": 185,
     "number": "076",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007595",
@@ -3757,7 +4090,8 @@
     "birthDate": "2004-04-25T00:00:00",
     "height": 180,
     "number": "76",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000006868",
@@ -3767,7 +4101,8 @@
     "birthDate": "1999-12-02T00:00:00",
     "height": 172,
     "number": "77",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000006738",
@@ -3777,7 +4112,8 @@
     "birthDate": "2003-09-01T00:00:00",
     "height": 184,
     "number": "82",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 89
   },
   {
     "id": "0000007267",
@@ -3787,7 +4123,8 @@
     "birthDate": "2005-10-11T00:00:00",
     "height": 175,
     "number": "83",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000007594",
@@ -3797,7 +4134,8 @@
     "birthDate": "2007-01-31T00:00:00",
     "height": 172,
     "number": "93",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000006806",
@@ -3807,7 +4145,8 @@
     "birthDate": "2003-08-03T00:00:00",
     "height": 173,
     "number": "97",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000001118",
@@ -3817,7 +4156,8 @@
     "birthDate": "1993-01-02T00:00:00",
     "height": 183,
     "number": "98",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 102
   },
   {
     "id": "0000006888",
@@ -3827,7 +4167,8 @@
     "birthDate": "1995-08-18T00:00:00",
     "height": 185,
     "number": "99",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000006233",
@@ -3837,7 +4178,8 @@
     "birthDate": "2001-11-03T00:00:00",
     "height": 185,
     "number": "113",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000007855",
@@ -3847,7 +4189,8 @@
     "birthDate": "2008-05-15T00:00:00",
     "height": 178,
     "number": "118",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007853",
@@ -3857,7 +4200,8 @@
     "birthDate": "2008-05-10T00:00:00",
     "height": 170,
     "number": "119",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007858",
@@ -3867,7 +4211,8 @@
     "birthDate": "2008-03-20T00:00:00",
     "height": 182,
     "number": "197",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000006160",
@@ -3880,7 +4225,8 @@
     "pitchSpeeds": {
       "fastball": 146.5,
       "breakingball": 127.5
-    }
+    },
+    "weight": 95
   },
   {
     "id": "0000000135",
@@ -3893,7 +4239,8 @@
     "pitchSpeeds": {
       "breakingball": 131.5,
       "fastball": 145.2
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007083",
@@ -3906,7 +4253,8 @@
     "pitchSpeeds": {
       "fastball": 129.3,
       "breakingball": 118.8
-    }
+    },
+    "weight": 65
   },
   {
     "id": "0000005552",
@@ -3919,7 +4267,8 @@
     "pitchSpeeds": {
       "fastball": 147.2,
       "breakingball": 129.4
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000006215",
@@ -3932,7 +4281,8 @@
     "pitchSpeeds": {
       "fastball": 147.1,
       "breakingball": 133.9
-    }
+    },
+    "weight": 82
   },
   {
     "id": "0000006159",
@@ -3945,7 +4295,8 @@
     "pitchSpeeds": {
       "fastball": 144.4,
       "breakingball": 130.4
-    }
+    },
+    "weight": 99
   },
   {
     "id": "0000006910",
@@ -3958,7 +4309,8 @@
     "pitchSpeeds": {
       "fastball": 138.4,
       "breakingball": 125.1
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000005555",
@@ -3971,7 +4323,8 @@
     "pitchSpeeds": {
       "fastball": 143.5,
       "breakingball": 131.2
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000006724",
@@ -3984,7 +4337,8 @@
     "pitchSpeeds": {
       "fastball": 138.4,
       "breakingball": 128.8
-    }
+    },
+    "weight": 87
   },
   {
     "id": "0000001821",
@@ -3997,7 +4351,8 @@
     "pitchSpeeds": {
       "fastball": 142.9,
       "breakingball": 130.1
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000005789",
@@ -4010,7 +4365,8 @@
     "pitchSpeeds": {
       "fastball": 143.9,
       "breakingball": 127.5
-    }
+    },
+    "weight": 115
   },
   {
     "id": "0000005788",
@@ -4023,7 +4379,8 @@
     "pitchSpeeds": {
       "fastball": 152.2,
       "breakingball": 136.0
-    }
+    },
+    "weight": 79
   },
   {
     "id": "0000000743",
@@ -4033,7 +4390,8 @@
     "birthDate": "1995-07-29T00:00:00",
     "height": 180,
     "number": "1",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 103
   },
   {
     "id": "0000005549",
@@ -4043,7 +4401,8 @@
     "birthDate": "2000-04-15T00:00:00",
     "height": 173,
     "number": "2",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000006217",
@@ -4053,7 +4412,8 @@
     "birthDate": "2001-12-10T00:00:00",
     "height": 180,
     "number": "9",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000001318",
@@ -4063,7 +4423,8 @@
     "birthDate": "1991-11-26T00:00:00",
     "height": 188,
     "number": "11",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 108
   },
   {
     "id": "0000005538",
@@ -4073,7 +4434,8 @@
     "birthDate": "1996-09-14T00:00:00",
     "height": 178,
     "number": "16",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000005540",
@@ -4083,7 +4445,8 @@
     "birthDate": "1997-09-11T00:00:00",
     "height": 174,
     "number": "21",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000007079",
@@ -4093,7 +4456,8 @@
     "birthDate": "2004-09-17T00:00:00",
     "height": 176,
     "number": "23",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 72
   },
   {
     "id": "0000006216",
@@ -4103,7 +4467,8 @@
     "birthDate": "2001-10-26T00:00:00",
     "height": 175,
     "number": "24",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000005542",
@@ -4113,7 +4478,8 @@
     "birthDate": "2000-06-08T00:00:00",
     "height": 178,
     "number": "25",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000005553",
@@ -4123,7 +4489,8 @@
     "birthDate": "1997-03-15T00:00:00",
     "height": 180,
     "number": "34",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000005545",
@@ -4133,7 +4500,8 @@
     "birthDate": "2000-11-03T00:00:00",
     "height": 180,
     "number": "46",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007304",
@@ -4143,7 +4511,8 @@
     "birthDate": "2006-03-28T00:00:00",
     "height": 178,
     "number": "50",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000005546",
@@ -4153,7 +4522,8 @@
     "birthDate": "1998-09-21T00:00:00",
     "height": 187,
     "number": "57",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000005291",
@@ -4163,7 +4533,8 @@
     "birthDate": "1997-07-13T00:00:00",
     "height": 179,
     "number": "63",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 100
   },
   {
     "id": "0000000356",
@@ -4173,7 +4544,8 @@
     "birthDate": "1996-11-01T00:00:00",
     "height": 178,
     "number": "72",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000006879",
@@ -4183,7 +4555,8 @@
     "birthDate": "2001-07-04T00:00:00",
     "height": 183,
     "number": "82",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 71
   },
   {
     "id": "0000004646",
@@ -4196,7 +4569,8 @@
     "pitchSpeeds": {
       "breakingball": 126.4,
       "fastball": 133.5
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000007264",
@@ -4209,7 +4583,8 @@
     "pitchSpeeds": {
       "breakingball": 123.6,
       "fastball": 139.0
-    }
+    },
+    "weight": 98
   },
   {
     "id": "0000007581",
@@ -4222,7 +4597,8 @@
     "pitchSpeeds": {
       "fastball": 147.9,
       "breakingball": 132.4
-    }
+    },
+    "weight": 77
   },
   {
     "id": "0000006236",
@@ -4235,7 +4611,8 @@
     "pitchSpeeds": {
       "fastball": 141.6,
       "breakingball": 120.5
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000005541",
@@ -4248,7 +4625,8 @@
     "pitchSpeeds": {
       "fastball": 139.7,
       "breakingball": 129.7
-    }
+    },
+    "weight": 94
   },
   {
     "id": "0000002279",
@@ -4258,7 +4636,8 @@
     "birthDate": "1996-11-07T00:00:00",
     "height": 190,
     "number": "20",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007081",
@@ -4271,7 +4650,8 @@
     "pitchSpeeds": {
       "breakingball": 125.2,
       "fastball": 138.6
-    }
+    },
+    "weight": 71
   },
   {
     "id": "0000007779",
@@ -4284,7 +4664,8 @@
     "pitchSpeeds": {
       "fastball": 146.5,
       "breakingball": 129.0
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000006497",
@@ -4294,7 +4675,8 @@
     "birthDate": "1990-06-26T00:00:00",
     "height": 193,
     "number": "37",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 97
   },
   {
     "id": "0000007305",
@@ -4307,7 +4689,8 @@
     "pitchSpeeds": {
       "fastball": 143.6,
       "breakingball": 130.8
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000006881",
@@ -4320,7 +4703,8 @@
     "pitchSpeeds": {
       "fastball": 143.5,
       "breakingball": 121.7
-    }
+    },
+    "weight": 96
   },
   {
     "id": "0000006729",
@@ -4333,7 +4717,8 @@
     "pitchSpeeds": {
       "fastball": 133.5,
       "breakingball": 120.1
-    }
+    },
+    "weight": 109
   },
   {
     "id": "0000007055",
@@ -4346,7 +4731,8 @@
     "pitchSpeeds": {
       "fastball": 137.5,
       "breakingball": 120.4
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000000762",
@@ -4356,7 +4742,8 @@
     "birthDate": "1986-10-24T00:00:00",
     "height": 185,
     "number": "52",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 91
   },
   {
     "id": "0000003608",
@@ -4369,7 +4756,8 @@
     "pitchSpeeds": {
       "breakingball": 128.1,
       "fastball": 139.3
-    }
+    },
+    "weight": 91
   },
   {
     "id": "0000006750",
@@ -4382,7 +4770,8 @@
     "pitchSpeeds": {
       "fastball": 141.6,
       "breakingball": 124.4
-    }
+    },
+    "weight": 79
   },
   {
     "id": "0000006722",
@@ -4395,7 +4784,8 @@
     "pitchSpeeds": {
       "fastball": 146.6,
       "breakingball": 131.1
-    }
+    },
+    "weight": 70
   },
   {
     "id": "0000007311",
@@ -4408,7 +4798,8 @@
     "pitchSpeeds": {
       "fastball": 135.9,
       "breakingball": 116.9
-    }
+    },
+    "weight": 84
   },
   {
     "id": "0000006723",
@@ -4421,7 +4812,8 @@
     "pitchSpeeds": {
       "fastball": 145.1,
       "breakingball": 126.0
-    }
+    },
+    "weight": 84
   },
   {
     "id": "0000006878",
@@ -4434,7 +4826,8 @@
     "pitchSpeeds": {
       "fastball": 144.2,
       "breakingball": 131.5
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000002278",
@@ -4447,7 +4840,8 @@
     "pitchSpeeds": {
       "fastball": 140.1,
       "breakingball": 128.4
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000006555",
@@ -4460,7 +4854,8 @@
     "pitchSpeeds": {
       "fastball": 139.5,
       "breakingball": 127.3
-    }
+    },
+    "weight": 108
   },
   {
     "id": "0000007307",
@@ -4470,7 +4865,8 @@
     "birthDate": "2005-11-15T00:00:00",
     "height": 192,
     "number": "124",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 63
   },
   {
     "id": "0000007611",
@@ -4483,7 +4879,8 @@
     "pitchSpeeds": {
       "fastball": 141.2,
       "breakingball": 130.6
-    }
+    },
+    "weight": 61
   },
   {
     "id": "0000007613",
@@ -4496,7 +4893,8 @@
     "pitchSpeeds": {
       "fastball": 139.4,
       "breakingball": 125.5
-    }
+    },
+    "weight": 70
   },
   {
     "id": "0000007582",
@@ -4509,7 +4907,8 @@
     "pitchSpeeds": {
       "fastball": 142.3,
       "breakingball": 129.8
-    }
+    },
+    "weight": 105
   },
   {
     "id": "0000007842",
@@ -4519,7 +4918,8 @@
     "birthDate": "2005-07-05T00:00:00",
     "height": 184,
     "number": "140",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000007840",
@@ -4529,7 +4929,8 @@
     "birthDate": "2008-04-12T00:00:00",
     "height": 180,
     "number": "141",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 72
   },
   {
     "id": "0000007845",
@@ -4539,7 +4940,8 @@
     "birthDate": "2006-03-03T00:00:00",
     "height": 177,
     "number": "142",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 68
   },
   {
     "id": "0000007843",
@@ -4549,7 +4951,8 @@
     "birthDate": "2008-03-16T00:00:00",
     "height": 182,
     "number": "143",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 74
   },
   {
     "id": "0000007846",
@@ -4559,7 +4962,8 @@
     "birthDate": "2006-02-14T00:00:00",
     "height": 186,
     "number": "147",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000007848",
@@ -4569,7 +4973,8 @@
     "birthDate": "2008-08-07T00:00:00",
     "height": 184,
     "number": "149",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 65
   },
   {
     "id": "0000003625",
@@ -4579,7 +4984,8 @@
     "birthDate": "1994-03-13T00:00:00",
     "height": 180,
     "number": "4",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 104
   },
   {
     "id": "0000007610",
@@ -4589,7 +4995,8 @@
     "birthDate": "2007-08-18T00:00:00",
     "height": 178,
     "number": "6",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000005548",
@@ -4599,7 +5006,8 @@
     "birthDate": "1999-11-30T00:00:00",
     "height": 172,
     "number": "7",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000005532",
@@ -4609,7 +5017,8 @@
     "birthDate": "1998-05-30T00:00:00",
     "height": 180,
     "number": "22",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 96
   },
   {
     "id": "0000007082",
@@ -4619,7 +5028,8 @@
     "birthDate": "2005-02-08T00:00:00",
     "height": 178,
     "number": "26",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 66
   },
   {
     "id": "0000006726",
@@ -4629,7 +5039,8 @@
     "birthDate": "2003-01-30T00:00:00",
     "height": 188,
     "number": "36",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 115
   },
   {
     "id": "0000006728",
@@ -4639,7 +5050,8 @@
     "birthDate": "2000-10-18T00:00:00",
     "height": 177,
     "number": "44",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007308",
@@ -4649,7 +5061,8 @@
     "birthDate": "2006-05-19T00:00:00",
     "height": 183,
     "number": "58",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 72
   },
   {
     "id": "0000001409",
@@ -4659,7 +5072,8 @@
     "birthDate": "1991-09-29T00:00:00",
     "height": 173,
     "number": "61",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 72
   },
   {
     "id": "0000005563",
@@ -4669,7 +5083,8 @@
     "birthDate": "1996-01-11T00:00:00",
     "height": 170,
     "number": "65",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 81
   },
   {
     "id": "0000006725",
@@ -4679,7 +5094,8 @@
     "birthDate": "2003-05-24T00:00:00",
     "height": 185,
     "number": "81",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000006731",
@@ -4689,7 +5105,8 @@
     "birthDate": "2002-11-17T00:00:00",
     "height": 175,
     "number": "88",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007306",
@@ -4699,7 +5116,8 @@
     "birthDate": "2005-09-05T00:00:00",
     "height": 177,
     "number": "123",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000007309",
@@ -4709,7 +5127,8 @@
     "birthDate": "2006-04-08T00:00:00",
     "height": 186,
     "number": "125",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000007310",
@@ -4719,7 +5138,8 @@
     "birthDate": "2006-01-10T00:00:00",
     "height": 180,
     "number": "127",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000007609",
@@ -4729,7 +5149,8 @@
     "birthDate": "2006-10-14T00:00:00",
     "height": 188,
     "number": "133",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000007608",
@@ -4739,7 +5160,8 @@
     "birthDate": "2007-08-12T00:00:00",
     "height": 190,
     "number": "135",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000007587",
@@ -4749,7 +5171,8 @@
     "birthDate": "2006-09-10T00:00:00",
     "height": 175,
     "number": "137",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 88
   },
   {
     "id": "0000007844",
@@ -4759,7 +5182,8 @@
     "birthDate": "2007-09-29T00:00:00",
     "height": 175,
     "number": "145",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 77
   },
   {
     "id": "0000007847",
@@ -4769,7 +5193,8 @@
     "birthDate": "2005-03-23T00:00:00",
     "height": 182,
     "number": "146",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000007849",
@@ -4779,7 +5204,8 @@
     "birthDate": "2006-10-24T00:00:00",
     "height": 170,
     "number": "150",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 78
   },
   {
     "id": "0000006917",
@@ -4792,7 +5218,8 @@
     "pitchSpeeds": {
       "fastball": 142.2,
       "breakingball": 125.2
-    }
+    },
+    "weight": 93
   },
   {
     "id": "0000007065",
@@ -4805,7 +5232,8 @@
     "pitchSpeeds": {
       "fastball": 136.4,
       "breakingball": 124.3
-    }
+    },
+    "weight": 78
   },
   {
     "id": "0000006833",
@@ -4818,7 +5246,8 @@
     "pitchSpeeds": {
       "fastball": 131.3,
       "breakingball": 113.6
-    }
+    },
+    "weight": 73
   },
   {
     "id": "0000006918",
@@ -4831,7 +5260,8 @@
     "pitchSpeeds": {
       "fastball": 143.9,
       "breakingball": 134.0
-    }
+    },
+    "weight": 70
   },
   {
     "id": "0000006982",
@@ -4844,7 +5274,8 @@
     "pitchSpeeds": {
       "breakingball": 128.5,
       "fastball": 143.1
-    }
+    },
+    "weight": 81
   },
   {
     "id": "0000007630",
@@ -4857,7 +5288,8 @@
     "pitchSpeeds": {
       "breakingball": 129.0,
       "fastball": 142.3
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000006921",
@@ -4870,7 +5302,8 @@
     "pitchSpeeds": {
       "fastball": 142.7,
       "breakingball": 128.1
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000006832",
@@ -4883,7 +5316,8 @@
     "pitchSpeeds": {
       "fastball": 143.5,
       "breakingball": 127.4
-    }
+    },
+    "weight": 98
   },
   {
     "id": "0000005285",
@@ -4896,7 +5330,8 @@
     "pitchSpeeds": {
       "breakingball": 129.1,
       "fastball": 143.8
-    }
+    },
+    "weight": 73
   },
   {
     "id": "0000007032",
@@ -4909,7 +5344,8 @@
     "pitchSpeeds": {
       "fastball": 131.5,
       "breakingball": 115.5
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000007069",
@@ -4922,7 +5358,8 @@
     "pitchSpeeds": {
       "fastball": 145.8,
       "breakingball": 127.8
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000007570",
@@ -4935,7 +5372,8 @@
     "pitchSpeeds": {
       "breakingball": 133.2,
       "fastball": 145.3
-    }
+    },
+    "weight": 90
   },
   {
     "id": "0000006927",
@@ -4945,7 +5383,8 @@
     "birthDate": "2003-09-16T00:00:00",
     "height": 178,
     "number": "1",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 81
   },
   {
     "id": "0000000772",
@@ -4955,7 +5394,8 @@
     "birthDate": "1997-10-11T00:00:00",
     "height": 184,
     "number": "3",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000006939",
@@ -4965,7 +5405,8 @@
     "birthDate": "1999-08-05T00:00:00",
     "height": 178,
     "number": "5",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000005340",
@@ -4975,7 +5416,8 @@
     "birthDate": "2000-04-01T00:00:00",
     "height": 184,
     "number": "6",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000000935",
@@ -4985,7 +5427,8 @@
     "birthDate": "1993-09-09T00:00:00",
     "height": 182,
     "number": "9",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 91
   },
   {
     "id": "0000007064",
@@ -4995,7 +5438,8 @@
     "birthDate": "2003-06-01T00:00:00",
     "height": 178,
     "number": "13",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000006928",
@@ -5005,7 +5449,8 @@
     "birthDate": "2002-03-10T00:00:00",
     "height": 175,
     "number": "16",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000006929",
@@ -5015,7 +5460,8 @@
     "birthDate": "2002-04-24T00:00:00",
     "height": 177,
     "number": "24",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000006930",
@@ -5025,7 +5471,8 @@
     "birthDate": "2003-05-17T00:00:00",
     "height": 177,
     "number": "25",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000006926",
@@ -5035,7 +5482,8 @@
     "birthDate": "2002-05-14T00:00:00",
     "height": 177,
     "number": "33",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 79
   },
   {
     "id": "0000005333",
@@ -5045,7 +5493,8 @@
     "birthDate": "2000-01-27T00:00:00",
     "height": 170,
     "number": "36",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000006835",
@@ -5055,7 +5504,8 @@
     "birthDate": "2000-11-28T00:00:00",
     "height": 176,
     "number": "37",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 72
   },
   {
     "id": "0000006931",
@@ -5065,7 +5515,8 @@
     "birthDate": "2004-06-21T00:00:00",
     "height": 177,
     "number": "42",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000006936",
@@ -5075,7 +5526,8 @@
     "birthDate": "2000-11-19T00:00:00",
     "height": 181,
     "number": "50",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000003533",
@@ -5085,7 +5537,8 @@
     "birthDate": "1990-05-07T00:00:00",
     "height": 183,
     "number": "88",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 87
   },
   {
     "id": "0000007239",
@@ -5095,7 +5548,8 @@
     "birthDate": "1991-08-09T00:00:00",
     "height": 201,
     "number": "94",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 117
   },
   {
     "id": "0000006771",
@@ -5108,7 +5562,8 @@
     "pitchSpeeds": {
       "fastball": 142.1,
       "breakingball": 130.5
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000006949",
@@ -5118,7 +5573,8 @@
     "birthDate": "2001-07-31T00:00:00",
     "height": 181,
     "number": "14",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 83
   },
   {
     "id": "0000007865",
@@ -5128,7 +5584,8 @@
     "birthDate": "2004-06-23T00:00:00",
     "height": 184,
     "number": "017",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000002348",
@@ -5141,7 +5598,8 @@
     "pitchSpeeds": {
       "fastball": 141.9,
       "breakingball": 130.0
-    }
+    },
+    "weight": 96
   },
   {
     "id": "0000002679",
@@ -5151,7 +5609,8 @@
     "birthDate": "1995-06-03T00:00:00",
     "height": 175,
     "number": "20",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007066",
@@ -5164,7 +5623,8 @@
     "pitchSpeeds": {
       "fastball": 140.8,
       "breakingball": 125.4
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000002272",
@@ -5177,7 +5637,8 @@
     "pitchSpeeds": {
       "breakingball": 133.2,
       "fastball": 143.8
-    }
+    },
+    "weight": 86
   },
   {
     "id": "0000006920",
@@ -5190,7 +5651,8 @@
     "pitchSpeeds": {
       "fastball": 146.6,
       "breakingball": 130.2
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000007053",
@@ -5203,7 +5665,8 @@
     "pitchSpeeds": {
       "breakingball": 130.9,
       "fastball": 142.6
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000007632",
@@ -5213,7 +5676,8 @@
     "birthDate": "2003-12-16T00:00:00",
     "height": 184,
     "number": "32",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 86
   },
   {
     "id": "0000006507",
@@ -5226,7 +5690,8 @@
     "pitchSpeeds": {
       "breakingball": 134.1,
       "fastball": 144.9
-    }
+    },
+    "weight": 95
   },
   {
     "id": "0000001390",
@@ -5239,7 +5704,8 @@
     "pitchSpeeds": {
       "breakingball": 128.3,
       "fastball": 138.8
-    }
+    },
+    "weight": 94
   },
   {
     "id": "0000007628",
@@ -5252,7 +5718,8 @@
     "pitchSpeeds": {
       "fastball": 140.1,
       "breakingball": 122.4
-    }
+    },
+    "weight": 85
   },
   {
     "id": "0000007580",
@@ -5265,7 +5732,8 @@
     "pitchSpeeds": {
       "fastball": 147.9,
       "breakingball": 131.2
-    }
+    },
+    "weight": 75
   },
   {
     "id": "0000007067",
@@ -5278,7 +5746,8 @@
     "pitchSpeeds": {
       "fastball": 139.5,
       "breakingball": 122.8
-    }
+    },
+    "weight": 92
   },
   {
     "id": "0000006922",
@@ -5291,7 +5760,8 @@
     "pitchSpeeds": {
       "fastball": 140.0,
       "breakingball": 127.5
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000007300",
@@ -5304,7 +5774,8 @@
     "pitchSpeeds": {
       "fastball": 140.5,
       "breakingball": 129.9
-    }
+    },
+    "weight": 80
   },
   {
     "id": "0000001603",
@@ -5317,7 +5788,8 @@
     "pitchSpeeds": {
       "breakingball": 125.1,
       "fastball": 138.6
-    }
+    },
+    "weight": 83
   },
   {
     "id": "0000002281",
@@ -5330,7 +5802,8 @@
     "pitchSpeeds": {
       "fastball": 137.4,
       "breakingball": 118.6
-    }
+    },
+    "weight": 110
   },
   {
     "id": "0000002274",
@@ -5340,7 +5813,8 @@
     "birthDate": "1994-03-19T00:00:00",
     "height": 183,
     "number": "69",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000007870",
@@ -5350,7 +5824,8 @@
     "birthDate": "2006-02-03T00:00:00",
     "height": 181,
     "number": "72",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000007872",
@@ -5360,7 +5835,8 @@
     "birthDate": "2007-11-08T00:00:00",
     "height": 174,
     "number": "73",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 74
   },
   {
     "id": "0000006767",
@@ -5373,7 +5849,8 @@
     "pitchSpeeds": {
       "fastball": 136.5,
       "breakingball": 112.1
-    }
+    },
+    "weight": 82
   },
   {
     "id": "0000007836",
@@ -5383,7 +5860,8 @@
     "birthDate": "1990-05-24T00:00:00",
     "height": 198,
     "number": "80",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 121
   },
   {
     "id": "0000007303",
@@ -5396,7 +5874,8 @@
     "pitchSpeeds": {
       "fastball": 144.9,
       "breakingball": 131.4
-    }
+    },
+    "weight": 82
   },
   {
     "id": "0000007867",
@@ -5406,7 +5885,8 @@
     "birthDate": "2003-10-29T00:00:00",
     "height": 175,
     "number": "87",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000007631",
@@ -5416,7 +5896,8 @@
     "birthDate": "2006-12-12T00:00:00",
     "height": 178,
     "number": "00",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000005296",
@@ -5426,7 +5907,8 @@
     "birthDate": "1998-01-09T00:00:00",
     "height": 186,
     "number": "0",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000007871",
@@ -5436,7 +5918,8 @@
     "birthDate": "2007-09-06T00:00:00",
     "height": 174,
     "number": "01",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000003174",
@@ -5446,7 +5929,8 @@
     "birthDate": "1988-04-13T00:00:00",
     "height": 175,
     "number": "7",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 75
   },
   {
     "id": "0000006933",
@@ -5456,7 +5940,8 @@
     "birthDate": "2004-02-01T00:00:00",
     "height": 176,
     "number": "8",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 76
   },
   {
     "id": "0000006938",
@@ -5466,7 +5951,8 @@
     "birthDate": "2004-01-16T00:00:00",
     "height": 175,
     "number": "15",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 73
   },
   {
     "id": "0000006924",
@@ -5476,7 +5962,8 @@
     "birthDate": "2003-06-30T00:00:00",
     "height": 175,
     "number": "27",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000006211",
@@ -5486,7 +5973,8 @@
     "birthDate": "1997-10-30T00:00:00",
     "height": 182,
     "number": "29",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 110
   },
   {
     "id": "0000002304",
@@ -5496,7 +5984,8 @@
     "birthDate": "1994-11-02T00:00:00",
     "height": 178,
     "number": "31",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000003649",
@@ -5506,7 +5995,8 @@
     "birthDate": "1993-06-07T00:00:00",
     "height": 175,
     "number": "39",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 80
   },
   {
     "id": "0000004643",
@@ -5516,7 +6006,8 @@
     "birthDate": "2000-05-18T00:00:00",
     "height": 178,
     "number": "43",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 74
   },
   {
     "id": "0000007301",
@@ -5526,7 +6017,8 @@
     "birthDate": "2002-12-17T00:00:00",
     "height": 180,
     "number": "44",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 84
   },
   {
     "id": "0000006940",
@@ -5536,7 +6028,8 @@
     "birthDate": "1999-02-23T00:00:00",
     "height": 174,
     "number": "45",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007045",
@@ -5546,7 +6039,8 @@
     "birthDate": "2001-09-19T00:00:00",
     "height": 182,
     "number": "49",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   },
   {
     "id": "0000001291",
@@ -5556,7 +6050,8 @@
     "birthDate": "1991-01-07T00:00:00",
     "height": 181,
     "number": "59",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000001258",
@@ -5566,7 +6061,8 @@
     "birthDate": "1991-03-21T00:00:00",
     "height": 165,
     "number": "60",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 90
   },
   {
     "id": "0000007302",
@@ -5576,7 +6072,8 @@
     "birthDate": "2005-10-08T00:00:00",
     "height": 190,
     "number": "64",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 96
   },
   {
     "id": "0000007629",
@@ -5586,7 +6083,8 @@
     "birthDate": "2003-11-23T00:00:00",
     "height": 171,
     "number": "70",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 95
   },
   {
     "id": "0000000753",
@@ -5596,7 +6094,8 @@
     "birthDate": "1996-02-03T00:00:00",
     "height": 183,
     "number": "71",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 98
   },
   {
     "id": "0000007013",
@@ -5606,7 +6105,8 @@
     "birthDate": "2000-12-18T00:00:00",
     "height": 175,
     "number": "79",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 70
   },
   {
     "id": "0000007869",
@@ -5616,7 +6116,8 @@
     "birthDate": "2005-11-16T00:00:00",
     "height": 183,
     "number": "82",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 93
   },
   {
     "id": "0000007833",
@@ -5626,6 +6127,7 @@
     "birthDate": "2000-10-11T00:00:00",
     "height": 178,
     "number": "95",
-    "pitchSpeeds": {}
+    "pitchSpeeds": {},
+    "weight": 85
   }
 ]
