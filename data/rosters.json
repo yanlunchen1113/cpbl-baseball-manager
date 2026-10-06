@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-06T01:19:23.475083+00:00",
+  "updatedAt": "2026-10-06T20:34:27.404217+00:00",
   "source": "https://stats.cpbl.com.tw/players",
   "scope": "官網現有一、二軍名單；非單場登錄打線",
   "teams": [
@@ -1946,15 +1946,15 @@
           "source": "https://stats.cpbl.com.tw/players/0000007073"
         },
         {
-          "id": "0000006228",
-          "name": "王志煊",
-          "officialName": "王志煊",
-          "number": "64",
-          "height": 175,
+          "id": "0000006855",
+          "name": "邱緯綸",
+          "officialName": "邱緯綸",
+          "number": "69",
+          "height": 180,
           "position": "投手",
           "isPitcher": true,
           "level": 1,
-          "source": "https://stats.cpbl.com.tw/players/0000006228"
+          "source": "https://stats.cpbl.com.tw/players/0000006855"
         },
         {
           "id": "0000007047",
@@ -2111,6 +2111,17 @@
           "source": "https://stats.cpbl.com.tw/players/0000000158"
         },
         {
+          "id": "0000006853",
+          "name": "林禹叡",
+          "officialName": "林禹叡",
+          "number": "76",
+          "height": 180,
+          "position": "中外野手",
+          "isPitcher": false,
+          "level": 1,
+          "source": "https://stats.cpbl.com.tw/players/0000006853"
+        },
+        {
           "id": "0000006240",
           "name": "馬傑森",
           "officialName": "馬傑森",
@@ -2142,17 +2153,6 @@
           "isPitcher": false,
           "level": 1,
           "source": "https://stats.cpbl.com.tw/players/0000006714"
-        },
-        {
-          "id": "0000004633",
-          "name": "陳晨威",
-          "officialName": "陳晨威",
-          "number": "98",
-          "height": 180,
-          "position": "中外野手",
-          "isPitcher": false,
-          "level": 1,
-          "source": "https://stats.cpbl.com.tw/players/0000004633"
         },
         {
           "id": "0000007619",
@@ -2331,6 +2331,17 @@
           "source": "https://stats.cpbl.com.tw/players/0000007793"
         },
         {
+          "id": "0000006228",
+          "name": "王志煊",
+          "officialName": "王志煊",
+          "number": "64",
+          "height": 175,
+          "position": "投手",
+          "isPitcher": true,
+          "level": 2,
+          "source": "https://stats.cpbl.com.tw/players/0000006228"
+        },
+        {
           "id": "0000002858",
           "name": "京山將彌",
           "officialName": "◎京山將彌",
@@ -2340,17 +2351,6 @@
           "isPitcher": true,
           "level": 2,
           "source": "https://stats.cpbl.com.tw/players/0000002858"
-        },
-        {
-          "id": "0000006855",
-          "name": "邱緯綸",
-          "officialName": "邱緯綸",
-          "number": "69",
-          "height": 180,
-          "position": "投手",
-          "isPitcher": true,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000006855"
         },
         {
           "id": "0000007790",
@@ -2661,17 +2661,6 @@
           "source": "https://stats.cpbl.com.tw/players/0000007822"
         },
         {
-          "id": "0000006853",
-          "name": "林禹叡",
-          "officialName": "林禹叡",
-          "number": "76",
-          "height": 180,
-          "position": "中外野手",
-          "isPitcher": false,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000006853"
-        },
-        {
           "id": "0000003345",
           "name": "林智平",
           "officialName": "林智平",
@@ -2725,6 +2714,17 @@
           "isPitcher": false,
           "level": 2,
           "source": "https://stats.cpbl.com.tw/players/0000006718"
+        },
+        {
+          "id": "0000004633",
+          "name": "陳晨威",
+          "officialName": "陳晨威",
+          "number": "98",
+          "height": 180,
+          "position": "中外野手",
+          "isPitcher": false,
+          "level": 2,
+          "source": "https://stats.cpbl.com.tw/players/0000004633"
         },
         {
           "id": "0000007477",
