@@ -99,8 +99,8 @@ function teamFor(side){return side===0?TEAMS[state.awayIndex]:TEAMS[state.homeIn
 function render(){
   const away=TEAMS[state.awayIndex],home=TEAMS[state.homeIndex],batting=battingTeam();
   $('#awayName').textContent=away.name;$('#homeName').textContent=home.name;
-  $('#awayMark').textContent=away.mark;$('#awayMark').style.background=away.color;
-  $('#homeMark').textContent=home.mark;$('#homeMark').style.background=home.color;
+  if($('#awayMark').dataset.teamLogo!==away.logo)$('#awayMark').textContent=away.mark;$('#awayMark').style.background=away.color;
+  if($('#homeMark').dataset.teamLogo!==home.logo)$('#homeMark').textContent=home.mark;$('#homeMark').style.background=home.color;
   $('#awayScore').textContent=state.runs[0];$('#homeScore').textContent=state.runs[1];
   $('#inningNumber').textContent=state.inning;$('#inningHalf').textContent=state.half==='top'?'▲':'▼';
   $('#gameStatus').textContent=state.over?'終場':state.busy?'球正在進場':'比賽進行中';
