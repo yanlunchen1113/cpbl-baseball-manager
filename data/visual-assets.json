@@ -1,0 +1,82 @@
+{
+  "version": 29,
+  "human": {
+    "source": "MakeHuman Community system assets",
+    "license": "CC0",
+    "licenseUrl": "https://static.makehumancommunity.org/makehuman/faq/can_i_sell_models_created_with_makehuman.html",
+    "assetPack": "https://files2.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip",
+    "meshSource": "https://github.com/makehumancommunity/makehuman/blob/master/makehuman/data/3dobjs/base.obj",
+    "morph": "asian-male-young",
+    "clothing": "male_casualsuit06, adapted short-sleeve shirt and trousers",
+    "skin": "young_asian_male/young_lightskinned_male_diffuse3.png",
+    "bones": 10,
+    "triangles": 24340,
+    "limitations": [
+      "Generic fictional appearance, not an actual CPBL player face",
+      "Procedural animation, not motion capture",
+      "Clothing silhouette adapted from casual suit rather than scanned baseball uniform"
+    ]
+  },
+  "surfaces": [
+    {
+      "id": "Grass004",
+      "source": "https://ambientcg.com/view?id=Grass004",
+      "license": "CC0",
+      "maps": [
+        "albedo",
+        "normalGL",
+        "roughness"
+      ],
+      "resolution": 1024
+    },
+    {
+      "id": "Ground026",
+      "source": "https://ambientcg.com/view?id=Ground026",
+      "license": "CC0",
+      "maps": [
+        "albedo",
+        "normalGL",
+        "roughness"
+      ],
+      "resolution": 1024
+    }
+  ],
+  "crowd": {
+    "path": "assets/players/crowd-atlas.png",
+    "mode": "built-in image_gen imagegen",
+    "synthetic": true,
+    "prompt": "Use case: photorealistic-natural. Asset type: transparent game crowd sprite atlas for distant baseball stadium seating. Generate one 4-column by 2-row grid with eight equally sized cells. In each cell one different fictional adult Taiwanese baseball spectator sitting upright on an invisible seat, visible from head to knees, arms resting naturally or holding a plain cheering towel below chest. Straight frontal view, each person centered entirely inside their own cell with generous transparent margin. Real photographic human anatomy, faces, skin texture and cotton clothing, casually dressed in solid blue, burgundy, green, yellow, grey or white shirts. Mixed men and women aged 20 to 60. Soft neutral diffuse lighting, no harsh shadows baked onto ground. True transparent background around each person and between cells; no background, no chair, no frame, no captions, no text, no logos, no watermarks. All cells same scale. These are synthetic generic spectators, not recognizable real people. Landscape 4:2 atlas layout."
+  },
+  "teamLogos": {
+    "brothers": {
+      "source": "https://cpbl.com.tw/files/atts/0L021497108709222204/logo_brothers.png",
+      "path": "assets/teams/brothers.png",
+      "rights": "Team marks belong to their respective owners; not CC0"
+    },
+    "lions": {
+      "source": "https://cpbl.com.tw/files/atts/0L021496162893869773/logo_lions.png",
+      "path": "assets/teams/lions.png",
+      "rights": "Team marks belong to their respective owners; not CC0"
+    },
+    "guardians": {
+      "source": "https://cpbl.com.tw/files/atts/0L021495969510091777/logo_fubon.png",
+      "path": "assets/teams/guardians.png",
+      "rights": "Team marks belong to their respective owners; not CC0"
+    },
+    "dragons": {
+      "source": "https://cpbl.com.tw/files/atts/0L021497845061333235/logo_dragon.png",
+      "path": "assets/teams/dragons.png",
+      "rights": "Team marks belong to their respective owners; not CC0"
+    },
+    "monkeys": {
+      "source": "https://monkeys.rakuten.com.tw/logo/monkey.png",
+      "path": "assets/teams/monkeys.png",
+      "rights": "Team marks belong to their respective owners; not CC0"
+    },
+    "hawks": {
+      "source": "https://monkeys.rakuten.com.tw/logo/tsg.png",
+      "path": "assets/teams/hawks.png",
+      "rights": "Team marks belong to their respective owners; not CC0"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "license": "CC0",
+  "heightMetres": 1.98,
+  "bones": [
+    "pelvis",
+    "body",
+    "leftArm",
+    "leftElbow",
+    "rightArm",
+    "rightElbow",
+    "leftLeg",
+    "leftKnee",
+    "rightLeg",
+    "rightKnee"
+  ],
+  "sections": [
+    {
+      "material": 0,
+      "vertices": 9373,
+      "triangles": 17172,
+      "position": {
+        "offset": 0,
+        "count": 28119
+      },
+      "uv": {
+        "offset": 112476,
+        "count": 18746
+      },
+      "skinIndex": {
+        "offset": 187460,
+        "count": 37492
+      },
+      "skinWeight": {
+        "offset": 337428,
+        "count": 37492
+      },
+      "index": {
+        "offset": 487396,
+        "count": 51516
+      }
+    },
+    {
+      "material": 1,
+      "vertices": 3085,
+      "triangles": 5408,
+      "position": {
+        "offset": 693460,
+        "count": 9255
+      },
+      "uv": {
+        "offset": 730480,
+        "count": 6170
+      },
+      "skinIndex": {
+        "offset": 755160,
+        "count": 12340
+      },
+      "skinWeight": {
+        "offset": 804520,
+        "count": 12340
+      },
+      "index": {
+        "offset": 853880,
+        "count": 16224
+      }
+    },
+    {
+      "material": 2,
+      "vertices": 1058,
+      "triangles": 1760,
+      "position": {
+        "offset": 918776,
+        "count": 3174
+      },
+      "uv": {
+        "offset": 931472,
+        "count": 2116
+      },
+      "skinIndex": {
+        "offset": 939936,
+        "count": 4232
+      },
+      "skinWeight": {
+        "offset": 956864,
+        "count": 4232
+      },
+      "index": {
+        "offset": 973792,
+        "count": 5280
+      }
+    }
+  ]
+}

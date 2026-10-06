@@ -1,10 +1,10 @@
 const TEAMS=[
-  {name:'中信兄弟',mark:'兄',color:'#e8b421',stadium:'臺中洲際棒球場'},
-  {name:'統一7-ELEVEn獅',mark:'獅',color:'#f2b82d',stadium:'亞太成棒主球場'},
-  {name:'樂天桃猿',mark:'猿',color:'#b52c36',stadium:'樂天桃園棒球場'},
-  {name:'富邦悍將',mark:'悍',color:'#1c4777',stadium:'新莊棒球場'},
-  {name:'味全龍',mark:'龍',color:'#ae292b',stadium:'臺北大巨蛋'},
-  {name:'台鋼雄鷹',mark:'鷹',color:'#1c563c',stadium:'澄清湖棒球場'}
+  {name:'中信兄弟',mark:'兄',color:'#e8b421',logo:'assets/teams/brothers.png',stadium:'臺中洲際棒球場'},
+  {name:'統一7-ELEVEn獅',mark:'獅',color:'#f2b82d',logo:'assets/teams/lions.png',stadium:'亞太成棒主球場'},
+  {name:'樂天桃猿',mark:'猿',color:'#b52c36',logo:'assets/teams/monkeys.png',stadium:'樂天桃園棒球場'},
+  {name:'富邦悍將',mark:'悍',color:'#1c4777',logo:'assets/teams/guardians.png',stadium:'新莊棒球場'},
+  {name:'味全龍',mark:'龍',color:'#ae292b',logo:'assets/teams/dragons.png',stadium:'臺北大巨蛋'},
+  {name:'台鋼雄鷹',mark:'鷹',color:'#1c563c',logo:'assets/teams/hawks.png',stadium:'澄清湖棒球場'}
 ];
 const PLAYERS=[
   ['詹子賢','岳東華','許基宏','陳子豪','江坤宇','王威晨','陳文杰','高宇杰','岳政華'],
