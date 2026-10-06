@@ -24,8 +24,8 @@
   if(!cache.has(nextKey)){cache.set(nextKey,renderSong(song));while(cache.size>3)cache.delete(cache.keys().next().value)}
   try{const buffer=await cache.get(nextKey);if(token!==generation||!musicEnabled||masterMuted||tv.paused)return;
    audioUnlock();if(!audioCtx)return;if(!gain){gain=audioCtx.createGain();gain.gain.value=.55;gain.connect(audioCtx.destination)}
-   source=audioCtx.createBufferSource();source.buffer=buffer;source.loop=true;source.connect(gain);source.start(0,offset%buffer.duration);started=audioCtx.currentTime;pending='';
-  }catch(error){if(token===generation)pending='';cache.delete(nextKey);console.warn('Cheer rendering',error)}
+   source=audioCtx.createBufferSource();source.buffer=buffer;source.loop=true;source.connect(gain);source.start(0,offset%buffer.duration);document.body.dataset.cheerStatus='playing';document.body.dataset.cheerEngine='webaudio';started=audioCtx.currentTime;pending='';
+  }catch(error){if(token===generation){pending='';document.body.dataset.cheerStatus='error';}cache.delete(nextKey);console.warn('Cheer rendering',error)}
  }
  window.CPBLMusic={play,stop};
 })();

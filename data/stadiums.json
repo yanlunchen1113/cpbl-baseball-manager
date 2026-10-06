@@ -47,7 +47,7 @@
       "surface": "artificial",
       "outfield": "park",
       "levels": 2,
-      "seat": "#ba353c",
+      "seat": "#316ca0",
       "feature": "外野無看台、運動公園背景、人工草皮",
       "sources": [
         "https://cpbl.com.tw/field/cont?sid=0M061623807974766861",
@@ -99,7 +99,7 @@
       "surface": "grass",
       "outfield": "tiers",
       "levels": 3,
-      "seat": "#96334e",
+      "seat": "#407fa4",
       "feature": "三層建築、環繞看台與遮棚",
       "sources": [
         "https://www.dst.tycg.gov.tw/cp.aspx?n=11740"
@@ -124,7 +124,7 @@
       "surface": "grass",
       "outfield": "tiers",
       "levels": 2,
-      "seat": "#d3ac31",
+      "seat": "#2e83a4",
       "feature": "美式開放球場、棒球縫線造型屋頂",
       "sources": [
         "https://www.taichung.gov.tw/2266137/2266304/2266421/2280951"
@@ -174,7 +174,7 @@
       "surface": "grass",
       "outfield": "tiers",
       "levels": 3,
-      "seat": "#da7336",
+      "seat": "#38796a",
       "feature": "大型開放看台、成棒主副場訓練園區",
       "sources": [
         "https://www.tainan.gov.tw/News_Content.aspx?n=13370&s=8803841",
@@ -226,7 +226,7 @@
       "surface": "grass",
       "outfield": "tiers",
       "levels": 1,
-      "seat": "#517751",
+      "seat": "#62649c",
       "feature": "百年公園球場、較深的兩翼、低層看台",
       "sources": [
         "https://iplay.sports.gov.tw/gyminfo/index/20207",

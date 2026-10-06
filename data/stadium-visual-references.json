@@ -1,0 +1,73 @@
+{
+  "reviewedAt": "2026-10-06",
+  "method": "人工檢視YouTube畫面，原創程序模型；非影片貼圖或測繪重建",
+  "limits": "舊影像與代表性品牌不能證明2026當季廣告排列；地面字樣位置為模型估值",
+  "parks": [
+    {
+      "id": "asia",
+      "video": "https://www.youtube.com/watch?v=Ly3yLDnXR94",
+      "frames": "6:57;5:14",
+      "observations": "綠色雙層座席、玻璃包廂、平緩懸臂棚、外野入口通道"
+    },
+    {
+      "id": "intercontinental",
+      "video": "https://www.youtube.com/watch?v=36PngnnQnjo",
+      "frames": "2:10",
+      "observations": "開放外野、紅色棚頂拱架、綠色護牆與黄色牆頂"
+    },
+    {
+      "id": "taoyuan",
+      "video": "https://www.youtube.com/watch?v=36PngnnQnjo",
+      "frames": "3:18",
+      "observations": "深色外野牆、黃色牆頂、SKECHERS與信守信人力看板"
+    },
+    {
+      "id": "xinzhuang",
+      "video": "https://www.youtube.com/watch?v=qCXmY9vpFis",
+      "frames": "4:42;6:35;7:32",
+      "observations": "藍色座椅與燈帶、白色膜棚、雙螢幕和中央打者視線背景"
+    },
+    {
+      "id": "tianmu",
+      "video": "https://www.youtube.com/watch?v=36PngnnQnjo",
+      "frames": "6:37",
+      "observations": "藍色座椅、木質野餐包廂；外野公園輪廓另参照球團場館頁"
+    },
+    {
+      "id": "dome",
+      "video": "https://www.youtube.com/watch?v=p42h5lQedz8",
+      "frames": "3:00;5:00;7:00",
+      "observations": "灰色棋盤座席、紅色人工草皮壘線、上方大型LED螢幕"
+    },
+    {
+      "id": "chengcing",
+      "video": "https://www.youtube.com/watch?v=kAkMLb9v-t8",
+      "frames": "1:00;1:40",
+      "observations": "白色弧形棚、下層綠上層藍內野、低層外野座席及警戒區"
+    },
+    {
+      "id": "douliu",
+      "video": "https://www.youtube.com/watch?v=Zl01bROEEj0",
+      "frames": "1:08",
+      "observations": "雙層內野、白色懸臂棚、偏側記分板、低層外野藍椅"
+    },
+    {
+      "id": "chiayi",
+      "video": "https://www.youtube.com/shorts/u8S2q66fkQg",
+      "frames": "Short開場",
+      "observations": "紫藍色低層座椅、黃色通道、白色前緣、草皮內野"
+    },
+    {
+      "id": "hualien",
+      "video": "https://www.youtube.com/watch?v=m4tCreUKIvY",
+      "frames": "0:39–0:45",
+      "observations": "環弧形外野草坡、低層內野綠橘座椅、白色薄棚；2015舊影像僅用輪廓參考"
+    },
+    {
+      "id": "taitung",
+      "video": "https://www.youtube.com/watch?v=BVpyw7631AU",
+      "frames": "49:36",
+      "observations": "紅土內野、綠色後方建築及窗戶；2025賽事影像"
+    }
+  ]
+}
