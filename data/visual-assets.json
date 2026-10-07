@@ -1,5 +1,5 @@
 {
-  "version": 29,
+  "version": 30,
   "human": {
     "source": "MakeHuman Community system assets",
     "license": "CC0",
@@ -78,5 +78,70 @@
       "path": "assets/teams/hawks.png",
       "rights": "Team marks belong to their respective owners; not CC0"
     }
-  }
+  },
+  "lighting": {
+    "pipeline": "Linear HDR render target, PMREM environment, depth SSAO and ACES filmic output",
+    "ssao": {
+      "samples": 12,
+      "resolution": "half",
+      "reducedSamples": 6,
+      "reducedResolution": "one third",
+      "radiusMetres": 0.85,
+      "strength": 0.48
+    },
+    "environments": [
+      {
+        "path": "assets/lighting/day-stadium.hdr",
+        "source": "https://polyhaven.com/a/orlando_stadium",
+        "license": "CC0",
+        "authors": [
+          "Dimitrios Savva",
+          "Greg Zaal"
+        ],
+        "resolution": [
+          1024,
+          512
+        ],
+        "md5": "a24abd8ff273324feb69dbb746d166d4"
+      },
+      {
+        "path": "assets/lighting/night-environment.hdr",
+        "source": "https://polyhaven.com/a/modern_buildings_night",
+        "license": "CC0",
+        "author": "Greg Zaal",
+        "resolution": [
+          1024,
+          512
+        ],
+        "md5": "3067e8d9e8e961e6a11ff45c055a5fbd"
+      }
+    ],
+    "environmentUse": "Lighting and reflections only; the HDRIs are not photographs of CPBL stadiums and are not used as stadium backdrops",
+    "indoor": "Generated neutral room environment with six large overhead area surfaces, convolved by PMREM",
+    "atmosphere": "Three.js r160 Sky atmospheric scattering",
+    "staticBake": {
+      "path": "assets/lighting/stadium-bake.bin",
+      "method": "Offline ray visibility against actual canopy/deck geometry; sky, sun and floodlights sampled per seat",
+      "scope": "Seat shading only; not a full stadium irradiance lightmap"
+    },
+    "limitations": [
+      "Stadium buildings remain estimated procedural models",
+      "Lighting values are visually calibrated, not measured CPBL stadium photometry",
+      "GPU quality adapts to device; desktop checks do not establish phone performance"
+    ]
+  },
+  "vendorAdditions": [
+    {
+      "path": "vendor/RGBELoader.js",
+      "source": "https://github.com/mrdoob/three.js/blob/r160/examples/jsm/loaders/RGBELoader.js",
+      "license": "MIT",
+      "change": "Import/export wrapped for classic scripts"
+    },
+    {
+      "path": "vendor/Sky.js",
+      "source": "https://github.com/mrdoob/three.js/blob/r160/examples/jsm/objects/Sky.js",
+      "license": "MIT",
+      "change": "Import/export wrapped for classic scripts"
+    }
+  ]
 }

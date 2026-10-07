@@ -1,0 +1,148 @@
+{
+  "version": 30,
+  "method": "Five sky rays, one sun ray and five floodlight visibility rays per seat, against roof and deck triangles",
+  "profiles": {
+    "dome": [
+      {
+        "count": 6521,
+        "ambient": 0,
+        "day": 6521,
+        "night": 13042
+      },
+      {
+        "count": 20443,
+        "ambient": 19563,
+        "day": 40006,
+        "night": 60449
+      }
+    ],
+    "tianmu": [
+      {
+        "count": 9431,
+        "ambient": 80892,
+        "day": 90323,
+        "night": 99754
+      }
+    ],
+    "xinzhuang": [
+      {
+        "count": 10489,
+        "ambient": 109185,
+        "day": 119674,
+        "night": 130163
+      },
+      {
+        "count": 2520,
+        "ambient": 140652,
+        "day": 143172,
+        "night": 145692
+      }
+    ],
+    "taoyuan": [
+      {
+        "count": 2347,
+        "ambient": 148212,
+        "day": 150559,
+        "night": 152906
+      },
+      {
+        "count": 11804,
+        "ambient": 155253,
+        "day": 167057,
+        "night": 178861
+      }
+    ],
+    "intercontinental": [
+      {
+        "count": 2347,
+        "ambient": 190665,
+        "day": 193012,
+        "night": 195359
+      },
+      {
+        "count": 10755,
+        "ambient": 197706,
+        "day": 208461,
+        "night": 219216
+      }
+    ],
+    "douliu": [
+      {
+        "count": 2347,
+        "ambient": 229971,
+        "day": 232318,
+        "night": 234665
+      },
+      {
+        "count": 9603,
+        "ambient": 237012,
+        "day": 246615,
+        "night": 256218
+      }
+    ],
+    "asia": [
+      {
+        "count": 2767,
+        "ambient": 265821,
+        "day": 268588,
+        "night": 271355
+      },
+      {
+        "count": 14294,
+        "ambient": 274122,
+        "day": 288416,
+        "night": 302710
+      }
+    ],
+    "chengcing": [
+      {
+        "count": 1927,
+        "ambient": 317004,
+        "day": 318931,
+        "night": 320858
+      },
+      {
+        "count": 13993,
+        "ambient": 322785,
+        "day": 336778,
+        "night": 350771
+      }
+    ],
+    "chiayi": [
+      {
+        "count": 2358,
+        "ambient": 364764,
+        "day": 367122,
+        "night": 369480
+      },
+      {
+        "count": 3981,
+        "ambient": 371838,
+        "day": 375819,
+        "night": 379800
+      }
+    ],
+    "hualien": [
+      {
+        "count": 4434,
+        "ambient": 383781,
+        "day": 388215,
+        "night": 392649
+      }
+    ],
+    "taitung": [
+      {
+        "count": 540,
+        "ambient": 397083,
+        "day": 397623,
+        "night": 398163
+      },
+      {
+        "count": 2917,
+        "ambient": 398703,
+        "day": 401620,
+        "night": 404537
+      }
+    ]
+  }
+}
