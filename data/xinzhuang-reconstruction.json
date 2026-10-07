@@ -70,6 +70,18 @@
         "images-7.jpeg"
       ],
       "use": "right-field stage replacing front rows, solid seating tiers and white Guardians field logo; capture dates unknown"
+    },
+    {
+      "type": "user-provided photograph",
+      "files": [
+        "images-8.jpeg"
+      ],
+      "use": "paired outfield floodlight towers visible behind outfield stands"
+    },
+    {
+      "url": "https://www.instagram.com/reels/DWrNhSGkhVK/",
+      "providedBy": "user",
+      "use": "reference pending inspection: Instagram redirects to login; no geometry inferred from inaccessible clip"
     }
   ],
   "constraints": {
@@ -136,6 +148,18 @@
       0,
       0.025,
       -8.5
+    ],
+    "outfieldLightPositions": [
+      [
+        -48,
+        37,
+        141
+      ],
+      [
+        48,
+        37,
+        141
+      ]
     ]
   },
   "footprintAnchorsXZ": [
@@ -224,6 +248,7 @@
     "White chairs behind stage; solid lower tier risers retained outside stage.",
     "Upper deck projects over lower seating around row 10 with concrete underside.",
     "Continuous infield ring platform above dugouts replaces grass gap.",
-    "Actual existing Guardians logo alpha mask rendered white behind home plate; scale and placement estimated."
+    "Actual existing Guardians logo alpha mask rendered white behind home plate; scale and placement estimated.",
+    "Paired outfield floodlight towers relocated behind stands; actual spot lighting and night visibility bake use matching positions."
   ]
 }
