@@ -50,10 +50,10 @@
   instanced(new T.BoxGeometry(1,1,1),concrete,stepMatrices);instanced(new T.BoxGeometry(1,1,1),steel,railMatrices);instanced(new T.BoxGeometry(1,1,1),concrete,columnMatrices);chairRows(chairs,p.seat,parent);
   // Individual barrel-vault bays, steel arch ribs, purlins and underside.
   // The earlier undulating sheet had no load-bearing structure.
-  const roofMaterial=mat('#d8dbcc',{side:T.DoubleSide,roughness:.88}),roofBays=26;
+  const roofMaterial=mat('#eaeeed',{side:T.DoubleSide,roughness:.88}),roofBays=26;
   for(let bay=0;bay<roofBays;bay++){
    const a=bay/roofBays,b=(bay+1)/roofBays,verts=[],idx=[],across=10,depth=7;
-   function roofPoint(u,v){const t=a+(b-a)*u,at=sample(t,10.0+v*15.7,17.0+v*1.3+Math.sin(Math.PI*u)*1.55);return at.v;}
+   function roofPoint(u,v){const t=a+(b-a)*u,at=sample(t,8.2+v*17.5,17.0+v*1.3+Math.sin(Math.PI*u)*1.55);return at.v;}
    for(let u=0;u<=across;u++)for(let v=0;v<=depth;v++){verts.push(...roofPoint(u/across,v/depth).toArray());if(u<across&&v<depth){const k=u*(depth+1)+v;idx.push(k,k+1,k+depth+1,k+1,k+depth+2,k+depth+1);}}
    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(verts,3));g.setIndex(idx);g.computeVertexNormals();mesh(g,roofMaterial,0,0,0,parent).userData.staticOccluder=true;
    for(const v of [0,.48,1]){const points=Array.from({length:11},(_,j)=>roofPoint(j/10,v).add(new T.Vector3(0,-.08,0))),curve=new T.CatmullRomCurve3(points);mesh(new T.TubeGeometry(curve,12,.055,6,false),steel,0,0,0,parent).castShadow=false;}
@@ -70,6 +70,9 @@
     if(mid>.37&&mid<.63){const ads=['好立善','富邦人壽','FOOTER','台灣大哥大','中保無限'],at=sample(mid,-1.49,.93),ad=mesh(new T.PlaneGeometry(sample(a,-1.25).v.distanceTo(sample(b,-1.25).v)-.04,1.12),mat('#ffffff',{map:labelTexture(ads[Math.floor((mid-.37)/.052)%ads.length],'#3f514b','#eeeee0',512),side:T.DoubleSide}),at.v.x,at.v.y,at.v.z,parent);ad.rotation.y=at.turn;ad.castShadow=false;}
    }
   }
+  // The supplied aerial/behind-home photographs show a red horseshoe apron.
+  const apronVertices=[],apronIndices=[];for(let i=0;i<=96;i++){const t=.025+.95*i/96;for(const off of [-6.2,-1.45]){const at=sample(t,off,.005).v;if(at.z>0&&Math.abs(at.x)<at.z+.7)at.x=Math.sign(at.x)*(at.z+.7);apronVertices.push(...at.toArray());}if(i<96){const k=i*2;apronIndices.push(k,k+2,k+1,k+1,k+2,k+3);}}
+  const apronGeometry=new T.BufferGeometry();apronGeometry.setAttribute('position',new T.Float32BufferAttribute(apronVertices,3));apronGeometry.setIndex(apronIndices);apronGeometry.computeVertexNormals();mesh(apronGeometry,mat('#914337',{roughness:1,side:T.DoubleSide}),0,0,0,parent).castShadow=false;
   const groundHoles=[];
   for(const t of [.33,.67]){
    const at=sample(t,1.3,-.45),dug=new T.Group();dug.position.copy(at.v);dug.rotation.y=at.turn;parent.add(dug);
@@ -90,12 +93,18 @@
    for(const x of [-1.2,1.2]){const bump=mesh(new T.SphereGeometry(.85,12,6,0,Math.PI*2,0,Math.PI/2),mat('#b48162'),x,.01,7,pen);bump.scale.y=.16;box(.5,.015,.13,mat('#ece9dd'),x,.14,7,pen);}
   }
   // Separate left/right outfield bleachers and centre-field batter's eye.
-  const outChairs=[],ofConcrete=mat('#a6aaa0');
+  const outChairs=[],ofConcrete=mat('#a6aaa0',{side:T.DoubleSide}),stageAngle=.42,stageRadius=wallDistance(stageAngle)+7.0;
+  const onStage=(theta,row)=>Math.abs(theta-stageAngle)<6/stageRadius&&row>=3&&row<=5;
   for(const side of [-1,1])for(let sector=0;sector<12;sector++){
    const a=side<0?-.785+sector*.052:.161+sector*.052,b=a+.052,mid=(a+b)/2;
    for(let row=0;row<11;row++){
-    const r=wallDistance(mid)+4.5+row*.78,y=3.70+row*.34,w=r*(b-a),o=box(w+.08,.16,.78,ofConcrete,Math.sin(mid)*r,y-.08,Math.cos(mid)*r,parent);o.rotation.y=mid;o.castShadow=false;
-    const cols=Math.floor((w-1.0)/.56);for(let col=0;col<cols;col++){const t=a+.5/r+(b-a-1/r)*(col+.5)/cols,rr=wallDistance(t)+4.5+row*.78;outChairs.push({x:Math.sin(t)*rr,y:y+.08,z:Math.cos(t)*rr,a:t,color:sector===4||sector===5?'#bb8460':row<3?'#497d81':'#2f6985'});}
+    const r=wallDistance(mid)+4.5+row*.78,y=3.70+row*.34,w=r*(b-a);
+    // Exact radial edges join adjacent bays; solid risers close the view from home.
+    const vertices=[];for(const theta of [a,b])for(const off of [-.39,.39]){const rr=wallDistance(theta)+4.5+row*.78+off;vertices.push(Math.sin(theta)*rr,y,Math.cos(theta)*rr);}
+    const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(vertices,3));g.setIndex([0,1,2,1,3,2]);g.computeVertexNormals();if(!onStage(mid,row))mesh(g,ofConcrete,0,0,0,parent).castShadow=false;
+    const high=row? .34:3.70,rv=[];for(const theta of [a,b]){const rr=wallDistance(theta)+4.5+row*.78-.39;for(const yy of [y,y-high])rv.push(Math.sin(theta)*rr,yy,Math.cos(theta)*rr);}
+    const rg=new T.BufferGeometry();rg.setAttribute('position',new T.Float32BufferAttribute(rv,3));rg.setIndex([0,2,1,1,2,3]);rg.computeVertexNormals();if(!onStage(mid,row))mesh(rg,ofConcrete,0,0,0,parent).castShadow=false;
+    const cols=Math.floor((w-1.0)/.56);for(let col=0;col<cols;col++){const t=a+.5/r+(b-a-1/r)*(col+.5)/cols,rr=wallDistance(t)+4.5+row*.78;if(onStage(t,row))continue;outChairs.push({x:Math.sin(t)*rr,y:y+.08,z:Math.cos(t)*rr,a:t+Math.PI,color:sector===4||sector===5?'#bb8460':row<3?'#497d81':'#2f6985'});}
    }
    const rr=wallDistance(mid)+14.7;box(wallDistance(mid)*(b-a),.7,.16,pad,Math.sin(mid)*rr,8.1,Math.cos(mid)*rr,parent).rotation.y=mid;
   }
@@ -105,10 +114,14 @@
    const r=wallDistance(angle)+12,x=Math.sin(angle)*r,z=Math.cos(angle)*r,y=14;
    const board=new T.Group();board.position.set(x,y,z);board.rotation.y=angle+Math.PI;parent.add(board);
    box(w,h,.7,mat('#242b2b'),0,0,0,board);for(const sx of [-w*.34,w*.34])box(.55,13,.55,steel,sx,-6.5,-.25,board);
-   const screen=mesh(new T.PlaneGeometry(w-.7,h-.7),mat('#ffffff',{map:labelTexture(angle<0?'FUBON GUARDIANS':'新莊棒球場','#0d2f5f','#e6eff7',1024),emissive:'#7393c2',emissiveIntensity:night?15:.2}),0,0,.38,board);screen.castShadow=false;
+   const screenTexture=labelTexture(angle<0?'FUBON GUARDIANS':'新莊棒球場','#0d2f5f','#e6eff7',1024);const screen=mesh(new T.PlaneGeometry(w-.7,h-.7),mat('#ffffff',{map:screenTexture,emissive:'#7393c2',emissiveMap:screenTexture,emissiveIntensity:night?1.3:.12}),0,0,.38,board);screen.castShadow=false;
   }
   // 2026 G8/G9 stage: front cross-aisle by fourth row, on the right-field side.
-  const stageAngle=.42,stageRadius=wallDistance(stageAngle)+7.0,cheer=new T.Group();cheer.position.set(Math.sin(stageAngle)*stageRadius,4.40,Math.cos(stageAngle)*stageRadius);cheer.rotation.y=stageAngle;parent.add(cheer);box(12,.18,1.65,mat('#775d48'),0,0,0,cheer);box(12,.48,.12,pad,0,-.12,-.78,cheer);
+  const cheer=new T.Group();cheer.position.set(Math.sin(stageAngle)*stageRadius,4.72,Math.cos(stageAngle)*stageRadius);cheer.rotation.y=stageAngle;parent.add(cheer);
+  box(12,.22,3.0,mat('#806646'),0,0,0,cheer);box(12,1.15,.18,mat('#174d85'),0,-.48,-1.48,cheer);
+  const stageSign=mesh(new T.PlaneGeometry(11.4,.75),mat('#ffffff',{map:labelTexture('G8 · G9  FUBON GUARDIANS','#174d85','#e7edf2',1024)}),0,-.40,-1.58,cheer);stageSign.rotation.y=Math.PI;stageSign.castShadow=false;
+  for(const side of [-1,1]){box(.12,.68,3,steel,side*6,.42,0,cheer);for(let step=0;step<4;step++)box(1.1,.18,.44,concrete,side*6.6,-.58+step*.18,-1.25+step*.40,cheer);}
+  box(12,.07,.07,steel,0,.75,1.45,cheer);
   for(let i=0;i<5;i++){const x=-44+i*2.2,z=cf+5;segment(new T.Vector3(x,10,z),new T.Vector3(x,17,z),.035,steel,parent);const flag=mesh(new T.PlaneGeometry(1.6,.85),mat(i%2?'#1d5291':'#d6e0db',{side:T.DoubleSide}),x+.75,16.4,z,parent);flag.rotation.y=.35;flag.castShadow=false;}
   // Background streetscape with actual facade components, rather than floating
   // striped cubes. Skyline positions and hidden elevations remain estimates.
@@ -123,7 +136,7 @@
    const g=new T.BufferGeometry();for(const [key,values] of Object.entries(attributes))if(values.length)g.setAttribute(key,new T.Float32BufferAttribute(values,key==='uv'?2:3));g.computeBoundingSphere();const merged=mesh(g,material,0,0,0,parent);merged.castShadow=false;for(const o of objects)o.geometry.dispose();
   }
   let surfaceIndex=0;const surfaceBake=root.CPBL_BAKED_SURFACES?.xinzhuang;parent.traverse(o=>{if(!o.userData.staticOccluder)return;o.userData.bakeSurface=surfaceIndex;const baked=surfaceBake?.[surfaceIndex++],count=o.geometry.attributes.position.count;if(baked?.count===count){const colors=new Float32Array(count*3);for(let i=0;i<count;i++){const shade=.48+.52*(baked.ambient[i]/255*.35+baked[night?'night':'day'][i]/255*.65);colors.fill(shade,i*3,i*3+3);}o.geometry.setAttribute('color',new T.BufferAttribute(colors,3));o.material=o.material.clone();o.material.vertexColors=true;}});
-  parent.userData.reconstruction={version:31,model:'xinzhuang-reference-footprint',lowerSections:26,upperSections:26,roofBays,seatCount:chairs.length+outChairs.length,groundHoles,estimated:true};
+  parent.userData.reconstruction={version:'31.1',model:'xinzhuang-reference-footprint',lowerSections:26,upperSections:26,roofBays,seatCount:chairs.length+outChairs.length,groundHoles,estimated:true};
   return parent.userData.reconstruction;
  }};
 })(window);

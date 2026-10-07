@@ -1,5 +1,5 @@
 {
-  "version": 31,
+  "version": "31.1",
   "updatedAt": "2026-10-07",
   "stadium": "xinzhuang",
   "status": "reference-reconstruction-with-explicit-estimates",
@@ -43,6 +43,15 @@
       "url": "https://johsi.com/s_xz",
       "providedBy": "user",
       "use": "page inspected; detailed view map not accessible in current page, no geometry inferred from unavailable imagery"
+    },
+    {
+      "type": "user-provided photographs",
+      "files": [
+        "images-2.jpeg",
+        "images-3.jpeg",
+        "images.jpeg"
+      ],
+      "use": "roof coverage and white arched bays; red horseshoe apron; field light balance; capture dates unknown"
     }
   ],
   "constraints": {
@@ -58,7 +67,7 @@
       "D1-D13",
       "G8-G9 stage"
     ],
-    "modelSeatCount": 12232,
+    "modelSeatCount": 12178,
     "notIndividualSeatSurvey": true
   },
   "estimates": {
@@ -75,7 +84,7 @@
     "roofBays": 26,
     "roofFrontElevation": 17.0,
     "roofArchRise": 1.55,
-    "roofDepth": 15.7,
+    "roofDepth": 17.5,
     "dugoutFloorElevation": -0.45,
     "dugoutSize": [
       16.3,
@@ -87,6 +96,13 @@
     "bullpenSize": [
       5,
       22
+    ],
+    "roofFrontOffset": 8.2,
+    "roofFrontApproxLowerRow": 10,
+    "stagePlatformElevation": 4.72,
+    "stagePlatformSize": [
+      12,
+      3
     ]
   },
   "footprintAnchorsXZ": [
@@ -160,5 +176,13 @@
     ],
     "glbExtension": "none; standard glTF shared geometry nodes",
     "downloadArchive": "assets/stadiums/xinzhuang-v31.zip"
-  }
+  },
+  "corrections31_1": [
+    "Solid radial outfield treads and risers; seating faces home plate.",
+    "G8/G9 platform clears rows 4-6 instead of intersecting chairs.",
+    "Roof front extends to approximately lower row 10; occluded dimensions remain estimates.",
+    "Grass-only depth bias and increased broadcast near clip reduce distant surface overlap.",
+    "Balanced daylight fill and night floodlights/exposure.",
+    "Reference photographs: red apron behind home and roof colour; approximate G field marking, not a traced logo."
+  ]
 }

@@ -155,3 +155,7 @@ WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices
 `assets/stadiums/xinzhuang-v31.glb` 為可編輯幾何匯出，使用標準 glTF 共用幾何節點，不含觀眾圖、文字貼圖與動態球員；由 `scripts/export_xinzhuang.cjs` 產生。這是依參考重建的模型，並非攝影測量、測繪或已完成的實拍畫質。來源、座席數與所有推估參數見 `data/xinzhuang-reconstruction.json`。其他十座球場仍保留上一版模型。
 
 公開下載提供 `assets/stadiums/xinzhuang-v31.zip`，內含 GLB 與推估參數紀錄；GLB 不在遊戲啟動時下載，遊戲仍使用共享建模程式與 GPU 實例。
+
+## v31.1：場地交界、棚架與光線修正
+
+新莊外野踏板及立面以相同圍牆曲線接合；補上 G8/G9 舞台、側階與前飾板，清除平台範圍內座位。棚架前緣延伸到第一層約第十排，尺寸仍為影像推估。草皮使用獨立深度偏移，轉播鏡頭提高近裁切距離以減少遠處深度衝突。日夜間曝光、環境補光、燈塔強度改為一致尺度。模型預覽新增打者與舞台視角。

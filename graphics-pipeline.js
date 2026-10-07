@@ -2,16 +2,16 @@
 (function(root){
  root.CPBLGraphics={create(T,renderer,scene,stage){
   if(!document.createElementNS||!T.PMREMGenerator)return null;
-  fetch('assets/lighting/stadium-bake.json?v=31').then(r=>{if(!r.ok)throw Error('Stadium bake unavailable');return r.json();}).then(async manifest=>{const r=await fetch('assets/lighting/stadium-bake.bin?v=31');if(!r.ok)throw Error('Stadium bake unavailable');const data=await r.arrayBuffer(),profiles={};for(const [key,groups] of Object.entries(manifest.profiles))profiles[key]=groups.map(g=>({count:g.count,ambient:new Uint8Array(data,g.ambient,g.count),day:new Uint8Array(data,g.day,g.count),night:new Uint8Array(data,g.night,g.count)}));root.CPBL_BAKED_LIGHTING=profiles;const surfaces={};for(const [key,groups] of Object.entries(manifest.surfaceProfiles||{}))surfaces[key]=groups.map(g=>({count:g.count,ambient:new Uint8Array(data,g.ambient,g.count),day:new Uint8Array(data,g.day,g.count),night:new Uint8Array(data,g.night,g.count)}));root.CPBL_BAKED_SURFACES=surfaces;root.dispatchEvent(new Event('cpbl-baked-lighting'));}).catch(error=>console.warn('Static stadium lighting',error));
+  fetch('assets/lighting/stadium-bake.json?v=31.1').then(r=>{if(!r.ok)throw Error('Stadium bake unavailable');return r.json();}).then(async manifest=>{const r=await fetch('assets/lighting/stadium-bake.bin?v=31.1');if(!r.ok)throw Error('Stadium bake unavailable');const data=await r.arrayBuffer(),profiles={};for(const [key,groups] of Object.entries(manifest.profiles))profiles[key]=groups.map(g=>({count:g.count,ambient:new Uint8Array(data,g.ambient,g.count),day:new Uint8Array(data,g.day,g.count),night:new Uint8Array(data,g.night,g.count)}));root.CPBL_BAKED_LIGHTING=profiles;const surfaces={};for(const [key,groups] of Object.entries(manifest.surfaceProfiles||{}))surfaces[key]=groups.map(g=>({count:g.count,ambient:new Uint8Array(data,g.ambient,g.count),day:new Uint8Array(data,g.day,g.count),night:new Uint8Array(data,g.night,g.count)}));root.CPBL_BAKED_SURFACES=surfaces;root.dispatchEvent(new Event('cpbl-baked-lighting'));}).catch(error=>console.warn('Static stadium lighting',error));
   const environments=new Map(),sources=new Map(),pending=new Map();let mode='day',reduced=false;
   const pmrem=new T.PMREMGenerator(renderer);pmrem.compileEquirectangularShader();
   function setStrength(value){scene.traverse(o=>{if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])if(m.isMeshStandardMaterial)m.envMapIntensity=value;});}
-  function installEnvironment(key){if(environments.has(key)){scene.environment=environments.get(key).texture;stage.dataset.environment=key+'-pmrem';setStrength(key==='day'?.38:key==='indoor'?.70:6.0);}}
+  function installEnvironment(key){if(environments.has(key)){scene.environment=environments.get(key).texture;stage.dataset.environment=key+'-pmrem';setStrength(key==='day'?.65:key==='indoor'?.70:.10);}}
   function configure(key){mode=key;stage.dataset.renderPipeline='physical-hdr-ssao';installEnvironment(key);
    if(key!=='indoor'&&!environments.has(key)){
     const fallbackKey=key+'-fallback';
-    if(!environments.has(fallbackKey)){const sky=new T.Scene();sky.background=key==='night'?new T.Color(2.5,3.0,4.0):new T.Color(.32,.38,.46);environments.set(fallbackKey,pmrem.fromScene(sky,.02,.1,150));}
-    scene.environment=environments.get(fallbackKey).texture;stage.dataset.environment=fallbackKey;setStrength(key==='day'?.38:6.0);
+    if(!environments.has(fallbackKey)){const sky=new T.Scene();sky.background=key==='night'?new T.Color(.10,.14,.20):new T.Color(.32,.38,.46);environments.set(fallbackKey,pmrem.fromScene(sky,.02,.1,150));}
+    scene.environment=environments.get(fallbackKey).texture;stage.dataset.environment=fallbackKey;setStrength(key==='day'?.65:.10);
    }
    if(key==='indoor'&&!environments.has(key)){
     const room=new T.Scene();room.background=new T.Color('#14181c');const walls=new T.Mesh(new T.BoxGeometry(70,50,90),new T.MeshStandardMaterial({color:'#b1b6b7',side:T.BackSide,roughness:1}));room.add(walls);
@@ -22,7 +22,7 @@
    }
   }
   const capable=renderer.capabilities.isWebGL2&&renderer.extensions.has('EXT_color_buffer_float');
-  if(!capable)return {configure,refreshMaterials:()=>setStrength(mode==='day'?.38:mode==='indoor'?.70:6.0),render:(s,c)=>renderer.render(s,c),reduce(){},restore(){for(const [key,source] of sources){environments.get(key)?.dispose();environments.set(key,pmrem.fromEquirectangular(source));source.dispose();}if(mode==='indoor'){environments.get('indoor')?.dispose();environments.delete('indoor');configure(mode);}else {for(const key of ['day-fallback','night-fallback']){environments.get(key)?.dispose();environments.delete(key);}configure(mode);}}};
+  if(!capable)return {configure,refreshMaterials:()=>setStrength(mode==='day'?.65:mode==='indoor'?.70:.10),render:(s,c)=>renderer.render(s,c),reduce(){},restore(){for(const [key,source] of sources){environments.get(key)?.dispose();environments.set(key,pmrem.fromEquirectangular(source));source.dispose();}if(mode==='indoor'){environments.get('indoor')?.dispose();environments.delete('indoor');configure(mode);}else {for(const key of ['day-fallback','night-fallback']){environments.get(key)?.dispose();environments.delete(key);}configure(mode);}}};
   const target=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,format:T.RGBAFormat,minFilter:T.LinearFilter,magFilter:T.LinearFilter});target.texture.colorSpace=T.LinearSRGBColorSpace;target.depthTexture=new T.DepthTexture(1,1,T.UnsignedIntType);target.samples=Math.min(2,renderer.capabilities.maxSamples||0);
   const ao=new T.WebGLRenderTarget(1,1,{depthBuffer:false,minFilter:T.LinearFilter,magFilter:T.LinearFilter});
   const quadScene=new T.Scene(),quadCamera=new T.OrthographicCamera(-1,1,1,-1,0,1),quad=new T.Mesh(new T.PlaneGeometry(2,2));quad.frustumCulled=false;quadScene.add(quad);
@@ -48,7 +48,7 @@
     #include <colorspace_fragment>
    }`});
   let width=0,height=0;const drawSize=new T.Vector2();
-  return {configure,refreshMaterials:()=>setStrength(mode==='day'?.38:mode==='indoor'?.70:6.0),render(s,c){renderer.getDrawingBufferSize(drawSize);if(drawSize.x!==width||drawSize.y!==height){width=drawSize.x;height=drawSize.y;target.setSize(width,height);const div=reduced?3:2;ao.setSize(Math.ceil(width/div),Math.ceil(height/div));output.uniforms.pixel.value.set(1/width,1/height);output.uniforms.aoPixel.value.set(div/width,div/height);aoMaterial.uniforms.size.value.set(width/div,height/div);}
+  return {configure,refreshMaterials:()=>setStrength(mode==='day'?.65:mode==='indoor'?.70:.10),render(s,c){renderer.getDrawingBufferSize(drawSize);if(drawSize.x!==width||drawSize.y!==height){width=drawSize.x;height=drawSize.y;target.setSize(width,height);const div=reduced?3:2;ao.setSize(Math.ceil(width/div),Math.ceil(height/div));output.uniforms.pixel.value.set(1/width,1/height);output.uniforms.aoPixel.value.set(div/width,div/height);aoMaterial.uniforms.size.value.set(width/div,height/div);}
     renderer.setRenderTarget(target);renderer.render(s,c);
     {aoMaterial.uniforms.projection.value.copy(c.projectionMatrix);aoMaterial.uniforms.inverseProjection.value.copy(c.projectionMatrixInverse);quad.material=aoMaterial;renderer.setRenderTarget(ao);renderer.render(quadScene,quadCamera);}
     output.uniforms.cameraNearFar.value.set(c.near,c.far);output.uniforms.bloom.value=mode==='day'?0:.015;output.uniforms.bloomThreshold.value=3/renderer.toneMappingExposure;output.uniforms.aoStrength.value=reduced?.36:.48;quad.material=output;renderer.setRenderTarget(null);renderer.render(quadScene,quadCamera);
