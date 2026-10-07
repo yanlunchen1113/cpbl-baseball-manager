@@ -16,13 +16,16 @@
   // Section boundaries follow the official seating plan, with a rounded home
   // plate corner and almost straight foul-line wings. Clear aisles every block.
   const sections=26,chairs=[];
-  for(const [level,front,y0,rows,rise] of [[0,1.0,1.95,17,.32],[1,12.2,9.65,10,.39]]){
+  for(const [level,front,y0,rows,rise] of [[0,1.0,1.95,17,.32],[1,8.2,9.65,10,.39]]){
    for(let s=0;s<sections;s++){
     const a=s/sections,b=(s+1)/sections,margin=.005,mid=(a+b)/2;
     strip(a,b,front,front+rows*.80,y0-.16,y0+rows*rise-.16,concrete,true);
+    if(level){strip(a,b,front,front+rows*.80,y0-.42,y0+rows*rise-.42,concrete,true);panel(a,b,y0-.29,.26,.35,concrete,front-.02).userData.staticOccluder=true;}
     for(let row=0;row<rows;row++){
      const offset=front+row*.80,c=sample(mid,offset,y0+row*rise-.075),w=sample(a,offset).v.distanceTo(sample(b,offset).v);
      pose.position.copy(c.v);pose.rotation.set(0,c.turn,0);pose.scale.set(w,.15,.80);pose.updateMatrix();stepMatrices.push(pose.matrix.clone());
+     // Solid risers connect the tier surfaces; no open grass gaps below seats.
+     if(row)panel(a,b,y0+row*rise-rise/2,rise,.08,concrete,offset-.40).castShadow=false;
      const start=sample(a+margin,offset),end=sample(b-margin,offset),cols=Math.max(2,Math.floor(start.v.distanceTo(end.v)/.54));
      for(let col=0;col<cols;col++){
       const t=a+margin+(b-a-2*margin)*(col+.5)/cols,at=sample(t,offset,y0+row*rise+.08),block=s<13?13-s:s-12;
@@ -42,7 +45,7 @@
     const rearOffset=front+rows*.8+1.75,rearHeight=level?1.0:2.30,rearY=y0+rows*rise+rearHeight/2-.15;
     if(level===0&&s%3===1){for(const [l,r] of [[a,mid-.0045],[mid+.0045,b]])panel(l,r,rearY,rearHeight,.24,concrete,rearOffset).userData.staticOccluder=true;panel(mid-.0045,mid+.0045,rearY+rearHeight/2-.15,.30,.24,concrete,rearOffset).userData.staticOccluder=true;}
     else panel(a,b,rearY,rearHeight,.24,concrete,rearOffset).userData.staticOccluder=true;
-    if(s%2===0){const c=sample(a,front+4,y0/2);pose.position.copy(c.v);pose.rotation.set(0,c.turn,0);pose.scale.set(.40,y0,.48);pose.updateMatrix();columnMatrices.push(pose.matrix.clone());}
+    if(s%2===0){const c=sample(a,level?17.3:front+4,y0/2);pose.position.copy(c.v);pose.rotation.set(0,c.turn,0);pose.scale.set(.40,y0,.48);pose.updateMatrix();columnMatrices.push(pose.matrix.clone());}
     // Dark access portals occur behind the lower cross aisle, not on the field.
     if(level===0&&s%3===1){const c=sample(mid,front+rows*.8+1.5,y0+rows*rise+1.12),hole=box(2.25,2.4,.18,mat('#29332f'),c.v.x,c.v.y,c.v.z,parent);hole.rotation.y=c.turn;}
    }
@@ -73,6 +76,10 @@
   // The supplied aerial/behind-home photographs show a red horseshoe apron.
   const apronVertices=[],apronIndices=[];for(let i=0;i<=96;i++){const t=.025+.95*i/96;for(const off of [-6.2,-1.45]){const at=sample(t,off,.005).v;if(at.z>0&&Math.abs(at.x)<at.z+.7)at.x=Math.sign(at.x)*(at.z+.7);apronVertices.push(...at.toArray());}if(i<96){const k=i*2;apronIndices.push(k,k+2,k+1,k+1,k+2,k+3);}}
   const apronGeometry=new T.BufferGeometry();apronGeometry.setAttribute('position',new T.Float32BufferAttribute(apronVertices,3));apronGeometry.setIndex(apronIndices);apronGeometry.computeVertexNormals();mesh(apronGeometry,mat('#914337',{roughness:1,side:T.DoubleSide}),0,0,0,parent).castShadow=false;
+  // Continuous infield ring stage/concourse sits above the dugout roof.
+  // It closes the former grass gap between the first seating row and backstop.
+  const ringFloor=mat('#8a806d',{roughness:.95});strip(0,1,-1.22,1.05,1.94,1.94,ringFloor).castShadow=false;
+  for(let i=0;i<78;i++){const a=i/78,b=(i+1)/78;panel(a,b,1.72,.44,.18,mat('#214c78'),-1.18).castShadow=false;}
   const groundHoles=[];
   for(const t of [.33,.67]){
    const at=sample(t,1.3,-.45),dug=new T.Group();dug.position.copy(at.v);dug.rotation.y=at.turn;parent.add(dug);
@@ -93,8 +100,9 @@
    for(const x of [-1.2,1.2]){const bump=mesh(new T.SphereGeometry(.85,12,6,0,Math.PI*2,0,Math.PI/2),mat('#b48162'),x,.01,7,pen);bump.scale.y=.16;box(.5,.015,.13,mat('#ece9dd'),x,.14,7,pen);}
   }
   // Separate left/right outfield bleachers and centre-field batter's eye.
-  const outChairs=[],ofConcrete=mat('#a6aaa0',{side:T.DoubleSide}),stageAngle=.42,stageRadius=wallDistance(stageAngle)+7.0;
-  const onStage=(theta,row)=>Math.abs(theta-stageAngle)<6/stageRadius&&row>=3&&row<=5;
+  const outChairs=[],ofConcrete=mat('#a6aaa0',{side:T.DoubleSide}),stageStart=.369,stageEnd=.681,stageAngle=(stageStart+stageEnd)/2;
+  const stageSector=theta=>theta>=stageStart-.00001&&theta<=stageEnd+.00001;
+  const onStage=(theta,row)=>stageSector(theta)&&row<3;
   for(const side of [-1,1])for(let sector=0;sector<12;sector++){
    const a=side<0?-.785+sector*.052:.161+sector*.052,b=a+.052,mid=(a+b)/2;
    for(let row=0;row<11;row++){
@@ -102,11 +110,11 @@
     // Exact radial edges join adjacent bays; solid risers close the view from home.
     const vertices=[];for(const theta of [a,b])for(const off of [-.39,.39]){const rr=wallDistance(theta)+4.5+row*.78+off;vertices.push(Math.sin(theta)*rr,y,Math.cos(theta)*rr);}
     const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(vertices,3));g.setIndex([0,1,2,1,3,2]);g.computeVertexNormals();if(!onStage(mid,row))mesh(g,ofConcrete,0,0,0,parent).castShadow=false;
-    const high=row? .34:3.70,rv=[];for(const theta of [a,b]){const rr=wallDistance(theta)+4.5+row*.78-.39;for(const yy of [y,y-high])rv.push(Math.sin(theta)*rr,yy,Math.cos(theta)*rr);}
+    const high=row===3&&stageSector(mid)?1.02:row?.34:3.70,rv=[];for(const theta of [a,b]){const rr=wallDistance(theta)+4.5+row*.78-.39;for(const yy of [y,y-high])rv.push(Math.sin(theta)*rr,yy,Math.cos(theta)*rr);}
     const rg=new T.BufferGeometry();rg.setAttribute('position',new T.Float32BufferAttribute(rv,3));rg.setIndex([0,2,1,1,2,3]);rg.computeVertexNormals();if(!onStage(mid,row))mesh(rg,ofConcrete,0,0,0,parent).castShadow=false;
-    const cols=Math.floor((w-1.0)/.56);for(let col=0;col<cols;col++){const t=a+.5/r+(b-a-1/r)*(col+.5)/cols,rr=wallDistance(t)+4.5+row*.78;if(onStage(t,row))continue;outChairs.push({x:Math.sin(t)*rr,y:y+.08,z:Math.cos(t)*rr,a:t+Math.PI,color:sector===4||sector===5?'#bb8460':row<3?'#497d81':'#2f6985'});}
+    const cols=Math.floor((w-1.0)/.56);for(let col=0;col<cols;col++){const t=a+.5/r+(b-a-1/r)*(col+.5)/cols,rr=wallDistance(t)+4.5+row*.78;if(onStage(t,row))continue;outChairs.push({x:Math.sin(t)*rr,y:y+.08,z:Math.cos(t)*rr,a:t+Math.PI,color:side>0&&stageSector(t)&&row>=3&&row<=5?'#d2d5d0':row<3?'#497d81':'#2f6985'});}
    }
-   const rr=wallDistance(mid)+14.7;box(wallDistance(mid)*(b-a),.7,.16,pad,Math.sin(mid)*rr,8.1,Math.cos(mid)*rr,parent).rotation.y=mid;
+   for(const yy of [7.42,7.76]){const l=new T.Vector3(Math.sin(a)*(wallDistance(a)+12.69),yy,Math.cos(a)*(wallDistance(a)+12.69)),r=new T.Vector3(Math.sin(b)*(wallDistance(b)+12.69),yy,Math.cos(b)*(wallDistance(b)+12.69));segment(l,r,.025,steel,parent).castShadow=false;}for(const t of [a,b]){const rr=wallDistance(t)+12.69;segment(new T.Vector3(Math.sin(t)*rr,7.10,Math.cos(t)*rr),new T.Vector3(Math.sin(t)*rr,7.80,Math.cos(t)*rr),.03,steel,parent).castShadow=false;}
   }
   chairRows(outChairs,'#36728c',parent);
   const cf=wallDistance(0);box(33,9,.6,mat('#152d21'),0,7.8,cf+3.5,parent);box(33,.14,3,concrete,0,12.4,cf+4.4,parent);
@@ -116,12 +124,25 @@
    box(w,h,.7,mat('#242b2b'),0,0,0,board);for(const sx of [-w*.34,w*.34])box(.55,13,.55,steel,sx,-6.5,-.25,board);
    const screenTexture=labelTexture(angle<0?'FUBON GUARDIANS':'新莊棒球場','#0d2f5f','#e6eff7',1024);const screen=mesh(new T.PlaneGeometry(w-.7,h-.7),mat('#ffffff',{map:screenTexture,emissive:'#7393c2',emissiveMap:screenTexture,emissiveIntensity:night?1.3:.12}),0,0,.38,board);screen.castShadow=false;
   }
-  // 2026 G8/G9 stage: front cross-aisle by fourth row, on the right-field side.
-  const cheer=new T.Group();cheer.position.set(Math.sin(stageAngle)*stageRadius,4.72,Math.cos(stageAngle)*stageRadius);cheer.rotation.y=stageAngle;parent.add(cheer);
-  box(12,.22,3.0,mat('#806646'),0,0,0,cheer);box(12,1.15,.18,mat('#174d85'),0,-.48,-1.48,cheer);
-  const stageSign=mesh(new T.PlaneGeometry(11.4,.75),mat('#ffffff',{map:labelTexture('G8 · G9  FUBON GUARDIANS','#174d85','#e7edf2',1024)}),0,-.40,-1.58,cheer);stageSign.rotation.y=Math.PI;stageSign.castShadow=false;
-  for(const side of [-1,1]){box(.12,.68,3,steel,side*6,.42,0,cheer);for(let step=0;step<4;step++)box(1.1,.18,.44,concrete,side*6.6,-.58+step*.18,-1.25+step*.40,cheer);}
-  box(12,.07,.07,steel,0,.75,1.45,cheer);
+  // Right field only: the first three seating rows are replaced, rather than
+  // placing a separate box over the stairs. Length/depth are photo estimates.
+  const cheer=new T.Group();cheer.name='right-outfield-front-row-stage';parent.add(cheer);
+  const stageY=3.70,frontOffset=4.11,rearOffset=6.45,stageSegments=30;
+  function stagePoint(theta,offset,y){const r=wallDistance(theta)+offset;return new T.Vector3(Math.sin(theta)*r,y,Math.cos(theta)*r);}
+  const deck=[],di=[],front=[],fi=[],rear=[],ri=[];
+  for(let i=0;i<=stageSegments;i++){const t=stageStart+(stageEnd-stageStart)*i/stageSegments;
+   for(const off of [frontOffset,rearOffset])deck.push(...stagePoint(t,off,stageY).toArray());
+   for(const y of [stageY,stageY+1.02])front.push(...stagePoint(t,frontOffset,y).toArray());
+   for(const y of [stageY-.24,stageY])rear.push(...stagePoint(t,rearOffset,y).toArray());
+   if(i<stageSegments){const k=i*2;di.push(k,k+1,k+2,k+1,k+3,k+2);fi.push(k,k+2,k+1,k+1,k+2,k+3);ri.push(k,k+1,k+2,k+1,k+3,k+2);}
+  }
+  function stageSurface(v,indices,material){const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(v,3));g.setIndex(indices);g.computeVertexNormals();return mesh(g,material,0,0,0,cheer);}
+  stageSurface(deck,di,mat('#414542',{roughness:.94,side:T.DoubleSide})).castShadow=false;
+  const retaining=[];for(let i=0;i<=stageSegments;i++){const t=stageStart+(stageEnd-stageStart)*i/stageSegments;for(const y of [0,stageY])retaining.push(...stagePoint(t,frontOffset,y).toArray());}stageSurface(retaining,fi,concrete).castShadow=false;
+  const fascia=mat('#ad5f7e',{roughness:.9,side:T.DoubleSide});stageSurface(front,fi,fascia).castShadow=false;stageSurface(rear,ri,concrete).castShadow=false;
+  for(let i=0;i<7;i++){const t=stageStart+(stageEnd-stageStart)*(i+.5)/7,at=stagePoint(t,frontOffset-.10,stageY+.53),sign=mesh(new T.PlaneGeometry(4.0,.68),mat('#ffffff',{map:labelTexture('Angels','#ad5f7e','#f2dde7',512)}),at.x,at.y,at.z,cheer);const l=stagePoint(t-.002,frontOffset-.10,stageY+.53),r=stagePoint(t+.002,frontOffset-.10,stageY+.53);sign.rotation.y=Math.atan2(-(r.z-l.z),r.x-l.x)+Math.PI;sign.castShadow=false;}
+  for(let i=0;i<=stageSegments;i++){const t=stageStart+(stageEnd-stageStart)*i/stageSegments;segment(stagePoint(t,frontOffset+.08,stageY+.009),stagePoint(t,rearOffset-.04,stageY+.009),.009,mat('#282e2d'),cheer).castShadow=false;}
+  for(const t of [stageStart,stageEnd]){const side=[],idx=[0,1,2,1,3,2];for(const off of [frontOffset,rearOffset])for(const y of [stageY-.24,stageY])side.push(...stagePoint(t,off,y).toArray());stageSurface(side,idx,concrete).castShadow=false;}
   for(let i=0;i<5;i++){const x=-44+i*2.2,z=cf+5;segment(new T.Vector3(x,10,z),new T.Vector3(x,17,z),.035,steel,parent);const flag=mesh(new T.PlaneGeometry(1.6,.85),mat(i%2?'#1d5291':'#d6e0db',{side:T.DoubleSide}),x+.75,16.4,z,parent);flag.rotation.y=.35;flag.castShadow=false;}
   // Background streetscape with actual facade components, rather than floating
   // striped cubes. Skyline positions and hidden elevations remain estimates.
@@ -136,7 +157,7 @@
    const g=new T.BufferGeometry();for(const [key,values] of Object.entries(attributes))if(values.length)g.setAttribute(key,new T.Float32BufferAttribute(values,key==='uv'?2:3));g.computeBoundingSphere();const merged=mesh(g,material,0,0,0,parent);merged.castShadow=false;for(const o of objects)o.geometry.dispose();
   }
   let surfaceIndex=0;const surfaceBake=root.CPBL_BAKED_SURFACES?.xinzhuang;parent.traverse(o=>{if(!o.userData.staticOccluder)return;o.userData.bakeSurface=surfaceIndex;const baked=surfaceBake?.[surfaceIndex++],count=o.geometry.attributes.position.count;if(baked?.count===count){const colors=new Float32Array(count*3);for(let i=0;i<count;i++){const shade=.48+.52*(baked.ambient[i]/255*.35+baked[night?'night':'day'][i]/255*.65);colors.fill(shade,i*3,i*3+3);}o.geometry.setAttribute('color',new T.BufferAttribute(colors,3));o.material=o.material.clone();o.material.vertexColors=true;}});
-  parent.userData.reconstruction={version:'31.1',model:'xinzhuang-reference-footprint',lowerSections:26,upperSections:26,roofBays,seatCount:chairs.length+outChairs.length,groundHoles,estimated:true};
+  parent.userData.reconstruction={version:'31.2',model:'xinzhuang-reference-footprint',lowerSections:26,upperSections:26,roofBays,stageSide:'right',stageReplacedRows:3,stageAngleBounds:[stageStart,stageEnd],upperDeckFrontOffset:8.2,lowerDeckRearOffset:14.6,infieldRingStage:true,seatCount:chairs.length+outChairs.length,groundHoles,estimated:true};
   return parent.userData.reconstruction;
  }};
 })(window);

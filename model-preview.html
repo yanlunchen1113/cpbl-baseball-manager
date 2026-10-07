@@ -93,12 +93,12 @@
   <script src="field-materials.js?v=30.1"></script>
   <script src="vendor/RGBELoader.js?v=30.1"></script>
   <script src="vendor/Sky.js?v=30.1"></script>
-  <script src="graphics-pipeline.js?v=31.1r4"></script>
-  <script src="xinzhuang-model.js?v=31.1r4"></script>
-  <script src="stadium3d.js?v=31.1r4"></script>
+  <script src="graphics-pipeline.js?v=31.2r5"></script>
+  <script src="xinzhuang-model.js?v=31.2r5"></script>
+  <script src="stadium3d.js?v=31.2r5"></script>
 <div class="model-hint">新莊球場 · 依參考影像重建，遮擋尺寸為推估</div>
-<div class="model-tools"><b>新莊｜場地模型 v31.1</b><select id="modelView" aria-label="模型視角"><option value="overview">全場</option><option value="home">本壘後方</option><option value="batter">打者視角</option><option value="roof">棚架與上層</option><option value="dugout">球員休息室</option><option value="outfield">外野與螢幕</option><option value="stage">外野應援舞台</option><option value="seat">D13 座位視野</option></select><button id="modelDay">日間</button><button id="modelNight">夜間</button><a href="./?v=31.1">進入遊戲</a><a href="assets/stadiums/xinzhuang-v31.zip?v=31.1" download>模型檔</a></div>
+<div class="model-tools"><b>新莊｜場地模型 v31.2</b><select id="modelView" aria-label="模型視角"><option value="overview">全場</option><option value="logo">本壘後方隊徽</option><option value="home">本壘後方</option><option value="batter">打者視角</option><option value="roof">棚架與上層</option><option value="dugout">球員休息室</option><option value="outfield">外野與螢幕</option><option value="stage">外野應援舞台</option><option value="seat">D13 座位視野</option></select><button id="modelDay">日間</button><button id="modelNight">夜間</button><a href="./?v=31.2">進入遊戲</a><a href="assets/stadiums/xinzhuang-v31.zip?v=31.2" download>模型檔</a></div>
 <script>
-(function(){const views={stage:{eye:[35,7,89],target:[48,4.72,110],fov:44},batter:{eye:[0,1.65,-2.6],target:[0,1.2,18.44],fov:43},overview:{eye:[-88,48,140],target:[0,8,32],fov:58},home:{eye:[0,9,58],target:[0,9,-13],fov:50},roof:{eye:[-30,10,10],target:[-28,17,-18],fov:57},dugout:{eye:[27,3.8,14],target:[35,1.7,5],fov:55},outfield:{eye:[0,13,73],target:[0,9,124],fov:60},seat:{eye:[83,13,52],target:[0,2,45],fov:65}};function view(){const name=document.getElementById('modelView').value;window.CPBL_RECON_CAMERA={...views[name],name};}function start(light){musicEnabled=false;effectsEnabled=false;window.CPBL_LIGHTING=light;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);view();}document.getElementById('modelView').onchange=view;document.getElementById('modelDay').onclick=()=>start('day');document.getElementById('modelNight').onclick=()=>start('night');start('day');})();
+(function(){const views={logo:{eye:[0,3.2,-16],target:[0,.05,-8.0],fov:58},stage:{eye:[75,15,91],target:[60,4.0,105],fov:44},batter:{eye:[0,1.65,-2.6],target:[0,1.2,18.44],fov:43},overview:{eye:[-88,48,140],target:[0,8,32],fov:58},home:{eye:[0,9,58],target:[0,9,-13],fov:50},roof:{eye:[-30,10,10],target:[-28,17,-18],fov:57},dugout:{eye:[27,3.8,14],target:[35,1.7,5],fov:55},outfield:{eye:[0,13,73],target:[0,9,124],fov:60},seat:{eye:[83,13,52],target:[0,2,45],fov:65}};function view(){const name=document.getElementById('modelView').value;window.CPBL_RECON_CAMERA={...views[name],name};}function start(light){musicEnabled=false;effectsEnabled=false;window.CPBL_LIGHTING=light;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);view();}document.getElementById('modelView').onchange=view;document.getElementById('modelDay').onclick=()=>start('day');document.getElementById('modelNight').onclick=()=>start('night');start('day');})();
 </script></body>
 </html>

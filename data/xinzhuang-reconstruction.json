@@ -1,5 +1,5 @@
 {
-  "version": "31.1",
+  "version": "31.2",
   "updatedAt": "2026-10-07",
   "stadium": "xinzhuang",
   "status": "reference-reconstruction-with-explicit-estimates",
@@ -52,6 +52,24 @@
         "images.jpeg"
       ],
       "use": "roof coverage and white arched bays; red horseshoe apron; field light balance; capture dates unknown"
+    },
+    {
+      "url": "https://www.fubonguardians.com/content/ticket/HelperTicketing",
+      "use": "lower rows after 10 shielded by upper building; after 14 fly-ball sightline restricted"
+    },
+    {
+      "url": "https://www.fubonguardians.com/content/info/NewsDetail?id=641",
+      "use": "infield ring stage"
+    },
+    {
+      "type": "user-provided photographs",
+      "files": [
+        "images-4.jpeg",
+        "images-5.jpeg",
+        "images-6.jpeg",
+        "images-7.jpeg"
+      ],
+      "use": "right-field stage replacing front rows, solid seating tiers and white Guardians field logo; capture dates unknown"
     }
   ],
   "constraints": {
@@ -67,7 +85,7 @@
       "D1-D13",
       "G8-G9 stage"
     ],
-    "modelSeatCount": 12178,
+    "modelSeatCount": 11975,
     "notIndividualSeatSurvey": true
   },
   "estimates": {
@@ -99,10 +117,25 @@
     ],
     "roofFrontOffset": 8.2,
     "roofFrontApproxLowerRow": 10,
-    "stagePlatformElevation": 4.72,
-    "stagePlatformSize": [
-      12,
-      3
+    "stagePlatformElevation": 3.7,
+    "stageSide": "right",
+    "stageReplacedRows": 3,
+    "stageAngleBounds": [
+      0.369,
+      0.681
+    ],
+    "stageDepth": 2.34,
+    "upperFrontOffset": 8.2,
+    "upperLowerOverlap": 6.4,
+    "infieldRingElevation": 1.94,
+    "fieldLogoSize": [
+      5.8,
+      7.2
+    ],
+    "fieldLogoPosition": [
+      0,
+      0.025,
+      -8.5
     ]
   },
   "footprintAnchorsXZ": [
@@ -172,7 +205,8 @@
     "glbOmissions": [
       "crowd sprite images",
       "text textures",
-      "dynamic players"
+      "dynamic players",
+      "field logo texture"
     ],
     "glbExtension": "none; standard glTF shared geometry nodes",
     "downloadArchive": "assets/stadiums/xinzhuang-v31.zip"
@@ -184,5 +218,12 @@
     "Grass-only depth bias and increased broadcast near clip reduce distant surface overlap.",
     "Balanced daylight fill and night floodlights/exposure.",
     "Reference photographs: red apron behind home and roof colour; approximate G field marking, not a traced logo."
+  ],
+  "corrections31_2": [
+    "Only right outfield front three rows replaced with curved grey deck, pink Angels barrier and solid foundation.",
+    "White chairs behind stage; solid lower tier risers retained outside stage.",
+    "Upper deck projects over lower seating around row 10 with concrete underside.",
+    "Continuous infield ring platform above dugouts replaces grass gap.",
+    "Actual existing Guardians logo alpha mask rendered white behind home plate; scale and placement estimated."
   ]
 }
