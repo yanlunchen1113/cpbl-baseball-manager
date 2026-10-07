@@ -21,17 +21,18 @@ sandbox.window=sandbox;sandbox.addEventListener=(k,fn)=>(events[k]??=[]).push(fn
 const THREE={...require('../vendor/three.min.js')};
 THREE.WebGLRenderer=class{constructor(){this.domElement=new Element('canvas');this.shadowMap={};this.pixelRatio=1}setPixelRatio(n){this.pixelRatio=n}setSize(){}setViewport(){}setScissor(){}setScissorTest(){}render(scene,camera){bakeScene=scene;scene.updateMatrixWorld();camera.updateMatrixWorld()}getContext(){return {getExtension:()=>({restoreContext(){}})}}};sandbox.THREE=THREE;
 const context=vm.createContext(sandbox),run=code=>vm.runInContext(code,context);
-for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
+for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
 run('musicEnabled=false;effectsEnabled=false;');
 
 // Offline visibility bake against actual canopy/deck triangles; no baking during play.
 const directions=[[0,1,0],[.65,.76,0],[-.65,.76,0],[0,.76,.65],[0,.76,-.65]].map(v=>new THREE.Vector3(...v).normalize());
-const ray=new THREE.Raycaster(),origin=new THREE.Vector3(),direction=new THREE.Vector3(),buffers=[],profiles={};let offset=0;
+const ray=new THREE.Raycaster(),origin=new THREE.Vector3(),direction=new THREE.Vector3(),buffers=[],profiles={},surfaceProfiles={};let offset=0;
+const priorManifest=process.env.BAKE_PARK?JSON.parse(fs.readFileSync(path.join(root,'assets/lighting/stadium-bake.json'),'utf8')):null;if(priorManifest){const previous=fs.readFileSync(path.join(root,'assets/lighting/stadium-bake.bin'));buffers.push(previous);offset=previous.length;Object.assign(profiles,priorManifest.profiles);Object.assign(surfaceProfiles,priorManifest.surfaceProfiles||{});}
 function visible(point,vector,far){origin.copy(point);origin.y+=.04;ray.set(origin,vector);ray.near=.01;ray.far=far;return ray.intersectObjects(occluders,false).length?0:1;}
 let occluders=[];
-for(const park of sandbox.CPBLStadiums.parks){
+for(const park of sandbox.CPBLStadiums.parks.filter(p=>!process.env.BAKE_PARK||p.id===process.env.BAKE_PARK)){
  get('#stadiumSelect').value=park.id;run('startGame(0)');time+=100;const current=frames;frames=[];current.forEach(fn=>fn(time));assert.equal(run('CPBL_RENDER_STATS.errors'),0);
- bakeScene.updateMatrixWorld(true);occluders=[];const groups=[];bakeScene.traverse(o=>{if(o.userData.staticOccluder)occluders.push(o);if(o.userData.bakeSeats)groups.push(o)});groups.sort((a,b)=>a.userData.bakeBatch-b.userData.bakeBatch);profiles[park.id]=[];
+ bakeScene.updateMatrixWorld(true);occluders=[];const groups=[],surfaces=[];bakeScene.traverse(o=>{if(o.userData.staticOccluder)occluders.push(o);if(o.userData.bakeSeats)groups.push(o);if(o.userData.bakeSurface!==undefined)surfaces.push(o)});groups.sort((a,b)=>a.userData.bakeBatch-b.userData.bakeBatch);profiles[park.id]=[];
  for(const group of groups){const points=group.userData.bakeSeats,ambient=Buffer.alloc(points.length),day=Buffer.alloc(points.length),night=Buffer.alloc(points.length);
   for(let i=0;i<points.length;i++){
    const p=new THREE.Vector3(...points[i]);ambient[i]=Math.round(255*directions.reduce((a,v)=>a+visible(p,v,32),0)/directions.length);
@@ -41,6 +42,8 @@ for(const park of sandbox.CPBLStadiums.parks){
   }
   const record={count:points.length};for(const [key,b] of Object.entries({ambient,day,night})){record[key]=offset;offset+=b.length;buffers.push(b);}profiles[park.id].push(record);
  }
+ surfaceProfiles[park.id]=[];surfaces.sort((a,b)=>a.userData.bakeSurface-b.userData.bakeSurface);for(const object of surfaces){const attr=object.geometry.attributes.position,count=attr.count,ambient=Buffer.alloc(count),day=Buffer.alloc(count),night=Buffer.alloc(count);for(let i=0;i<count;i++){const p=new THREE.Vector3().fromBufferAttribute(attr,i).applyMatrix4(object.matrixWorld);ambient[i]=Math.round(255*directions.reduce((sum,v)=>sum+visible(p,v,32),0)/directions.length);day[i]=255*visible(p,direction.set(-35,55,30).normalize(),160);let lit=0;for(const [x,z] of [[-55,15],[55,15],[-75,90],[75,90]]){const v=new THREE.Vector3(x,37,z).sub(p),length=v.length();lit+=visible(p,v.normalize(),length);}night[i]=Math.round(255*(lit/4*.8+visible(p,direction.set(-55,38,15).normalize(),160)*.2));}const record={count};for(const [key,b] of Object.entries({ambient,day,night})){record[key]=offset;offset+=b.length;buffers.push(b);}surfaceProfiles[park.id].push(record);}
  console.log('Baked',park.id,'seats',groups.reduce((n,g)=>n+g.userData.bakeSeats.length,0),'occluders',occluders.length);
 }
-fs.writeFileSync(path.join(root,'assets/lighting/stadium-bake.bin'),Buffer.concat(buffers));fs.writeFileSync(path.join(root,'assets/lighting/stadium-bake.json'),JSON.stringify({version:30,method:'Five sky rays, one sun ray and five floodlight visibility rays per seat, against roof and deck triangles',profiles},null,2)+'\n');console.log('Visibility bake bytes',offset);
+const packed=Buffer.concat(buffers),compact=[];let compactOffset=0;for(const groups of [...Object.values(profiles),...Object.values(surfaceProfiles)])for(const record of groups)for(const key of ['ambient','day','night']){compact.push(packed.subarray(record[key],record[key]+record.count));record[key]=compactOffset;compactOffset+=record.count;}
+fs.writeFileSync(path.join(root,'assets/lighting/stadium-bake.bin'),Buffer.concat(compact));fs.writeFileSync(path.join(root,'assets/lighting/stadium-bake.json'),JSON.stringify({version:31,method:'Five sky rays, one sun ray and five floodlight visibility rays per seat or surface vertex, against roof and deck triangles',profiles,surfaceProfiles},null,2)+'\n');console.log('Visibility bake bytes',compactOffset);

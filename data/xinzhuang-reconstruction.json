@@ -1,0 +1,164 @@
+{
+  "version": 31,
+  "updatedAt": "2026-10-07",
+  "stadium": "xinzhuang",
+  "status": "reference-reconstruction-with-explicit-estimates",
+  "units": "metres",
+  "coordinateSystem": {
+    "home": [
+      0,
+      0,
+      0
+    ],
+    "centreFieldAxis": "+Z",
+    "up": "+Y"
+  },
+  "sources": [
+    {
+      "url": "https://www.youtube.com/watch?v=V7ZxSA6AJOw",
+      "providedBy": "user",
+      "date": "2026-10-04",
+      "use": "broadcast field colour, home plate wear and existing reviewed scene references"
+    },
+    {
+      "url": "https://www.twitch.tv/videos/2889669468",
+      "providedBy": "user",
+      "use": "prior reference; not newly frame inspected this turn"
+    },
+    {
+      "url": "https://www.fubonguardians.com/content/stadium/Index",
+      "use": "official seat plan, rounded home corner / straight wings, barrel canopy photo"
+    },
+    {
+      "url": "https://www.fubonguardians.com/content/info/NewsDetail?id=676",
+      "date": "2026-03-13",
+      "use": "ordinary seats replaced; B12/B13; G8/G9 stage at fourth-row front cross aisle"
+    },
+    {
+      "url": "https://sites.google.com/view/fubonstadiumview",
+      "providedBy": "user",
+      "use": "D13 row 5/8 left/right photos: rails, seat bowl, separate outfield stands, double screens; photograph dates not confirmed"
+    },
+    {
+      "url": "https://johsi.com/s_xz",
+      "providedBy": "user",
+      "use": "page inspected; detailed view map not accessible in current page, no geometry inferred from unavailable imagery"
+    }
+  ],
+  "constraints": {
+    "foulFeet": 325,
+    "centreFeet": 400,
+    "foulMetres": 99.06,
+    "centreMetres": 121.92,
+    "distanceSource": "data/stadiums.json official-dimensions record",
+    "publishedSeatZones": [
+      "A1-A13",
+      "B1-B13 (2026 update)",
+      "C1-C13",
+      "D1-D13",
+      "G8-G9 stage"
+    ],
+    "modelSeatCount": 12232,
+    "notIndividualSeatSurvey": true
+  },
+  "estimates": {
+    "backstopMetres": 18.288,
+    "wallHeightMetres": 3.4,
+    "lowerFrontElevation": 1.95,
+    "lowerRows": 17,
+    "lowerRise": 0.32,
+    "upperFrontElevation": 9.65,
+    "upperRows": 10,
+    "upperRise": 0.39,
+    "rowPitch": 0.8,
+    "seatPitch": 0.54,
+    "roofBays": 26,
+    "roofFrontElevation": 17.0,
+    "roofArchRise": 1.55,
+    "roofDepth": 15.7,
+    "dugoutFloorElevation": -0.45,
+    "dugoutSize": [
+      16.3,
+      2.3,
+      4.7
+    ],
+    "outfieldRows": 11,
+    "outfieldFrontElevation": 3.7,
+    "bullpenSize": [
+      5,
+      22
+    ]
+  },
+  "footprintAnchorsXZ": [
+    [
+      -78,
+      75
+    ],
+    [
+      -63,
+      51
+    ],
+    [
+      -45,
+      24
+    ],
+    [
+      -31,
+      2
+    ],
+    [
+      -20,
+      -14
+    ],
+    [
+      0,
+      -19.538
+    ],
+    [
+      20,
+      -14
+    ],
+    [
+      31,
+      2
+    ],
+    [
+      45,
+      24
+    ],
+    [
+      63,
+      51
+    ],
+    [
+      78,
+      75
+    ]
+  ],
+  "inferenceMethod": [
+    "Anchor field scale with published foul/centre distances and 27.432 m base spacing.",
+    "Trace rounded home-corner and nearly straight wings from official plan; fit centripetal Catmull-Rom, using arc-length placement.",
+    "Use visible bay repetition and seat/aisle proportions; infer unobserved side from approximate symmetry.",
+    "Use explicit row rise/spacing and consistent slab/column/roof endpoints for hidden geometry.",
+    "Interpolate unknown fence contour with existing game radial exponent 1.5; do not claim surveyed contour."
+  ],
+  "limitations": [
+    "No camera calibration or photogrammetry; structural dimensions are visual estimates.",
+    "Colours in older seat photographs do not prove 2026 colour arrangement; current blue seating palette is estimated.",
+    "Current ads are representative, not a verified exact 2026 arrangement.",
+    "Skyline heights and positions are estimated.",
+    "Generic players and crowd sprites remain; this is not a completed photorealistic game."
+  ],
+  "artifacts": {
+    "builder": "xinzhuang-model.js",
+    "preview": "model-preview.html",
+    "editableGeometry": "assets/stadiums/xinzhuang-v31.glb",
+    "glbOmissions": [
+      "crowd sprite images",
+      "text textures",
+      "dynamic players"
+    ],
+    "glbExtension": "none; standard glTF shared geometry nodes",
+    "downloadArchive": "assets/stadiums/xinzhuang-v31.zip"
+  }
+}

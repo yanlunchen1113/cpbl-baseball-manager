@@ -4,12 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#061c1a" />
-  <title>職棒經理人｜CPBL 棒球模擬</title>
+  <title>新莊球場｜模型預覽</title>
   <link rel="stylesheet" href="style.css?v=30.1" />
   <link rel="stylesheet" href="broadcast.css?v=30.1" />
   <link rel="stylesheet" href="roster.css?v=30.1" />
   <link rel="stylesheet" href="mobile.css?v=30.1" />
-</head>
+<style>
+.topbar,.setup-screen,.tv-hud,.duel-hud,.control-deck,.field-exit,.call-hud,.skin-badge,.game-screen>.scoreboard{display:none!important}body{margin:0;background:#0c151c}.app-shell{padding:0;max-width:none}.game-screen{padding:0!important}.game-screen .broadcast-stage{height:calc(100dvh - 98px)!important;min-height:320px!important;width:100%!important;border-radius:0!important;max-width:none!important}.model-tools{position:fixed;inset:auto 0 0;background:#101e28;color:#e6ecdf;padding:9px 14px;z-index:999;font:14px system-ui;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.model-tools button,.model-tools select{font:inherit;background:#233a49;color:#fff;border:1px solid #68818a;border-radius:7px;padding:8px}.model-tools b{margin-right:auto}.model-tools a{color:#eed47b}.model-hint{position:fixed;left:14px;top:14px;z-index:998;padding:6px 10px;border-radius:5px;background:#12242cbb;color:#eee;font:13px system-ui;pointer-events:none}
+</style></head>
 <body>
   <div class="app-shell">
     <header class="topbar">
@@ -91,8 +93,12 @@
   <script src="field-materials.js?v=30.1"></script>
   <script src="vendor/RGBELoader.js?v=30.1"></script>
   <script src="vendor/Sky.js?v=30.1"></script>
-  <script src="graphics-pipeline.js?v=31"></script>
-  <script src="xinzhuang-model.js?v=31"></script>
-  <script src="stadium3d.js?v=31"></script>
-</body>
+  <script src="graphics-pipeline.js?v=31-release2"></script>
+  <script src="xinzhuang-model.js?v=31-release2"></script>
+  <script src="stadium3d.js?v=31-release2"></script>
+<div class="model-hint">新莊球場 · 依參考影像重建，遮擋尺寸為推估</div>
+<div class="model-tools"><b>新莊｜場地模型 v31</b><select id="modelView" aria-label="模型視角"><option value="overview">全場</option><option value="home">本壘後方</option><option value="roof">棚架與上層</option><option value="dugout">球員休息室</option><option value="outfield">外野與螢幕</option><option value="seat">D13 座位視野</option></select><button id="modelDay">日間</button><button id="modelNight">夜間</button><a href="./?v=31">進入遊戲</a><a href="assets/stadiums/xinzhuang-v31.zip" download>模型檔</a></div>
+<script>
+(function(){const views={overview:{eye:[-88,48,140],target:[0,8,32],fov:58},home:{eye:[0,9,58],target:[0,9,-13],fov:50},roof:{eye:[-30,10,10],target:[-28,17,-18],fov:57},dugout:{eye:[27,3.8,14],target:[35,1.7,5],fov:55},outfield:{eye:[0,13,73],target:[0,9,124],fov:60},seat:{eye:[83,13,52],target:[0,2,45],fov:65}};function view(){const name=document.getElementById('modelView').value;window.CPBL_RECON_CAMERA={...views[name],name};}function start(light){musicEnabled=false;effectsEnabled=false;window.CPBL_LIGHTING=light;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);view();}document.getElementById('modelView').onchange=view;document.getElementById('modelDay').onclick=()=>start('day');document.getElementById('modelNight').onclick=()=>start('night');start('day');})();
+</script></body>
 </html>

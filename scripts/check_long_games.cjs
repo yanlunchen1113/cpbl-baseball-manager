@@ -20,10 +20,11 @@ sandbox.window=sandbox;sandbox.addEventListener=(k,fn)=>(events[k]??=[]).push(fn
 const THREE={...require('../vendor/three.min.js')};
 THREE.WebGLRenderer=class{constructor(){this.domElement=new Element('canvas');this.shadowMap={};this.pixelRatio=1}setPixelRatio(n){this.pixelRatio=n}setSize(){}setViewport(){}setScissor(){}setScissorTest(){}render(scene,camera){scene.updateMatrixWorld();camera.updateMatrixWorld()}getContext(){return {getExtension:()=>({restoreContext(){}})}}};sandbox.THREE=THREE;
 const context=vm.createContext(sandbox),run=code=>vm.runInContext(code,context);
-for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
+for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
 run('musicEnabled=false;effectsEnabled=false;');
 (async()=>{
 if(process.env.HUMAN_ASSETS==='1'){
+ const bake=JSON.parse(fs.readFileSync(path.join(root,'assets/lighting/stadium-bake.json'),'utf8')),data=fs.readFileSync(path.join(root,'assets/lighting/stadium-bake.bin'));sandbox.CPBL_BAKED_LIGHTING=Object.fromEntries(Object.entries(bake.profiles).map(([key,groups])=>[key,groups.map(g=>({count:g.count,ambient:data.subarray(g.ambient,g.ambient+g.count),day:data.subarray(g.day,g.day+g.count),night:data.subarray(g.night,g.night+g.count)}))]));
  sandbox.fetch=async url=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(path.join(root,'assets/players/human.json'),'utf8')),arrayBuffer:async()=>{const b=fs.readFileSync(path.join(root,'assets/players/human.bin'));return b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength)}});
  THREE.TextureLoader=class{load(url,onLoad){const t=new THREE.Texture();if(onLoad)Promise.resolve().then(()=>onLoad(t));return t;}};
  run(fs.readFileSync(path.join(root,'human-assets.js'),'utf8'));run('CPBLHuman.load(THREE)');await new Promise(setImmediate);assert(run('CPBLHuman.ready'));
