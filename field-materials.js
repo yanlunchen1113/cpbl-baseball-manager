@@ -5,10 +5,14 @@
   const loader=new T.TextureLoader();
   function apply(materials,kind,repeat,strength){
    const mean=kind==='grass'?.145:.391,contrast=kind==='grass'?.40:.80;
-   const detail=loader.load(`assets/surfaces/${kind}-albedo.jpg`),normal=loader.load(`assets/surfaces/${kind}-normal.jpg`),rough=loader.load(`assets/surfaces/${kind}-roughness.jpg`);
+   const detail=loader.load(`assets/surfaces/${kind}-albedo.jpg`);
+   // Keep the untextured physical material until each map is usable. An empty normal
+   // texture decodes to an invalid surface direction and makes the field black.
+   const normal=loader.load(`assets/surfaces/${kind}-normal.jpg`,texture=>{for(const material of materials){material.normalMap=texture;material.needsUpdate=true;}});
+   const rough=loader.load(`assets/surfaces/${kind}-roughness.jpg`,texture=>{for(const material of materials){material.roughnessMap=texture;material.needsUpdate=true;}});
    detail.colorSpace=T.SRGBColorSpace;for(const texture of [detail,normal,rough]){texture.wrapS=texture.wrapT=T.RepeatWrapping;texture.repeat.set(repeat,repeat);texture.anisotropy=4;}
    for(const material of materials){
-    material.normalMap=normal;material.normalScale=new T.Vector2(strength,strength);material.roughnessMap=rough;
+    material.normalScale=new T.Vector2(strength,strength);
     material.onBeforeCompile=shader=>{
      shader.uniforms.fieldDetail={value:detail};
      shader.vertexShader='varying vec2 vFieldDetailUv;\n'+shader.vertexShader;

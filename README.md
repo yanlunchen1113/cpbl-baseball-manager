@@ -142,3 +142,6 @@ WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices
 - 驗證：24 場載入人體的 CPU 模擬共 3,355 球、233,585 影格、0 場景錯誤；打席過場、六場地 24 組運鏡、11 場地幾何檢查通過。Chrome WebGL 另查看日間、夜間、室內及低畫質的 HDR／SSAO 流程。CPU 場景檢查不包含 GPU shader，不能代替手機效能測試。
 
 球場建築仍是依實景參考建立的簡化模型，尚不是攝影測量或實拍掃描重建。照明與素材來源見 `data/visual-assets.json`。
+
+### v30.1 首次載入
+正常與粗糙度貼圖下載完成後才掛上材質，避免未完成的法線造成黑色地面。HDR 尚未下載完成時使用預生成環境照明，完成後自動換入 HDR；載入失敗仍可維持場地可見。
