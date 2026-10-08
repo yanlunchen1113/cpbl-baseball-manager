@@ -16,7 +16,7 @@ for(let i=0;i<20000;i++){
  assert(h.event!=='hit'||h.throwBase!==0);assert(h.event!=='groundout'||h.throwBase===0);if(h.event!=='homer')assert(Math.hypot(h.pickup.x,h.pickup.z)<P.wallDistance(Math.atan2(h.pickup.x,h.pickup.z)));
  assert(h.type!=='OUT'||['catch','groundout'].includes(h.event));assert(h.event!=='catch'||h.type==='OUT');assert(h.event!=='hit'||['1B','2B'].includes(h.type));
  for(let ms=0;ms<=h.durationMs;ms+=80){const point=P.playPoint(h,ms),fielder=P.fielderPoint(h,ms);assert(['x','y','z'].every(k=>Number.isFinite(point[k])));assert(point.y>=0);assert(Number.isFinite(fielder.x));assert(Number.isFinite(fielder.z));samples++}
- if(h.event==='catch'){const ball=P.playPoint(h,h.flightMs),fielder=P.fielderPoint(h,h.flightMs);assert(Math.hypot(ball.x-fielder.x,ball.z-fielder.z)<1e-8)}
+ if(h.event==='catch'){const ball=P.playPoint(h,h.flightMs),fielder=P.fielderPoint(h,h.flightMs);assert(Math.hypot(ball.x-fielder.x,ball.z-fielder.z)<=h.gloveReach+1e-8)}
  if(h.type==='1B'||h.type==='2B')assert(h.durationMs>=h.runnerDurationMs);
 }
 console.log(JSON.stringify({pitchTypes:Object.keys(P.pitchSettings).length,plays:20000,samples,outcomes,kinds}));
