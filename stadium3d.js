@@ -354,11 +354,11 @@
    armTo(a,side,rest.lerp(target,weight));
   }
  }
- const swingTiming={load:80,contact:140,extension:220,turn:340,finish:740,end:1050};
+ const swingTiming={load:80,contact:140,extension:260,turn:420,finish:900,end:1200};
  window.CPBLSwingTiming=swingTiming;
  function battingPose(actor,left,stamp){const sign=left?-1:1;if(actor.earFlap){actor.earFlap.position.x=sign*.118;actor.earFlap.rotation.y=sign*Math.PI/2;}const age=tv.swung?Math.max(0,stamp-(tv.swingStart||stamp)):0;
   const rest=[-.18,-.12,-.06,-.28,.35,.29,-.50,1.12,-.24];
-  const m=motionKey([[0,...rest],[swingTiming.load,-.30,-.15,-.085,-.34,.37,.26,-.55,1.15,-.25],[swingTiming.contact,.30,.10,-.09,-.10,.18,.46,-.48,.08,1.32],[swingTiming.extension,.65,.10,-.08,.04,.12,.40,.32,.07,1.31],[swingTiming.turn,.90,.15,-.045,.16,.27,.45,.92,.55,.84],[swingTiming.finish,1.06,.18,-.02,.55,.25,.30,.75,.55,-.55],[swingTiming.end,1.06,.18,-.02,.55,.25,.30,.75,.55,-.55]],age);
+  const m=motionKey([[0,...rest],[swingTiming.load,-.30,-.15,-.085,-.34,.37,.26,-.55,1.15,-.25],[swingTiming.contact,.30,.10,-.09,-.10,.18,.46,-.48,.08,1.32],[swingTiming.extension,.65,.10,-.08,.04,.12,.40,.32,.07,1.31],[swingTiming.turn,.90,.15,-.045,.16,.27,.45,.92,.55,.84],[swingTiming.finish,1.06,.18,-.02,.55,.42,.30,.75,.90,-.55],[swingTiming.end,1.06,.18,-.02,.55,.42,.30,.75,.90,-.55]],age);
   if(tv.pendingPitch?.strike){const recover=CPBLPhysics.smooth((stamp-tv.pendingPitch.at-700)/1100);for(let i=0;i<m.length;i++)m[i]+=(rest[i]-m[i])*recover;}
 
   const contactWeight=CPBLPhysics.smooth((age-80)/60)*(1-CPBLPhysics.smooth((age-220)/150)),sz=tv.flight?.zone||window.CPBL_BATTER_ZONE,aim=tv.swingAim||tv.aim||{x:0,y:0},contactHeight=(sz?.center||1.1)-aim.y*(sz?.halfHeight||.35),drive=CPBLPhysics.smooth((age-80)/80);
@@ -385,7 +385,7 @@
   const elapsed=tv.returnBall&&tv.phase==='result'?Math.min(2100,deliveryElapsed):tv.returnBall&&tv.phase==='return'?2100+Math.max(0,stamp-tv.start-2250):deliveryElapsed;
   // Pelvis opens before shoulders; weight travels into the planted stride foot.
   const m=motionKey([[0,-Math.PI/2,0,0,0,0,0],[380,-1.52,-.08,.02,.02,.02,.62],[700,-1.35,-.22,.06,-.02,.22,.45],[940,-.55,-.32,.15,-.05,.46,.08],[1100,.10,.18,.23,-.08,.60,0],[1450,.38,.20,.38,-.10,.72,0],[1850,.12,.10,.12,-.02,.86,0],[2100,.10,.08,.06,-.02,.86,0],[2600,-.25,.03,.04,-.02,.49,0],[3100,-1.15,0,.02,0,.12,0],[3400,-Math.PI/2,0,0,0,0,0]],elapsed);
-  const followShift=m[4]+(m[5]-m[4])*CPBLPhysics.smooth((elapsed-1450)/400);actor.group.position.z=18.44-followShift;actor.pelvis.position.y+=m[3];actor.pelvis.rotation.y=sign*m[0];actor.body.rotation.y=sign*m[1];actor.body.rotation.x=m[2];actor.body.rotation.z=sign*(profile.style==='side'?-.20:-.05)*Math.sin(Math.PI*CPBLPhysics.clamp(elapsed/1900));
+  const followShift=m[4];actor.group.position.z=18.44-followShift;actor.pelvis.position.y+=m[3];actor.pelvis.rotation.y=sign*m[0];actor.body.rotation.y=sign*m[1];actor.body.rotation.x=m[2];actor.body.rotation.z=sign*(profile.style==='side'?-.20:-.05)*Math.sin(Math.PI*CPBLPhysics.clamp(elapsed/1900));
   const footX=left?.12:-.12,scale=actor.group.scale.x;
   const feet=motionKey([[0,18.44,0,18.12],[380,18.44,0,18.14],[700,18.44,0,17.96],[940,18.44,0,17.32],[1100,18.44,.04,17.08],[1450,17.66,.25,17.08],[1850,17.25,0,17.08],[2100,17.25,0,17.08],[2600,17.25,0,18.12],[3100,18.44,0,18.12],[3400,18.44,0,18.12]],elapsed);
   const walkBlend=CPBLPhysics.smooth((elapsed-1850)/250);actor.group.position.z+=(.04+(feet[0]+feet[2])/2-actor.group.position.z)*walkBlend;
