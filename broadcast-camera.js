@@ -8,13 +8,15 @@
   const tag=(h.basePlays||[]).find(p=>p.kind==='tag'&&t>=p.receiveAt-150&&t<=p.end);
   let shot,eye=gantry,focus,points,margin=4,minFov=4,maxFov=42;
   if(tag){shot='tag-play';eye={x:tag.contact.x+18,y:7,z:tag.contact.z-25};focus={x:tag.contact.x,y:.7,z:tag.contact.z};points=[focus,{x:tag.receiverPosition.x,y:1.8,z:tag.receiverPosition.z}];margin=2.8;minFov=7;}
+  else if(h.kind==='ground'&&h.fielder<4){shot='infield-play';eye=gantry;focus={x:0,y:1,z:24};points=[{x:0,y:.1,z:0},{x:h.pickup.x,y:2.3,z:h.pickup.z},{x:root.CPBLPhysics.bases[0].x,y:2.3,z:root.CPBLPhysics.bases[0].z}];margin=3;minFov=14;maxFov=70;}
   else if(t<fieldAt){
    shot=phase==='air'&&h.kind==='fly'?'full-field':'ball-tracking';
    const ahead=root.CPBLPhysics.playPoint(h,Math.min(fieldAt,t+180)),progress=clamp(t/Math.max(1,fieldAt),0,1);
    // Opening-wide shot locates the play; optical zoom grows naturally as ball and fielder converge.
-   focus=mix(ball,{x:defender.x,y:1.1,z:defender.z},shot==='full-field'?.35:.18);
-   points=[ball,{x:ahead.x,y:ahead.y,z:ahead.z},{x:defender.x,y:2.3,z:defender.z}];
-   margin=(shot==='full-field'?7:4)+(1-progress)*6;minFov=shot==='full-field'?5:6;maxFov=48;
+   const visibleDefender=h.kind==='ground'&&fieldAt-t>700?actors.slice(0,8).filter(Boolean).reduce((best,a)=>Math.hypot(a.x-ball.x,a.z-ball.z)<Math.hypot(best.x-ball.x,best.z-ball.z)?a:best,defender):defender;
+   focus=mix(ball,{x:visibleDefender.x,y:1.1,z:visibleDefender.z},shot==='full-field'?.25:.06);
+   points=h.kind==='ground'&&fieldAt-t>450?[ball,{x:ahead.x,y:ahead.y,z:ahead.z}]:[ball,{x:ahead.x,y:ahead.y,z:ahead.z},{x:visibleDefender.x,y:2.3,z:visibleDefender.z}];
+   margin=h.kind==='ground'?2+(1-progress):(shot==='full-field'?7:4)+(1-progress)*6;minFov=shot==='full-field'?5:6;maxFov=48;
    if(t<350){minFov=24;}else if(t<850){minFov=24-(t-350)/500*17;}
   }
   else if(t<firstThrow){shot='fielding';focus={x:defender.x,y:1.1,z:defender.z};points=[ball,{x:defender.x,y:2.1,z:defender.z}];margin=3.5;}
