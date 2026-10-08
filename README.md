@@ -173,3 +173,13 @@ WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices
 跑者出局後短暫停留，鏡頭跟進觸殺動作。其他守備員依追球、補壘、中繼及協防角色移動。defense-preview.html 提供觸殺定格、重播觸殺、雙殺及飛球協防。
 
 規則參考：[封殺條件](https://www.mlb.com/glossary/rules/force-play)、[刺殺紀錄與觸殺](https://www.mlb.com/glossary/standard-stats/putout)。
+
+## v31.4：滑壘與回休息室
+
+接傳球爭奪二壘、三壘或本壘時，跑者在最後約半秒伸腿滑壘，腳到壘的時序與判定共用，觸殺高度跟隨滑壘後的身體位置。出局跑者停下、起身，再沿界外區方向步行回己方休息室；回程獨立播放，下一打席仍可進行，抵達入口才隱藏人物。
+
+滑壘姿勢參考 [MLB 官方實戰影像（Trea Turner 段落）](https://www.mlb.com/news/greatest-slides-in-baseball-history)：採伸腿、收腿與側傾的連續姿勢，起身後再步行退場。
+
+裝備外形參考 [Rawlings 捕手手套照片](https://www.rawlings.com/product/PROSCM33B.html)；回傳與換手參考 [MLB 捕手示範](https://www.mlb.com/video/catcher-cam-demo-in-studio-42)及[實戰回傳片段](https://www.mlb.com/video/ryan-weathers-called-strike-to-willy-adames-y9g6am)。手臂 IK 限制可達長度與最小屈曲，避免近距離目標造成反折；回傳軌跡共用實際手掌出手點。後續新增場景、裝備和動作先確認實拍參考，再實作與目視比對。
+
+真人蒙皮手掌座標與舊代理手腕分離校準，球與手套依真人手掌定位，左右投手套跟隨對應手掌。

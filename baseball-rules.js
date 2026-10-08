@@ -1,15 +1,17 @@
 /* Time-based defensive choices. Force outs, double plays and legal tag-ups. */
 (function(root){const P=root.CPBLPhysics,B=P.bases;
  const travel=(a,b,speed=30)=>Math.max(220,Math.hypot(a.x-b.x,a.z-b.z)/speed*1000);
- function runnerPoint(plan,time){const t=P.clamp((Math.min(time,plan.outAt??Infinity)-plan.start)/plan.duration),total=P.runDistance(plan.duration/1000),progress=P.clamp(P.runDistance(t*plan.duration/1000)/Math.max(.01,total)),q=progress*plan.steps,i=Math.min(plan.steps-1,Math.floor(q)),f=q-i,a=B[(plan.from+i)%4],b=B[(plan.from+i+1)%4];return {x:a.x+(b.x-a.x)*f,z:a.z+(b.z-a.z)*f,progress,heading:Math.atan2(b.x-a.x,b.z-a.z)};}
+ function runnerPoint(plan,time){const stop=plan.outAt??plan.start+plan.duration,clock=Math.min(time,stop),t=P.clamp((clock-plan.start)/plan.duration),total=P.runDistance(plan.duration/1000),progress=P.clamp(P.runDistance(t*plan.duration/1000)/Math.max(.01,total)),q=progress*plan.steps,i=Math.min(plan.steps-1,Math.floor(q)),f=q-i,a=B[(plan.from+i)%4],b=B[(plan.from+i+1)%4],heading=Math.atan2(b.x-a.x,b.z-a.z),tip={x:a.x+(b.x-a.x)*f,z:a.z+(b.z-a.z)*f},slide=plan.slide?P.smooth((clock-plan.slideStart)/250)*(1-P.smooth((time-stop-450)/450)):0;return {x:tip.x-Math.sin(heading)*.82*slide,z:tip.z-Math.cos(heading)*.82*slide,tip,progress,heading,slide};}
  function finishDefense(h,context,plans,legs,caught){
+  if(caught&&!plans.some(p=>p.index===-1))plans.push({index:-1,from:3,steps:1,start:350,duration:Math.max(500,h.runnerMs-350),outAt:h.flightMs,outKind:'catch'});
   const calls=caught?[{kind:'catch',out:true,time:h.flightMs,runner:-1}]:[],plays=[];
   for(const leg of legs){if(leg.base===null)continue;
    const runner=plans.find(r=>(r.from+r.steps)%4===leg.base);if(!runner)continue;
    const arrival=runner.start+runner.duration,previousOut=calls.find(c=>c.out&&c.runner===-1&&c.time<leg.end),forced=!caught&&(runner.index===-1&&runner.steps===1||runner.index>=0&&runner.steps===1&&context.bases.slice(0,runner.index+1).every(Boolean)&&!previousOut),kind=forced?'force':'tag';
    delete runner.outAt;const time=forced?leg.end+100:Math.max(leg.end+260,arrival-140),out=time<arrival&&context.outs+calls.filter(c=>c.out).length<3;
    const incoming=B[(leg.base+3)%4],base=B[leg.base],d=Math.hypot(base.x-incoming.x,base.z-incoming.z),dx=(base.x-incoming.x)/d,dz=(base.z-incoming.z)/d;
-   const contact=runnerPoint(runner,time),play={kind,base:leg.base,receiver:leg.receiver,runner:runner.index,receiveAt:leg.end,begin:forced?leg.end:Math.max(leg.end+80,arrival-420),time,end:time+950,arrival,out,contact:{x:contact.x,y:.88,z:contact.z},receiverPosition:forced?base:{x:base.x-dx*.7-dz*.35,z:base.z-dz*.7+dx*.35}};
+   runner.slide=leg.base!==0&&(kind==='tag'||Math.abs(arrival-time)<700);runner.slideStart=arrival-550;
+   const contact=runnerPoint(runner,time),play={kind,base:leg.base,receiver:leg.receiver,runner:runner.index,receiveAt:leg.end,begin:forced?leg.end:Math.max(leg.end+80,arrival-420),time,end:time+950,arrival,out,contact:{x:contact.x,y:runner.slide?.38:.88,z:contact.z},receiverPosition:forced?base:{x:base.x-dx*(runner.slide?1.2:.7)-dz*.35,z:base.z-dz*(runner.slide?1.2:.7)+dx*.35}};
    // Non-force plays require possession plus contact with the runner before the bag.
    play.possessionAt=leg.end;play.contactAt=kind==='tag'?time:null;play.contactDistance=Math.hypot(contact.x-play.receiverPosition.x,contact.z-play.receiverPosition.z);if(kind==='tag'&&play.contactDistance>.90)play.out=false;plays.push(play);calls.push({...play});if(play.out){runner.outAt=time;runner.outKind=kind;}else delete runner.outKind;
   }

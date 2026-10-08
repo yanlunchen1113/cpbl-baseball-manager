@@ -18,9 +18,9 @@
   const bones=asset.manifest.bones.map(n=>a[n]||a.parts[n]),skeleton=new T.Skeleton(bones),skin=new T.MeshPhysicalMaterial({map:asset.skin,roughness:.62,metalness:0,clearcoat:.035,clearcoatRoughness:.7});
   skin.envMapIntensity=a.uniform.envMapIntensity;const materials=[skin,a.uniform,a.pants];a.uniform.roughness=.95;a.pants.roughness=.98;
   const meshes=asset.geometries.map((g,i)=>{const m=new T.SkinnedMesh(g,materials[i]);m.castShadow=true;m.receiveShadow=true;m.frustumCulled=false;a.group.add(m);m.updateMatrixWorld(true);m.bind(skeleton);return m;});
-  for(const [bone,rotation] of saved)bone.rotation.copy(rotation);
+  const hands={};for(const side of ['left','right']){const palm=a.group.localToWorld(new T.Vector3(side==='left'?.6005:-.6005,1.1074,.3423));hands[side]=a.parts[side+'Elbow'].worldToLocal(palm);}for(const [bone,rotation] of saved)bone.rotation.copy(rotation);
   if(['ump','baseump','catch'].includes(a.kind)){a.front.visible=false;a.back.visible=false;}a.front.position.z=.205;a.back.position.z=-.20;a.front.renderOrder=a.back.renderOrder=1;
-  a.human={meshes,skeleton};a.key='';return true;
+  a.human={meshes,skeleton,hands};a.key='';return true;
  }
  root.CPBLHuman={load,attach,get ready(){return !!asset}};
 })(window);
