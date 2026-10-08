@@ -19,6 +19,7 @@
   const runs=scored.filter(s=>!third||third.kind!=='force'&&third.kind!=='catch'&&s.time<third.time).length;
   h.basePlays=plays;h.outCalls=calls;h.outcome.outsAdded=outsAdded;h.outcome.bases=next;h.outcome.runs=runs;h.caught=caught;
   if(plays.some(p=>p.kind==='tag'&&p.out)){h.outcome.label=caught?'接殺後觸殺':'觸殺出局';h.outcome.event=caught?'doubleplay':'tagout';h.event=h.outcome.event;h.type='OUT';}
+  if(!caught&&outsAdded===1&&h.event==='doubleplay'){h.event=h.outcome.event='fielderschoice';h.outcome.label='野手選擇';}
   if(!caught&&outsAdded===0&&h.type==='OUT'){h.type='1B';h.event=h.outcome.event='hit';h.outcome.label='內野安打';}
   h.durationMs=Math.max(h.durationMs,...plays.map(p=>p.end+350),...plans.filter(p=>p.outAt!==undefined).map(p=>p.outAt+1300));return h;
  }
