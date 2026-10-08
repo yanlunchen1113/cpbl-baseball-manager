@@ -8,9 +8,11 @@
   s.impact=tv.flight?CPBLPhysics.pitchPoint(tv.flight,1):{x:sign*1.1,y:1.1,z:.2};
   if(kind==='foul'){
    s.ground=options.ground??Math.random()<.35;s.caught=!s.ground&&(options.caught??Math.random()<.22);
-   s.target=s.caught?{x:sign*3,z:-4.5,y:1.45}:s.ground?{x:sign*27,z:12,y:.05}:{x:sign*13,z:-17,y:.5};
+   const closeLine=!s.caught&&(options.nearLine??Math.random()<.18),lineZ=27+Math.random()*45;
+   s.target=options.target||(closeLine?{x:sign*(lineZ+.1+Math.random()*1.3),z:lineZ,y:.05}:s.caught?{x:sign*3,z:-4.5,y:1.45}:s.ground?{x:sign*27,z:12,y:.05}:{x:sign*13,z:-17,y:.5});
    if(s.ground)s.flightMs=850;
-   s.liveEnd=s.ground?3300:3100;s.replayAt=s.liveEnd+1400;s.duration=s.replayAt+s.liveEnd*2+450;
+   s.nearLine=!s.caught&&s.target.z>8&&Math.abs(Math.abs(s.target.x)-s.target.z)/Math.SQRT2<=1.2;
+   s.liveEnd=s.ground?3300:3100;s.replayAt=s.nearLine?s.liveEnd+900:Infinity;s.duration=s.nearLine?s.replayAt+s.liveEnd*2+450:s.liveEnd+900;
    tv.pendingPitch=null;tv.returnBall=null;if(!s.caught)foul();
    announce(s.caught?'界外飛球 · 守備追球':'FOUL · 界外球');
   }else{
@@ -63,5 +65,15 @@
  const oldStart=startGame;startGame=function(...args){badge.hidden=true;tv.interlude=null;return oldStart.apply(this,args);};
  const oldLeave=leaveGame;leaveGame=function(...args){badge.hidden=true;tv.interlude=null;return oldLeave.apply(this,args);};
  const oldPause=pause;pause=function(...args){const was=tv.paused,at=tv.pauseAt;oldPause.apply(this,args);if(was&&!tv.paused&&tv.interlude)tv.interlude.start+=performance.now()-at;};
+ const highlight=document.createElement('div');highlight.className='deadball-banner';highlight.hidden=true;stage.append(highlight);
+ root.CPBLReplay={
+  eligible(h){return !!h&&(h.hitCredit||h.event==='homer'||!!h.dive&&(h.caught||(h.outcome?.outsAdded||0)>0));},
+  start(h,now){if(h.replayDone||!this.eligible(h))return false;const beauty=!!h.dive&&(h.caught||(h.outcome?.outsAdded||0)>0),from=beauty?Math.max(0,h.dive.begin-450):0,to=Math.min(h.durationMs,beauty?h.dive.end+650:Math.max(h.flightMs||0,h.fieldAtMs||0)+650);h.replay={start:now,from,to,rate:.65,duration:Math.min(6500,(to-from)/.65),label:beauty?'美技重播':'安打重播'};h.replayDone=true;highlight.hidden=false;highlight.innerHTML='<b>REPLAY · '+h.replay.label+'</b><button type="button">略過重播 ›</button>';highlight.querySelector('button').onclick=()=>{if(h.replay)h.replay.duration=0;};return true;},
+  sceneStamp(h,now){const r=h?.replay;return r?h.start+Math.min(r.to,r.from+Math.max(0,now-r.start)*r.rate):now;},
+  finish(h){highlight.hidden=true;if(h)h.replay=null;},
+ };
+ const replayReset=resultReset;resultReset=function(...args){root.CPBLReplay.finish(tv.hit);return replayReset.apply(this,args);};
+ const replayStart=startGame;startGame=function(...args){root.CPBLReplay.finish(tv.hit);return replayStart.apply(this,args);};
+ const replayLeave=leaveGame;leaveGame=function(...args){root.CPBLReplay.finish(tv.hit);return replayLeave.apply(this,args);};
  root.CPBLDeadball={start,sample,ballPoint,runPoint,tick,complete,skipReplay(){const s=tv.interlude;if(s?.kind==='foul'&&performance.now()-s.start>=s.replayAt)complete(s);}};
 })(window);
