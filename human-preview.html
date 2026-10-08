@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#061c1a" />
-  <title>轉播流程預覽 · 職棒經理人｜CPBL 棒球模擬</title>
-  <link rel="stylesheet" href="style.css?v=30.1" />
-  <link rel="stylesheet" href="broadcast.css?v=30.1" />
-  <link rel="stylesheet" href="roster.css?v=30.1" />
-  <link rel="stylesheet" href="mobile.css?v=30.1" />
-  <link rel="stylesheet" href="broadcast-presentation.css?v=31.6" />
-<style>.broadcast-preview-controls{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;gap:7px;padding:10px;background:#091620;align-items:center;flex-wrap:wrap}.broadcast-preview-controls button{background:#23445c;color:white;border:1px solid #63829a;border-radius:4px;padding:7px;cursor:pointer}.broadcast-preview-controls a{color:#edcb74}.topbar{display:none}.game-screen{padding-bottom:60px}</style></head>
+  <title>職棒經理人｜CPBL 棒球模擬</title>
+  <link rel="stylesheet" href="style.css?v=29" />
+  <link rel="stylesheet" href="broadcast.css?v=29" />
+  <link rel="stylesheet" href="roster.css?v=29" />
+  <link rel="stylesheet" href="mobile.css?v=29" />
+</head>
 <body>
   <div class="app-shell">
     <header class="topbar">
@@ -72,39 +71,26 @@
     </main>
   </div>
   <div id="modalRoot"></div>
-  <script src="game.js?v=30.1"></script>
-  <script src="motion-calibration.js?v=30.1"></script>
-  <script src="stadium-data.js?v=30.1"></script>
-  <script src="baseball-engine.js?v=31.6"></script>
-<script src="baseball-rules.js?v=31.5"></script>
+  <script src="game.js?v=29"></script>
+  <script src="motion-calibration.js?v=29"></script>
+  <script src="stadium-data.js?v=29"></script>
+  <script src="baseball-engine.js?v=29"></script>
+<script src="baseball-rules.js?v=29"></script>
   <script src="broadcast.js?v=31.6"></script>
-  <script src="rosters-data.js?v=30.1"></script>
-  <script src="pitch-profiles.js?v=30.1"></script>
-  <script src="player-traits.js?v=30.1"></script>
-  <script src="cheer-midi.js?v=30.1"></script>
-  <script src="cheer-audio.js?v=30.1"></script>
-<script src="cheer-files.js?v=30.1"></script>
-  <script src="roster.js?v=31.5"></script>
-  <script src="season.js?v=30.1"></script>
-  <script src="stadium-setup.js?v=30.1"></script>
-  <script src="vendor/three.min.js?v=30.1"></script>
+  <script src="rosters-data.js?v=29"></script>
+  <script src="pitch-profiles.js?v=29"></script>
+  <script src="player-traits.js?v=29"></script>
+  <script src="cheer-midi.js?v=29"></script>
+  <script src="cheer-audio.js?v=29"></script>
+<script src="cheer-files.js?v=29"></script>
+  <script src="roster.js?v=29"></script>
+  <script src="season.js?v=29"></script>
+  <script src="stadium-setup.js?v=29"></script>
+  <script src="vendor/three.min.js?v=29"></script>
   <script src="human-assets.js?v=31.6"></script>
-  <script src="field-materials.js?v=30.1"></script>
-  <script src="vendor/RGBELoader.js?v=30.1"></script>
-  <script src="vendor/Sky.js?v=30.1"></script>
-  <script src="graphics-pipeline.js?v=31.2r6"></script>
-  <script src="xinzhuang-model.js?v=31.2r6"></script>
+  <script src="field-materials.js?v=29"></script>
   <script src="deadball-scenes.js?v=31.6"></script>
-  <script src="broadcast-camera.js?v=31.6"></script>
+  <script src="broadcast-camera.js?v=31.5"></script>
   <script src="stadium3d.js?v=31.6"></script>
-  <script src="broadcast-data.js?v=31.5"></script>
-  <script src="broadcast-presentation.js?v=31.6"></script>
-<script>
-musicEnabled=false;effectsEnabled=false;
-const bar=document.createElement('nav');bar.className='broadcast-preview-controls';bar.innerHTML='<strong>轉播流程 v31.5</strong><button data-show="matchup">兩隊對戰</button><button data-show="lineup">首局打序</button><button data-show="defense">守位圖</button><button data-show="pitcher">投手數據</button><button data-show="batter">打者數據</button><button id="previewBottom">一局下</button><button id="previewRisp">賽季滿壘</button><a href="./?v=31.5">進入遊戲</a>';document.body.append(bar);
-bar.querySelectorAll('[data-show]').forEach(button=>button.onclick=()=>{CPBLBroadcast.skipAll();CPBLBroadcast.preview(button.dataset.show);});
-bar.querySelector('#previewBottom').onclick=()=>{CPBLBroadcast.skipAll();state.half='bottom';render();};
-bar.querySelector('#previewRisp').onclick=()=>{CPBLBroadcast.skipAll();if(!state.season)state.season=newSeason(3);state.mode='season';state.bases=['測試一壘','測試二壘','測試三壘'];CPBLBroadcast.preview('batter');};
-startGame(3);
-</script></body>
+<div style="position:fixed;bottom:3px;left:3px;z-index:9999;background:#222;padding:6px"><button onclick="state.half='bottom';tv.phase='ready';tv.hit=null;tv.returnBall=null;tv.paused=false;render();">第一人稱</button><button onclick="state.half='top';tv.phase='ready';tv.hit=null;tv.returnBall=null;tv.paused=false;render();">投球近景</button><button onclick="beginPitch();tv.phase='delivery';tv.start=performance.now()-850;tv.deliveryAt=tv.start;tv.paused=true;tv.pauseAt=performance.now();">出手前</button><button onclick="tv.paused=false;state.strikes=2;beginPitch();tv.flight.cpuSwing=false;tv.swung=false;tv.flight.x=0;tv.flight.y=0;finishPitch();">三振回傳</button><button onclick="tv.paused=false;">繼續</button></div></body>
 </html>

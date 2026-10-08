@@ -4,13 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#061c1a" />
-  <title>轉播流程預覽 · 職棒經理人｜CPBL 棒球模擬</title>
+  <title>界外球・保送轉播預覽 · 職棒經理人｜CPBL 棒球模擬</title>
   <link rel="stylesheet" href="style.css?v=30.1" />
   <link rel="stylesheet" href="broadcast.css?v=30.1" />
   <link rel="stylesheet" href="roster.css?v=30.1" />
   <link rel="stylesheet" href="mobile.css?v=30.1" />
   <link rel="stylesheet" href="broadcast-presentation.css?v=31.6" />
-<style>.broadcast-preview-controls{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;gap:7px;padding:10px;background:#091620;align-items:center;flex-wrap:wrap}.broadcast-preview-controls button{background:#23445c;color:white;border:1px solid #63829a;border-radius:4px;padding:7px;cursor:pointer}.broadcast-preview-controls a{color:#edcb74}.topbar{display:none}.game-screen{padding-bottom:60px}</style></head>
+<style>.broadcast-preview-controls{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;gap:7px;padding:10px;background:#091620;align-items:center;flex-wrap:wrap}.broadcast-preview-controls button{background:#23445c;color:white;border:1px solid #63829a;border-radius:4px;padding:7px;cursor:pointer}.broadcast-preview-controls a{color:#edcb74}.topbar{display:none}.game-screen{padding-bottom:60px}</style><style>.resume-game,.call-hud{display:none!important}</style></head>
 <body>
   <div class="app-shell">
     <header class="topbar">
@@ -100,11 +100,6 @@
   <script src="broadcast-data.js?v=31.5"></script>
   <script src="broadcast-presentation.js?v=31.6"></script>
 <script>
-musicEnabled=false;effectsEnabled=false;
-const bar=document.createElement('nav');bar.className='broadcast-preview-controls';bar.innerHTML='<strong>轉播流程 v31.5</strong><button data-show="matchup">兩隊對戰</button><button data-show="lineup">首局打序</button><button data-show="defense">守位圖</button><button data-show="pitcher">投手數據</button><button data-show="batter">打者數據</button><button id="previewBottom">一局下</button><button id="previewRisp">賽季滿壘</button><a href="./?v=31.5">進入遊戲</a>';document.body.append(bar);
-bar.querySelectorAll('[data-show]').forEach(button=>button.onclick=()=>{CPBLBroadcast.skipAll();CPBLBroadcast.preview(button.dataset.show);});
-bar.querySelector('#previewBottom').onclick=()=>{CPBLBroadcast.skipAll();state.half='bottom';render();};
-bar.querySelector('#previewRisp').onclick=()=>{CPBLBroadcast.skipAll();if(!state.season)state.season=newSeason(3);state.mode='season';state.bases=['測試一壘','測試二壘','測試三壘'];CPBLBroadcast.preview('batter');};
-startGame(3);
-</script></body>
-</html>
+const bar=document.createElement('nav');bar.className='broadcast-preview-controls';bar.innerHTML='<strong>死球轉播 v31.6</strong><button id="previewWalk">四壞保送</button><button id="previewLoaded">滿壘四壞</button><button id="previewFoul">界外球重播</button><button id="previewCatch">界外飛球接殺</button><button id="previewHbp">觸身球</button><button id="previewRunFrame">跑壘定格</button><button id="previewReplayFrame">慢動作定格</button><button id="previewFreeze">定格 / 繼續</button><a href="./?v=31.6">進入遊戲</a>';document.body.append(bar);
+(function(){function prepare(){musicEnabled=false;effectsEnabled=false;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);CPBLBroadcast.draw(performance.now());CPBLBroadcast.skipAll();state.playerSide=1;state.half='top';tv.paused=false;}function walkDemo(loaded){prepare();state.balls=3;if(loaded)state.bases=PLAYERS[state.awayIndex].slice(1,4);beginPitch();tv.flight.x=2;tv.flight.y=1.4;tv.flight.cpuSwing=false;tv.swung=false;finishPitch();}document.getElementById('previewWalk').onclick=()=>walkDemo(false);document.getElementById('previewLoaded').onclick=()=>walkDemo(true);document.getElementById('previewFoul').onclick=()=>{prepare();tv.swung=true;tv.swingStart=performance.now()-140;CPBLDeadball.start('foul',{caught:false,ground:false});};document.getElementById('previewCatch').onclick=()=>{prepare();tv.swung=true;tv.swingStart=performance.now()-140;CPBLDeadball.start('foul',{caught:true,ground:false});};document.getElementById('previewHbp').onclick=()=>{prepare();beginPitch();const left=playerTraits.get(tv.lineupIds[0][0])?.batHand==='L';tv.flight.x=(left?-1:1)*1.1/((tv.flight.viewSign||1)*(tv.flight.zone?.halfWidth||.3));tv.flight.y=.2;tv.flight.cpuSwing=false;tv.swung=false;finishPitch();};document.getElementById('previewRunFrame').onclick=()=>{walkDemo(true);tv.paused=true;tv.pauseAt=tv.interlude.start+4800;CPBLDeadball.tick(tv.pauseAt);};document.getElementById('previewReplayFrame').onclick=()=>{prepare();tv.swung=true;tv.swingStart=performance.now()-140;CPBLDeadball.start('foul',{caught:true,ground:false});tv.paused=true;tv.pauseAt=tv.interlude.start+tv.interlude.replayAt+4800;CPBLDeadball.tick(tv.pauseAt);};document.getElementById('previewFreeze').onclick=()=>pause();walkDemo(false);})();
+</script></body></html>

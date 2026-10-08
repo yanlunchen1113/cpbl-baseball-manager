@@ -17,7 +17,7 @@
  lineupFor=lineup;
  function fieldPlayer(side,pos){if(pos==='P')return tv.pitchers[side];return tv.fieldLineups?.[side]?.find(p=>p.assignedPosition===pos);}
  function canReplace(side,p){const current=tv.fieldLineups?.[side]?.[state.orders[side]%9];return !!current&&allowed(p).has(current.assignedPosition);}
- const blank=()=>({pa:0,ab:0,h:0,tb:0,hr:0,bb:0,k:0,sf:0,rbi:0,outs:0,bf:0,ha:0,baa:0,abAgainst:0,rispAB:0,rispH:0,loadedAB:0,loadedH:0,g:0});
+ const blank=()=>({pa:0,ab:0,h:0,tb:0,hr:0,bb:0,k:0,sf:0,hbp:0,rbi:0,outs:0,bf:0,ha:0,baa:0,abAgainst:0,rispAB:0,rispH:0,loadedAB:0,loadedH:0,g:0});
  let gameStats={},rundown=[],current=null,seenBat='',seenPitch=new Set(),seenHalf='',lastFrame=0,simulation=false;
  const stats=(store,id)=>store[id]||(store[id]=blank());
  function total(id){const a=state.mode==='season'?state.season?.playerStats?.[id]:null,b=gameStats[id],v=blank();for(const k in v)v[k]=(a?.[k]||0)+(b?.[k]||0);return v;}
@@ -61,7 +61,7 @@
  }
  const frame=now=>{draw(now);requestAnimationFrame(frame);};requestAnimationFrame(frame);
  const baseControl=controlDown;controlDown=function(){if(current||rundown.length){showNext(performance.now());return;}baseControl();};
- function book(result,{hit=0,bases=0,runs=0,outs=0}={}){if(state.mode!=='season')return;const side=battingTeam(),id=tv.lineupIds[side][state.orders[side]%9],pid=activePitcher().id,b=stats(gameStats,id),p=stats(gameStats,pid),risp=!!(state.bases[1]||state.bases[2]),loaded=state.bases.every(Boolean),ab=!['BB','SF'].includes(result);b.pa++;p.bf++;p.outs+=outs;if(ab){b.ab++;p.abAgainst++;if(risp)b.rispAB++;if(loaded)b.loadedAB++;}if(hit){b.h++;b.tb+=bases;b.hr+=bases===4?1:0;p.ha++;if(risp)b.rispH++;if(loaded)b.loadedH++;}if(result==='BB'){b.bb++;p.bb++;}if(result==='K'){b.k++;p.k++;}if(result==='SF')b.sf++;b.rbi+=runs;}
+ function book(result,{hit=0,bases=0,runs=0,outs=0}={}){if(state.mode!=='season')return;const side=battingTeam(),id=tv.lineupIds[side][state.orders[side]%9],pid=activePitcher().id,b=stats(gameStats,id),p=stats(gameStats,pid),risp=!!(state.bases[1]||state.bases[2]),loaded=state.bases.every(Boolean),ab=!['BB','HBP','SF'].includes(result);b.pa++;p.bf++;p.outs+=outs;if(ab){b.ab++;p.abAgainst++;if(risp)b.rispAB++;if(loaded)b.loadedAB++;}if(hit){b.h++;b.tb+=bases;b.hr+=bases===4?1:0;p.ha++;if(risp)b.rispH++;if(loaded)b.loadedH++;}if(result==='BB'){b.bb++;p.bb++;}if(result==='K'){b.k++;p.k++;}if(result==='HBP')b.hbp++;if(result==='SF')b.sf++;b.rbi+=runs;}
  const oldStrike=applyStrike;applyStrike=function(...args){if(state.strikes===2)book('K',{outs:1});return oldStrike.apply(this,args);};
  const oldWalk=walk;walk=function(...args){book('BB',{runs:state.bases.every(Boolean)?1:0});return oldWalk.apply(this,args);};
  const oldHit=applyHit;applyHit=function(type){const h=tv.hit,o=h?.outcome,hit=!!h?.hitCredit||(!o&&['1B','2B','3B','HR'].includes(type)),bases=h?.hitBases||{'1B':1,'2B':2,'3B':3,HR:4}[type]||1;book(o?.event==='sacfly'?'SF':hit?'H':'OUT',{hit:hit?1:0,bases,runs:o?.runs||0,outs:o?.outsAdded??(hit?0:1)});return oldHit(type);};
@@ -82,7 +82,7 @@
    // Keep home-run RBI within the fixture's recorded score.
    let credits=runs[side];for(const b of boxes){const credited=Math.min(credits,b.hr);b.rbi+=credited;credits-=credited;if(b.hr>credited){b.tb-=(b.hr-credited)*3;b.hr=credited;}}
    for(let n=0;n<credits;n++)boxes[Math.floor(Math.random()*9)].rbi++;
-   boxes.forEach((b,i)=>{const dst=stats(store,batting[i].id);for(const key in b)dst[key]+=b[key];});
+   boxes.forEach((b,i)=>{const dst=stats(store,batting[i].id);for(const key in b)dst[key]=(dst[key]||0)+b[key];});
   }
  }
  const oldAdvance=advanceSeason;advanceSeason=function(...args){simulation=true;try{return oldAdvance.apply(this,args);}finally{simulation=false;}};

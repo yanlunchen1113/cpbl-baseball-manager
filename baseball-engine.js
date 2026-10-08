@@ -12,13 +12,25 @@
   '掌心球':{side:-.10,drop:.54},'蝴蝶球':{side:.06,drop:.35}
  };
  function releasePoint(f){return {x:f.hand==='L'?-.42:.42,y:f.style==='side'?1.78:1.93,z:17.5}}
+ // Landmarks are in world metres, sampled in the normal ready-to-hit stance.
+ function batterZone(player={},landmarks){
+  const height=(Number(player.height)||183)/100;
+  const shoulder=landmarks?.shoulder??height*.79,pants=landmarks?.pants??height*.52;
+  const bottom=landmarks?.knee??height*.235,top=(shoulder+pants)/2;
+  return {name:player.name,top,bottom,center:(top+bottom)/2,halfHeight:(top-bottom)/2,halfWidth:.4318/2};
+ }
+ function isStrike(f){const z=f.zone||{center:1.1,halfHeight:.35,halfWidth:.3,top:1.45,bottom:.75},p=pitchPoint(f,1),radius=.037;
+  // Sphere intersects the rectangle (including its rounded corner contact).
+  const dx=Math.max(0,Math.abs(p.x)-z.halfWidth),dy=Math.max(0,z.bottom-p.y,p.y-z.top);
+  return dx*dx+dy*dy<=radius*radius+1e-10;
+ }
  function pitchPoint(f,t){
   t=clamp(t);const config=pitchSettings[f.type]||pitchSettings['快速球'],sign=f.hand==='L'?-1:1;
-  const origin=f.release||releasePoint(f),release=origin.y,end=clamp(1.1-f.y*.35,.45,release-.06);
+  const origin=f.release||releasePoint(f),release=origin.y,zone=f.zone||{center:1.1,halfHeight:.35,halfWidth:.3},end=Math.max(.037,zone.center-f.y*zone.halfHeight);
   // A high control point delays the fall; it never creates a late upward hook.
   const control=mix((release+end)/2,release-.035,clamp(config.drop/.7));
   const start=origin.x,u=1-t;
-  return {x:mix(start,(f.viewSign||1)*f.x*.3,t)+sign*config.side*4*t*(1-t),y:u*u*release+2*u*t*control+t*t*end,z:mix(origin.z,.2,t)};
+  return {x:mix(start,(f.viewSign||1)*f.x*zone.halfWidth,t)+sign*config.side*4*t*(1-t),y:u*u*release+2*u*t*control+t*t*end,z:mix(origin.z,.2,t)};
  }
  function wallDistance(angle){return root.CPBLStadiums?root.CPBLStadiums.distance(angle):122-22*Math.pow(Math.min(1,Math.abs(angle)/(Math.PI/4)),1.5)}
  // Metres / seconds. CPBL exit speeds are km/h; surface/reaction parameters are model assumptions.
@@ -89,5 +101,5 @@
   [2000,0,0,-.25,-.5,-.7,0,0,0]
  ];
  function delivery(elapsed){let a=deliveryKeys[0],b=a;for(let i=1;i<deliveryKeys.length;i++){b=deliveryKeys[i];if(elapsed<=b[0])break;a=b;}const t=smooth((elapsed-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,i)=>mix(v,b[i+1],t));}
- root.CPBLPhysics={releasePoint,wallDistance,bases,fielders,movement,runDistance,runTime,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,supportPoint,delivery,clamp,smooth};
+ root.CPBLPhysics={batterZone,isStrike,releasePoint,wallDistance,bases,fielders,movement,runDistance,runTime,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,supportPoint,delivery,clamp,smooth};
 })(typeof window==='undefined'?globalThis:window);

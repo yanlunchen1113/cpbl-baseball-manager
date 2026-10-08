@@ -19,8 +19,9 @@ const sandbox={console:{log(){},warn(){},error:(...a)=>errors.push(a.join(' '))}
 sandbox.window=sandbox;sandbox.addEventListener=(k,fn)=>(events[k]??=[]).push(fn);sandbox.CPBLMusic={stop(){},play(){}};
 const THREE={...require('../vendor/three.min.js')};
 THREE.WebGLRenderer=class{constructor(){this.domElement=new Element('canvas');this.shadowMap={};this.pixelRatio=1}setPixelRatio(n){this.pixelRatio=n}setSize(){}setViewport(){}setScissor(){}setScissorTest(){}render(scene,camera){scene.updateMatrixWorld();camera.updateMatrixWorld()}getContext(){return {getExtension:()=>({restoreContext(){}})}}};sandbox.THREE=THREE;
+sandbox.assertRig=(condition,message)=>assert(condition,message);
 const context=vm.createContext(sandbox),run=code=>vm.runInContext(code,context);
-for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','broadcast-camera.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
+for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','broadcast-camera.js','stadium3d.js']){let source=fs.readFileSync(path.join(root,file),'utf8');if(file==='stadium3d.js')source=source.replace(/\}\)\(\);\s*$/,"window.RIG_TEST={pitcher,batter,catcher,resetPose,armTo,runningPose,battingPose,catcherPose,catcherReturnPose,applyDelivery,actorHand};})();");run(source);}
 run('musicEnabled=false;effectsEnabled=false;');
 
 function tick(ms=100){time+=ms;const current=frames;frames=[];for(const fn of current)fn(time)}
@@ -35,5 +36,27 @@ run(fs.readFileSync(path.join(root,'human-assets.js'),'utf8'));run('CPBLHuman.lo
   if(side===0){assert.equal(run('stage.dataset.ballPhase'),'catcher-transfer');}
   tick(1000);assert.equal(run('stage.dataset.ballPhase'),'return-throw');tick(1600);assert.equal(run('tv.phase'),'ready');
  }
- assert.equal(errors.length,0,errors.join('\n'));console.log('Skinned human mesh, both player views and first-person return passed; zero scene errors.');
+ run(`const rig=RIG_TEST;for(const a of [rig.pitcher,rig.batter,rig.catcher]){
+  assertRig(a.human,'Missing skinned actor');assertRig(a.capMeshes.every(m=>m.visible),'Cap was hidden with helper head meshes');
+  for(const side of ['left','right']){
+   const elbow=a.parts[side+'Elbow'],palm=a.human.hands[side];assertRig(Math.abs(palm.x)<1e-8&&Math.abs(palm.z)<1e-8,'Palm must share anatomical forearm axis');
+   for(const target of [[0,.1,.1],[.6,.4,.2],[-.4,.7,.3],[.1,-.2,.3]]){
+    rig.resetPose(a);rig.armTo(a,side,new THREE.Vector3(...target));assertRig(Math.abs(elbow.rotation.y)<1e-8&&Math.abs(elbow.rotation.z)<1e-8,'Elbow must remain a hinge');assertRig(elbow.rotation.x>=.20&&elbow.rotation.x<=2.357,'Anatomical flexion limits');
+   }
+  }
+ }
+ for(const hand of ['R','L']){let previous=null;tv.phase='windup';tv.deliveryAt=1000;for(let age=0;age<=2400;age+=20){rig.resetPose(rig.pitcher);rig.pitcher.group.rotation.y=Math.PI;rig.applyDelivery(rig.pitcher,{hand,style:'over'},1000+age);const side=hand==='L'?'left':'right',elbow=rig.pitcher.parts[side+'Elbow'];assertRig(Math.abs(elbow.rotation.y)<1e-8&&Math.abs(elbow.rotation.z)<1e-8,'Delivery elbow twists');const point=rig.actorHand(rig.pitcher,side);assertRig(Number.isFinite(point.y),'Invalid pitch hand');if(previous)assertRig(point.distanceTo(previous)<.30,'Pitch hand jumps');previous=point;}}
+ for(const left of [false,true]){tv.swung=true;tv.swingStart=1000;for(let age=0;age<=1050;age+=10){rig.resetPose(rig.batter);rig.batter.group.rotation.y=left?Math.PI/2:-Math.PI/2;rig.battingPose(rig.batter,left,1000+age);for(const side of ['left','right'])assertRig(Math.abs(rig.batter.parts[side+'Elbow'].rotation.z)<1e-8,'Batting elbow twists');}}
+ for(let frame=0;frame<60;frame++){rig.resetPose(rig.batter);rig.runningPose(rig.batter,frame*.12,6);for(const side of ['left','right'])assertRig(Math.abs(rig.batter.parts[side+'Elbow'].rotation.z)<1e-8,'Running elbow twists');}`);
+  run(`const z=window.CPBL_BATTER_ZONE;assertRig(z.top>z.bottom&&z.bottom<.65&&z.top<1.4,'Zone must extend below waist to knees');
+ const zoneFrame={type:'四縫線',hand:'R',x:0,y:0,zone:z};assertRig(CPBLPhysics.isStrike(zoneFrame),'Centre must be a strike');
+ for(const height of [165,183,198]){const zone=CPBLPhysics.batterZone({height});const f={...zoneFrame,zone};
+  f.y=1;assertRig(Math.abs(CPBLPhysics.pitchPoint(f,1).y-zone.bottom)<1e-8,'Aim bottom must equal zone bottom');assertRig(CPBLPhysics.isStrike(f),'Knee edge must be strike');
+  f.y=-1;assertRig(Math.abs(CPBLPhysics.pitchPoint(f,1).y-zone.top)<1e-8,'Aim top must equal zone top');
+  f.y=-1-.08/zone.halfHeight;assertRig(!CPBLPhysics.isStrike(f),'Above upper edge must be ball');
+  f.y=1+.08/zone.halfHeight;assertRig(!CPBLPhysics.isStrike(f),'Below knee edge must be ball');
+  f.y=0;f.x=1+.036/zone.halfWidth;assertRig(CPBLPhysics.isStrike(f),'Ball radius touching plate must count');f.x=1+.04/zone.halfWidth;assertRig(!CPBLPhysics.isStrike(f),'Entire ball beyond plate must be ball');
+ }
+ assertRig(CPBLPhysics.batterZone({height:165}).top<CPBLPhysics.batterZone({height:198}).top,'Height must affect zone');`);
+ assert.equal(errors.length,0,errors.join('\n'));console.log('Skinned human mesh, both player views and first-person return passed; anatomical arm binding, hinge limits and running poses passed; zero scene errors.');
 })().catch(error=>{console.error(error);process.exitCode=1});
