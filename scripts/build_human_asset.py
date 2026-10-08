@@ -84,6 +84,7 @@ def joint(group):
     return [sum(v[i][a] for i in indices)/len(indices)*scale-(floor*scale if a==1 else 0) for a in range(3)]
 manifest['legJoints']={side:{key:joint('joint-'+short+'-'+group) for key,group in [('hip','upper-leg'),('knee','knee'),('ankle','ankle')]} for side,short in [('left','l'),('right','r')]}
 manifest['armJoints']={side:{key:joint('joint-'+short+'-'+group) for key,group in [('shoulder','shoulder'),('elbow','elbow'),('palm','hand-2')]} for side,short in [('left','l'),('right','r')]}
+manifest['handFrames']={side:{'wrist':joint(f'joint-{short}-hand'),'middle':joint(f'joint-{short}-finger-3-1'),'index':joint(f'joint-{short}-finger-2-1'),'pinky':joint(f'joint-{short}-finger-5-1')} for side,short in [('left','l'),('right','r')]}
 
 # Finger flexion is baked as a mesh morph before skeletal deformation, retaining source weights.
 def add(a,b): return [x+y for x,y in zip(a,b)]
