@@ -69,6 +69,15 @@
   return {x:mix(a.x,b.x,u),y:1.2+Math.sin(Math.PI*u)*Math.min(2.6,Math.hypot(b.x-a.x,b.z-a.z)*.025),z:mix(a.z,b.z,u),phase:u<1?'throw':'received'};
  }
  function fielderPoint(h,elapsed){const a=fielders[h.fielder],duration=(h.caught||h.event==='catch')?h.flightMs:(h.fieldAtMs||h.pickupMs),distance=Math.hypot(h.fieldTarget.x-a.x,h.fieldTarget.z-a.z),seconds=Math.max(0,(elapsed-220)/1000),arrival=Math.max(.01,(duration-220)/1000),total=runDistance(arrival,movement.fieldSpeed),travelled=runDistance(seconds,movement.fieldSpeed),t=clamp(travelled/Math.max(.01,total));return {x:mix(a.x,h.fieldTarget.x,t),z:mix(a.z,h.fieldTarget.z,t),moving:t>0&&t<1,speed:t<1?Math.min(movement.fieldSpeed,seconds*movement.acceleration)*distance/Math.max(.01,total):0};}
+ // Every defender reacts, while one pursues and the others cover or back up.
+ function supportPoint(h,index,elapsed){const start=fielders[index];if(index===h.fielder)return fielderPoint(h,elapsed);if(h.event==='homer')return {...start,moving:false,speed:0};
+  const receiving=(h.throwLegs||[]).find(l=>l.receiver===index);let target,role;
+  if(receiving){target=receiving.receiverPosition||receiving.to;role='cover';}
+  else if(index>=4){const primary=fielders[h.fielder],d=Math.hypot(start.x-h.fieldTarget.x,start.z-h.fieldTarget.z);if(h.fielder>=4&&d<65){const dx=h.fieldTarget.x-primary.x,dz=h.fieldTarget.z-primary.z,len=Math.hypot(dx,dz)||1;target={x:h.fieldTarget.x+dx/len*7,z:h.fieldTarget.z+dz/len*7};role='backup';}else{target={x:start.x+(h.fieldTarget.x-start.x)*.20,z:start.z+(h.fieldTarget.z-start.z)*.20};role='shift';}}
+  else if(index===7){const b=bases[h.throwBase??0],len=Math.hypot(b.x,b.z-18.44)||1;target={x:b.x+b.x/len*6,z:b.z+(b.z-18.44)/len*6};role='backup';}
+  else{target=bases[index===0?0:index===3?2:1];role='cover';if(index===1||index===2){const other=index===1?2:1;if((h.throwLegs||[]).some(l=>l.receiver===other&&l.base===1)){target={x:h.fieldTarget.x*.45,z:h.fieldTarget.z*.45+8};role='cutoff';}}}
+  const distance=Math.hypot(target.x-start.x,target.z-start.z),seconds=Math.max(0,elapsed/1000-.22),travelled=Math.min(distance,runDistance(seconds,movement.fieldSpeed)),t=distance?travelled/distance:1;return {x:mix(start.x,target.x,t),z:mix(start.z,target.z,t),moving:travelled<distance&&seconds>0,speed:travelled<distance?Math.min(movement.fieldSpeed,seconds*movement.acceleration):0,role,travelled,heading:Math.atan2(target.x-start.x,target.z-start.z)};
+ }
  // Lift, stride, arm cock, release, follow-through and recovery keyframes.
  const deliveryKeys=[
   [0,0,0,-.25,-.5,-.7,0,0,0],
@@ -80,5 +89,5 @@
   [2000,0,0,-.25,-.5,-.7,0,0,0]
  ];
  function delivery(elapsed){let a=deliveryKeys[0],b=a;for(let i=1;i<deliveryKeys.length;i++){b=deliveryKeys[i];if(elapsed<=b[0])break;a=b;}const t=smooth((elapsed-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,i)=>mix(v,b[i+1],t));}
- root.CPBLPhysics={releasePoint,wallDistance,bases,fielders,movement,runDistance,runTime,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,delivery,clamp,smooth};
+ root.CPBLPhysics={releasePoint,wallDistance,bases,fielders,movement,runDistance,runTime,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,supportPoint,delivery,clamp,smooth};
 })(typeof window==='undefined'?globalThis:window);

@@ -1,6 +1,27 @@
 /* Time-based defensive choices. Force outs, double plays and legal tag-ups. */
 (function(root){const P=root.CPBLPhysics,B=P.bases;
  const travel=(a,b,speed=30)=>Math.max(220,Math.hypot(a.x-b.x,a.z-b.z)/speed*1000);
+ function runnerPoint(plan,time){const t=P.clamp((Math.min(time,plan.outAt??Infinity)-plan.start)/plan.duration),total=P.runDistance(plan.duration/1000),progress=P.clamp(P.runDistance(t*plan.duration/1000)/Math.max(.01,total)),q=progress*plan.steps,i=Math.min(plan.steps-1,Math.floor(q)),f=q-i,a=B[(plan.from+i)%4],b=B[(plan.from+i+1)%4];return {x:a.x+(b.x-a.x)*f,z:a.z+(b.z-a.z)*f,progress,heading:Math.atan2(b.x-a.x,b.z-a.z)};}
+ function finishDefense(h,context,plans,legs,caught){
+  const calls=caught?[{kind:'catch',out:true,time:h.flightMs,runner:-1}]:[],plays=[];
+  for(const leg of legs){if(leg.base===null)continue;
+   const runner=plans.find(r=>(r.from+r.steps)%4===leg.base);if(!runner)continue;
+   const arrival=runner.start+runner.duration,previousOut=calls.find(c=>c.out&&c.runner===-1&&c.time<leg.end),forced=!caught&&(runner.index===-1&&runner.steps===1||runner.index>=0&&runner.steps===1&&context.bases.slice(0,runner.index+1).every(Boolean)&&!previousOut),kind=forced?'force':'tag';
+   delete runner.outAt;const time=forced?leg.end+100:Math.max(leg.end+260,arrival-140),out=time<arrival&&context.outs+calls.filter(c=>c.out).length<3;
+   const incoming=B[(leg.base+3)%4],base=B[leg.base],d=Math.hypot(base.x-incoming.x,base.z-incoming.z),dx=(base.x-incoming.x)/d,dz=(base.z-incoming.z)/d;
+   const contact=runnerPoint(runner,time),play={kind,base:leg.base,receiver:leg.receiver,runner:runner.index,receiveAt:leg.end,begin:forced?leg.end:Math.max(leg.end+80,arrival-420),time,end:time+950,arrival,out,contact:{x:contact.x,y:.88,z:contact.z},receiverPosition:forced?base:{x:base.x-dx*.7-dz*.35,z:base.z-dz*.7+dx*.35}};
+   // Non-force plays require possession plus contact with the runner before the bag.
+   play.possessionAt=leg.end;play.contactAt=kind==='tag'?time:null;play.contactDistance=Math.hypot(contact.x-play.receiverPosition.x,contact.z-play.receiverPosition.z);if(kind==='tag'&&play.contactDistance>.90)play.out=false;plays.push(play);calls.push({...play});if(play.out){runner.outAt=time;runner.outKind=kind;}else delete runner.outKind;
+  }
+  calls.sort((a,b)=>a.time-b.time);let outsAdded=0,third=null;for(const c of calls){if(!c.out)continue;if(context.outs+outsAdded>=3){c.out=false;const r=plans.find(p=>p.index===c.runner);if(r){delete r.outAt;delete r.outKind;}continue;}outsAdded++;if(context.outs+outsAdded===3)third=c;}
+  const next=context.bases.slice(),scored=[];for(const r of plans)if(r.index>=0)next[r.index]=null;
+  for(const r of plans){if(r.outAt!==undefined)continue;const name=r.index<0?context.batter:context.bases[r.index],destination=(r.from+r.steps)%4;if(destination===3)scored.push({name,time:r.start+r.duration});else if(!third)next[destination]=name;}
+  const runs=scored.filter(s=>!third||third.kind!=='force'&&third.kind!=='catch'&&s.time<third.time).length;
+  h.basePlays=plays;h.outCalls=calls;h.outcome.outsAdded=outsAdded;h.outcome.bases=next;h.outcome.runs=runs;h.caught=caught;
+  if(plays.some(p=>p.kind==='tag'&&p.out)){h.outcome.label=caught?'接殺後觸殺':'觸殺出局';h.outcome.event=caught?'doubleplay':'tagout';h.event=h.outcome.event;h.type='OUT';}
+  if(!caught&&outsAdded===0&&h.type==='OUT'){h.type='1B';h.event=h.outcome.event='hit';h.outcome.label='內野安打';}
+  h.durationMs=Math.max(h.durationMs,...plays.map(p=>p.end+350),...plans.filter(p=>p.outAt!==undefined).map(p=>p.outAt+1300));return h;
+ }
  function plan(h,context){const occupied=context.bases.slice(),next=occupied.slice(),outs=context.outs,batter=context.batter,run=h.runnerMs,baseRun=Math.max(1000,h.runnerMs-350),plans=[],legs=[];let outsAdded=0,runs=0,label='',event=h.event;
  const addRun=(index,steps,start=0,duration=steps===1?run:(P.runTime(27.436*steps,event==='homer'?5.5:8.1)+.35)*1000)=>{if(index<0){start+=350;if(event!=='homer')duration=Math.max(500,duration-350);}else if(event!=='homer')duration=Math.max(500,duration-350);plans.push({index,from:index<0?3:index,steps,start,duration});};
  function route(from,start,base,relay=false){let at=start,point=from;
@@ -36,8 +57,8 @@
  h.type=outsAdded||event==='fielderschoice'?'OUT':h.type;
  if(legs.length){const last=legs.at(-1);h.throwBase=last.base;h.throwTarget=last.to;h.throwMs=last.end-h.pickupMs;}
  h.durationMs=Math.max(h.flightMs+650,...legs.map(l=>l.end+650),...plans.map(r=>r.start+r.duration+300));if(outs+outsAdded>=3)h.durationMs=Math.max(h.flightMs+650,...legs.map(l=>l.end+650));
- return h;
+ return finishDefense(h,context,plans,legs,h.caught);
  }
  function point(h,elapsed){if(!h.throwLegs?.length)return null;const first=h.throwLegs[0];if(elapsed<first.start)return null;let previous=null;for(const leg of h.throwLegs){if(elapsed<leg.start)return {...previous.to,y:previous.to.y||1.15,phase:'relay',receiver:previous.receiver,base:previous.base};if(elapsed<=leg.end){const t=P.clamp((elapsed-leg.start)/(leg.end-leg.start));return {x:leg.from.x+(leg.to.x-leg.from.x)*t,z:leg.from.z+(leg.to.z-leg.from.z)*t,y:(leg.from.y||1.35)+((leg.to.y||1.15)-(leg.from.y||1.35))*t+.5*9.81*Math.pow((leg.end-leg.start)/1000,2)*t*(1-t),phase:'throw',receiver:leg.receiver,base:leg.base};}previous=leg;}return {...previous.to,y:previous.to.y||1.15,phase:'received',receiver:previous.receiver,base:previous.base};}
- root.CPBLRules={plan,point};
+ root.CPBLRules={plan,point,runnerPoint};
 })(typeof window==='undefined'?globalThis:window);

@@ -165,3 +165,11 @@ WebGL errors pause the scene and context recovery keeps the 3D renderer. Devices
 右外野前三級座位改為曲面灰色舞台與粉紅 Angels 護牆；其餘區域保留實心階梯。上層看台挑出至下層約第十排，補齊混凝土底面及休息室上方內野環形平台。本壘後方以既有悍將隊徽透明遮罩畫上白色草皮標記。位置及尺寸為照片推估，非測繪資料。仍使用 Three.js 參考建模，尚非實拍等級。
 
 外野照明塔依 images-8.jpeg 調整到兩側外野看台後方，夜間聚光燈與離線遮蔽計算採相同位置；高度與位置為影像推估。
+
+## v31.3：觸殺、封殺與守備協防
+
+非封殺傳球新增接球持球、等待跑者、伸手觸殺、主審判決的時序；封殺顯示持球踩壘。接觸前未拿到球、跑者先到壘或超出可觸及範圍，不能判觸殺出局。第三個出局若是觸殺，按得分與觸殺的先後時間處理。
+
+跑者出局後短暫停留，鏡頭跟進觸殺動作。其他守備員依追球、補壘、中繼及協防角色移動。defense-preview.html 提供觸殺定格、重播觸殺、雙殺及飛球協防。
+
+規則參考：[封殺條件](https://www.mlb.com/glossary/rules/force-play)、[刺殺紀錄與觸殺](https://www.mlb.com/glossary/standard-stats/putout)。
