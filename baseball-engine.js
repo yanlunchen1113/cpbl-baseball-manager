@@ -69,7 +69,12 @@
   if(!found&&!homer){const last=samplePath(samples,(samples.length-1)*25);let bestTime=Infinity;defenseStarts.forEach((f,i)=>{const d=Math.hypot(Math.sin(angle)*last.distance-f.x,Math.cos(angle)*last.distance-f.z);if(i===7&&d>12)return;const at=(runTime(Math.max(0,d-gloveReach),speedFor(i))+reactionFor(i))*1000;if(at<bestTime){bestTime=at;fielder=i;}});fieldAtMs=Math.max((samples.length-1)*25,bestTime);fieldSample=last;}
   const flightMs=catchable?fieldAtMs:groundTime,landSample=samplePath(samples,flightMs),land={x:Math.sin(angle)*landSample.distance,z:Math.cos(angle)*landSample.distance},pickup={x:Math.sin(angle)*fieldSample.distance,z:Math.cos(angle)*fieldSample.distance};
   const fielderStart=defenseStarts[fielder],fieldBall=catchable?land:pickup,distanceToBall=Math.hypot(fieldBall.x-fielderStart.x,fieldBall.z-fielderStart.z),standOff=Math.min(gloveReach,distanceToBall),fieldTarget={x:fieldBall.x-(fieldBall.x-fielderStart.x)/Math.max(.001,distanceToBall)*standOff,z:fieldBall.z-(fieldBall.z-fielderStart.z)/Math.max(.001,distanceToBall)*standOff};
-  const fieldingAttempts=defenseStarts.map((f,i)=>{if(i>3||i===fielder)return null;let closest=null;for(let ms=250;ms<Math.min(fieldAtMs,3500);ms+=25){const p=samplePath(samples,ms);if(p.y>1.4)continue;const x=Math.sin(angle)*p.distance,z=Math.cos(angle)*p.distance,d=Math.hypot(x-f.x,z-f.z);if(!closest||d<closest.distance)closest={x,z,distance:d,at:ms};}if(!closest||closest.distance>12)return null;const reach=Math.min(closest.distance,runDistance(closest.at/1000-movement.reaction,movement.fieldSpeed)),t=reach/Math.max(.001,closest.distance);return {target:{x:mix(f.x,closest.x,t),z:mix(f.z,closest.z,t)},end:closest.at+200};});
+  // Pursue the best interception margin, not the point geometrically closest to the starting spot.
+  // A baseman who later receives a throw must finish this live-ball attempt first.
+  const fieldingAttempts=defenseStarts.map((f,i)=>{if(i>3||i===fielder||kind!=='ground')return null;let best=null;
+   for(let ms=250;ms<Math.min(fieldAtMs,3500);ms+=25){const p=samplePath(samples,ms);if(p.y>1.25)continue;const x=Math.sin(angle)*p.distance,z=Math.cos(angle)*p.distance,d=Math.hypot(x-f.x,z-f.z);if(z>f.z+5)break;const reach=runDistance(ms/1000-reactionFor(i),speedFor(i)),gap=d-reach-gloveReach;if(!best||gap<best.gap)best={x,z,distance:d,at:ms,reach,gap,height:p.y};}
+   if(!best||best.gap>8)return null;const travel=Math.min(Math.max(0,best.distance-gloveReach),best.reach),t=travel/Math.max(.001,best.distance);
+   return {target:{x:mix(f.x,best.x,t),z:mix(f.z,best.z,t)},ball:{x:best.x,y:Math.max(.20,best.height),z:best.z},at:best.at,end:best.at+100,missDistance:best.gap};});
   const transferMs=kind==='ground'?850:750,pickupMs=fieldAtMs+transferMs,runnerMs=(runTime(Math.hypot(19.4,19.4),movement.runSpeed)+.35)*1000,groundOut=kind==='ground'&&(fielder<4||fielder===7)&&pickupMs+Math.hypot(pickup.x-bases[0].x,pickup.z-bases[0].z)/30*1000<runnerMs;
   const distanceHit=Math.hypot(land.x,land.z),type=homer?'HR':catchable||groundOut?'OUT':distanceHit>80&&kind!=='ground'?'2B':'1B',event=homer?'homer':catchable?'catch':groundOut?'groundout':'hit',throwBase=groundOut?0:runners[2]||runners[1]?3:runners[0]?2:1,throwTarget=bases[throwBase],relay=fielder>=4&&fielder<=6&&Math.hypot(pickup.x-throwTarget.x,pickup.z-throwTarget.z)>55?{x:pickup.x*.36+throwTarget.x*.64,z:pickup.z*.36+throwTarget.z*.64}:null;
   const relayMs=relay?Math.max(220,Math.hypot(pickup.x-relay.x,pickup.z-relay.z)/30*1000):0,finalMs=Math.max(220,Math.hypot((relay||pickup).x-throwTarget.x,(relay||pickup).z-throwTarget.z)/30*1000),throwMs=relay?relayMs+220+finalMs:finalMs,runnerDurationMs=type==='HR'?14000:runnerMs*(type==='2B'?2:1),durationMs=homer?runnerDurationMs+500:catchable?flightMs+650:Math.max(pickupMs+throwMs+650,runnerDurationMs+300);
@@ -89,6 +94,9 @@
   return {x:mix(a.x,b.x,u),y:1.2+Math.sin(Math.PI*u)*Math.min(2.6,Math.hypot(b.x-a.x,b.z-a.z)*.025),z:mix(a.z,b.z,u),phase:u<1?'throw':'received'};
  }
  function fielderPoint(h,elapsed){const a=h.defenseStarts?.[h.fielder]||fielders[h.fielder],reaction=h.fieldReaction??movement.reaction,maxSpeed=h.fieldSpeed??movement.fieldSpeed,duration=(h.caught||h.event==='catch')?h.flightMs:(h.fieldAtMs||h.pickupMs),distance=Math.hypot(h.fieldTarget.x-a.x,h.fieldTarget.z-a.z),seconds=Math.max(0,(elapsed-reaction*1000)/1000),arrival=Math.max(.01,(duration-reaction*1000)/1000),total=runDistance(arrival,maxSpeed),travelled=runDistance(seconds,maxSpeed),t=clamp(travelled/Math.max(.01,total));return {x:mix(a.x,h.fieldTarget.x,t),z:mix(a.z,h.fieldTarget.z,t),moving:t>0&&t<1,speed:t<1?Math.min(maxSpeed,seconds*movement.acceleration)*distance/Math.max(.01,total):0};}
+ function coverArrival(h,index,target){const start=h.defenseStarts?.[index]||fielders[index]||{x:0,z:-.5},attempt=h.fieldingAttempts?.[index],speed=index===7?6.4:movement.fieldSpeed;
+  return attempt?attempt.end+runTime(Math.hypot(target.x-attempt.target.x,target.z-attempt.target.z),speed)*1000:(runTime(Math.hypot(target.x-start.x,target.z-start.z),speed)+(index===7?.32:movement.reaction))*1000;
+ }
  // Every defender reacts, while one pursues and the others cover or back up.
  function supportPoint(h,index,elapsed){let start=h.defenseStarts?.[index]||fielders[index];if(index===h.fielder)return fielderPoint(h,elapsed);if(h.event==='homer')return {...start,moving:false,speed:0};
   const receiving=(h.throwLegs||[]).find(l=>l.receiver===index);let target,role;
@@ -102,7 +110,7 @@
   else{target=bases[index===0?0:index===3?2:1];role='cover';if(index===1||index===2){const other=index===1?2:1;if((h.throwLegs||[]).some(l=>l.receiver===other&&l.base===1)){target={x:h.fieldTarget.x*.45,z:h.fieldTarget.z*.45+8};role='cutoff';}}}
   const attempt=h.fieldingAttempts?.[index];let clock=elapsed,priorTravel=0;
   if(attempt){if(elapsed<=attempt.end){target=attempt.target;role='intercept-attempt';}else{priorTravel=Math.hypot(attempt.target.x-start.x,attempt.target.z-start.z);start=attempt.target;clock=elapsed-attempt.end+220;}}
-  const distance=Math.hypot(target.x-start.x,target.z-start.z),seconds=Math.max(0,clock/1000-.22),travelled=Math.min(distance,runDistance(seconds,movement.fieldSpeed)),t=distance?travelled/distance:1;return {x:mix(start.x,target.x,t),z:mix(start.z,target.z,t),moving:travelled<distance&&seconds>0,speed:travelled<distance?Math.min(movement.fieldSpeed,seconds*movement.acceleration):0,role,travelled:priorTravel+travelled,heading:Math.atan2(target.x-start.x,target.z-start.z)};
+  const reaction=index===7?.32:movement.reaction,maxSpeed=index===7?6.4:movement.fieldSpeed;const distance=Math.hypot(target.x-start.x,target.z-start.z),seconds=Math.max(0,clock/1000-reaction),travelled=Math.min(distance,runDistance(seconds,maxSpeed)),t=distance?travelled/distance:1;return {x:mix(start.x,target.x,t),z:mix(start.z,target.z,t),moving:travelled<distance&&seconds>0,speed:travelled<distance?Math.min(maxSpeed,seconds*movement.acceleration):0,role,travelled:priorTravel+travelled,heading:Math.atan2(target.x-start.x,target.z-start.z)};
  }
  // Lift, stride, arm cock, release, follow-through and recovery keyframes.
  const deliveryKeys=[
@@ -115,5 +123,5 @@
   [2000,0,0,-.25,-.5,-.7,0,0,0]
  ];
  function delivery(elapsed){let a=deliveryKeys[0],b=a;for(let i=1;i<deliveryKeys.length;i++){b=deliveryKeys[i];if(elapsed<=b[0])break;a=b;}const t=smooth((elapsed-a[0])/(b[0]-a[0]||1));return a.slice(1).map((v,i)=>mix(v,b[i+1],t));}
- root.CPBLPhysics={batterZone,isStrike,releasePoint,wallDistance,bases,fielders,movement,runDistance,runTime,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,supportPoint,delivery,clamp,smooth};
+ root.CPBLPhysics={batterZone,isStrike,releasePoint,wallDistance,bases,fielders,movement,runDistance,runTime,pitchSettings,pitchPoint,createPlay,playPoint,fielderPoint,supportPoint,coverArrival,delivery,clamp,smooth};
 })(typeof window==='undefined'?globalThis:window);
