@@ -279,11 +279,31 @@
 
  // Plant the soles rather than letting hip animation lift the entire avatar.
  function plantFeet(a,spread=.20,step=0){a.group.updateMatrixWorld(true);for(const side of ['left','right']){const x=(side==='left'?1:-1)*spread,z=(side==='left'?1:-1)*step,foot=a.group.localToWorld(new T.Vector3(x,0,z));foot.y=terrainHeight(foot.x,foot.z)+.075*a.group.scale.y;legTo(a,side,foot);}}
- function divePose(a,d,time){if(time<d.begin||time>d.end)return;const q=CPBLPhysics.divePoint(d,time),m=motionKey([[d.begin,.95,.10,0],[d.begin+100,.70,.65,-.35],[d.at,.34,1.35,-.78],[d.landAt,.23,1.45,-.87],[d.slideEnd,.23,1.45,-.87],[d.at+850,.38,1.05,-.46],[d.recoverAt,.68,.45,-.28],[d.end,.95,.10,0]],time),recover=CPBLPhysics.smooth((time-d.slideEnd)/(d.end-d.slideEnd));
-  a.diving=time<=d.slideEnd;a.diveAir=time<d.landAt;const air=time<d.at?Math.sin(Math.PI*CPBLPhysics.clamp((time-d.begin)/(d.at-d.begin)))*.12:0;a.group.position.set(q.x,terrainHeight(q.x,q.z)+air,q.z);a.group.rotation.y=d.heading;a.pelvis.position.y=m[0];a.body.rotation.x=m[1];a.body.rotation.y=0;
-  a.group.updateMatrixWorld(true);for(const side of ['left','right']){const sign=side==='left'?1:-1,foot=a.group.localToWorld(new T.Vector3(sign*.17,.085,m[2]+(side==='left'?.08:-.08)*(1-recover)));legTo(a,side,foot,new T.Vector3(sign*.08,-.20,-1+2*recover));}
-  const throwing=a.throwHand||'right',glove=throwing==='right'?'left':'right';a.group.updateMatrixWorld(true);for(const side of [glove,throwing]){const sign=side==='left'?1:-1,prone=a.group.localToWorld(new T.Vector3(sign*.16,.20,side===glove?1.12:.90)),upright=a.group.localToWorld(new T.Vector3(sign*.30,.66,.24));const target=prone.lerp(upright,recover);if(side===glove&&time>=d.at-80&&time<=d.at+120)target.lerp(new T.Vector3(d.ball.x,d.ball.y,d.ball.z),CPBLPhysics.smooth((time-(d.at-80))/80));armTo(a,side,a.body.worldToLocal(target));}
-  groundActor(a);stage.dataset.divePhase=q.phase;
+ // Recovery is supported by a fixed free palm, then a planted lead foot.
+ // Observed order: user video xCfqqtMcVxE 1:47.76–1:48.96; hidden joint targets are estimates.
+ function divePose(a,d,time){if(time<d.begin||time>d.end)return;
+  const q=CPBLPhysics.divePoint(d,time),r=time-d.slideEnd,span=d.end-d.slideEnd,throwing=a.throwHand||'right',glove=throwing==='right'?'left':'right';
+  const m=motionKey([[d.begin,.95,.10,0,0],[d.begin+100,.70,.65,-.35,0],[d.at,.34,1.35,-.78,0],[d.landAt,.23,1.45,-.87,0],[d.slideEnd,.23,1.45,-.87,0],[d.slideEnd+220,.28,1.10,-.64,.04],[d.slideEnd+460,.34,1.10,-.35,.08],[d.slideEnd+760,.72,.40,-.25,.04],[d.end,.95,.10,0,0]],time);
+  a.diving=true;a.diveAir=time<d.landAt;const air=time<d.at?Math.sin(Math.PI*CPBLPhysics.clamp((time-d.begin)/(d.at-d.begin)))*.12:0;
+  a.group.position.set(q.x,terrainHeight(q.x,q.z)+air,q.z);a.group.rotation.y=d.heading;a.pelvis.position.set(0,m[0],m[3]);a.body.rotation.set(m[1],0,-(throwing==='right'?1:-1)*.10*Math.sin(Math.PI*CPBLPhysics.clamp(r/span)));
+  a.group.updateMatrixWorld(true);
+  for(const side of ['left','right']){
+   const sign=side==='left'?1:-1,lead=side===glove;
+   // The lead foot finishes its tuck before hip extension; rear foot steps in later.
+   const tuck=CPBLPhysics.smooth((r-(lead?80:210))/(lead?380:310)),step=CPBLPhysics.smooth((r-800)/400);
+   const z=r<=0?m[2]+(lead?.08:-.08):lead?T.MathUtils.lerp(-.79,0,tuck):T.MathUtils.lerp(T.MathUtils.lerp(-.95,-.34,tuck),0,step);
+   const foot=a.group.localToWorld(new T.Vector3(sign*.20,.075+(r>0?(lead?.10:.06)*Math.sin(Math.PI*tuck)+(!lead?.10*Math.sin(Math.PI*step):0):0),z));
+   legTo(a,side,foot,new T.Vector3(sign*.15,-.12,r>0?1:-1));
+   if(r>460){const shoe=a.parts[side+'Shoe'];shoe.quaternion.copy(a.parts[side+'Knee'].getWorldQuaternion(new T.Quaternion())).invert().multiply(a.group.getWorldQuaternion(new T.Quaternion()));}
+  }
+  a.group.updateMatrixWorld(true);
+  for(const side of [glove,throwing]){
+   const sign=side==='left'?1:-1,prone=a.group.localToWorld(new T.Vector3(sign*.16,.20,side===glove?1.12:.90)),target=prone.clone();
+   if(r>0){if(side===throwing){const plant=CPBLPhysics.smooth(r/180),release=CPBLPhysics.smooth((r-460)/310),support=a.group.localToWorld(new T.Vector3(sign*.27,.065,.52)),ready=a.group.localToWorld(new T.Vector3(sign*.30,.66,.24));target.lerp(support,plant).lerp(ready,release);}else{const secure=CPBLPhysics.smooth(r/500);target.lerp(a.group.localToWorld(new T.Vector3(sign*.28,.62,.30)),secure);}}
+   if(side===glove&&time>=d.at-80&&time<=d.at+120)target.lerp(new T.Vector3(d.ball.x,d.ball.y,d.ball.z),CPBLPhysics.smooth((time-(d.at-80))/80));
+   armTo(a,side,a.body.worldToLocal(target));
+  }
+  groundActor(a);stage.dataset.divePhase=r<0?q.phase:r<180?'palm-plant':r<460?'knee-tuck':r<770?'foot-push':'stand';
  }
  function groundActor(a){if(!a.group.visible&&a!==batter)return;a.group.updateMatrixWorld(true);if(a.diving){const points=[a.body.localToWorld(new T.Vector3(0,.16,0)),a.body.localToWorld(new T.Vector3(0,.66,0)),...['left','right'].map(side=>actorHand(a,side))];let penetration=0;for(let i=0;i<points.length;i++){const p=points[i],radius=i<2?.10:.04;penetration=Math.max(penetration,terrainHeight(p.x,p.z)+radius-p.y);}if(penetration>0){a.group.position.y+=penetration;a.group.updateMatrixWorld(true);}return;}for(const side of ['left','right']){const shoe=a.parts[side+'Shoe'];shoe.quaternion.copy(a.parts[side+'Knee'].getWorldQuaternion(new T.Quaternion())).invert().multiply(a.group.getWorldQuaternion(new T.Quaternion()));}a.group.updateMatrixWorld(true);let gap=Infinity;for(const side of ['left','right']){const foot=a.parts[side+'Knee'].localToWorld(new T.Vector3(0,-(a.human?.legs[side].lower||.44),.065));gap=Math.min(gap,foot.y-.055*a.group.scale.y-terrainHeight(foot.x,foot.z));}if(Number.isFinite(gap)&&Math.abs(gap)>.008){a.group.position.y-=gap;a.group.updateMatrixWorld(true);}window.CPBL_RENDER_STATS.maxGroundGap=Math.max(window.CPBL_RENDER_STATS.maxGroundGap||0,Math.max(0,gap-(Number.isFinite(gap)&&Math.abs(gap)>.008?gap:0)));}
  // Shared catch -> absorb -> two-hand transfer -> stride -> throw -> finish.
