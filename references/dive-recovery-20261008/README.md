@@ -38,3 +38,14 @@
 - 前腳在 460–1200ms 支撐相位的固定位置與地面接觸。
 - 既有左右手、蒙皮關節、撲接手掌連續性、守備接傳與運鏡檢查。
 - 自動檢查只能驗證位置與連續性，動作品質仍須用實際瀏覽器不同角度觀察。
+
+## v31.6r9: transfer possession before every throw
+
+Revisited user video xCfqqtMcVxE at 10:24.657-10:24.857 on 2026-10-08: both hands gather at the chest after rising, then the throwing hand separates and loads. Fingers are not resolvable in this wide shot; finger gripping is not claimed as observed.
+
+- Shared fielding throws now gather the mitt, reach the actual mitt with the free palm, hold contact, take possession, separate, load, and release.
+- Before contact completes, the ball belongs to the mitt; afterward it belongs to the actual throwing palm. Removed interpolation between disconnected hands.
+- Used for diving recovery, ordinary fielding and relays. Catcher return has the same explicit contact and ownership order.
+- Visible throw flight begins at the solved release palm, retaining the existing destination and flight time.
+- Earlier base decision poses no longer override an active relay transfer.
+- Left/right throwers and low/upright gathering contact, plus catcher return contact, are checked. This does not implement finger articulation, opening mitts or motion capture.
