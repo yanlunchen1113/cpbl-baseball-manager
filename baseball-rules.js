@@ -3,6 +3,7 @@
  const travel=(a,b,speed=30)=>Math.max(220,Math.hypot(a.x-b.x,a.z-b.z)/speed*1000);
  function runnerPoint(plan,time){const stop=plan.outAt??plan.start+plan.duration,clock=Math.min(time,stop),t=P.clamp((clock-plan.start)/plan.duration),total=P.runDistance(plan.duration/1000),progress=P.clamp(P.runDistance(t*plan.duration/1000)/Math.max(.01,total)),q=progress*plan.steps,i=Math.min(plan.steps-1,Math.floor(q)),f=q-i,a=B[(plan.from+i)%4],b=B[(plan.from+i+1)%4],heading=Math.atan2(b.x-a.x,b.z-a.z),tip={x:a.x+(b.x-a.x)*f,z:a.z+(b.z-a.z)*f},slide=plan.slide?P.smooth((clock-plan.slideStart)/250)*(1-P.smooth((time-stop-450)/450)):0;return {x:tip.x-Math.sin(heading)*.82*slide,z:tip.z-Math.cos(heading)*.82*slide,tip,progress,heading,slide};}
  function finishDefense(h,context,plans,legs,caught){
+  h.hitCredit=h.event==='hit'||h.event==='homer';h.hitBases=h.type==='HR'?4:h.type==='2B'?2:1;
   if(caught&&!plans.some(p=>p.index===-1))plans.push({index:-1,from:3,steps:1,start:350,duration:Math.max(500,h.runnerMs-350),outAt:h.flightMs,outKind:'catch'});
   const calls=caught?[{kind:'catch',out:true,time:h.flightMs,runner:-1}]:[],plays=[];
   for(const leg of legs){if(leg.base===null)continue;
@@ -22,7 +23,7 @@
   h.basePlays=plays;h.outCalls=calls;h.outcome.outsAdded=outsAdded;h.outcome.bases=next;h.outcome.runs=runs;h.caught=caught;
   if(plays.some(p=>p.kind==='tag'&&p.out)){h.outcome.label=caught?'接殺後觸殺':'觸殺出局';h.outcome.event=caught?'doubleplay':'tagout';h.event=h.outcome.event;h.type='OUT';}
   if(!caught&&outsAdded===1&&h.event==='doubleplay'){h.event=h.outcome.event='fielderschoice';h.outcome.label='野手選擇';}
-  if(!caught&&outsAdded===0&&h.type==='OUT'){h.type='1B';h.event=h.outcome.event='hit';h.outcome.label='內野安打';}
+  if(!caught&&outsAdded===0&&h.type==='OUT'){h.type='1B';h.event=h.outcome.event='hit';h.outcome.label='內野安打';h.hitCredit=true;h.hitBases=1;}
   h.durationMs=Math.max(h.durationMs,...plays.map(p=>p.end+350),...plans.filter(p=>p.outAt!==undefined).map(p=>p.outAt+1300));return h;
  }
  function plan(h,context){const occupied=context.bases.slice(),next=occupied.slice(),outs=context.outs,batter=context.batter,run=h.runnerMs,baseRun=Math.max(1000,h.runnerMs-350),plans=[],legs=[];let outsAdded=0,runs=0,label='',event=h.event;

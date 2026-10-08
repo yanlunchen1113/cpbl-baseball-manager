@@ -4,14 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#061c1a" />
-  <title>新莊球場｜模型預覽</title>
+  <title>轉播流程預覽 · 職棒經理人｜CPBL 棒球模擬</title>
   <link rel="stylesheet" href="style.css?v=30.1" />
   <link rel="stylesheet" href="broadcast.css?v=30.1" />
   <link rel="stylesheet" href="roster.css?v=30.1" />
   <link rel="stylesheet" href="mobile.css?v=30.1" />
-<style>
-.topbar,.setup-screen,.tv-hud,.duel-hud,.control-deck,.field-exit,.call-hud,.skin-badge,.game-screen>.scoreboard{display:none!important}body{margin:0;background:#0c151c}.app-shell{padding:0;max-width:none}.game-screen{padding:0!important}.game-screen .broadcast-stage{height:calc(100dvh - 98px)!important;min-height:320px!important;width:100%!important;border-radius:0!important;max-width:none!important}.model-tools{position:fixed;inset:auto 0 0;background:#101e28;color:#e6ecdf;padding:9px 14px;z-index:999;font:14px system-ui;display:flex;gap:8px;flex-wrap:wrap;align-items:center}.model-tools button,.model-tools select{font:inherit;background:#233a49;color:#fff;border:1px solid #68818a;border-radius:7px;padding:8px}.model-tools b{margin-right:auto}.model-tools a{color:#eed47b}.model-hint{position:fixed;left:14px;top:14px;z-index:998;padding:6px 10px;border-radius:5px;background:#12242cbb;color:#eee;font:13px system-ui;pointer-events:none}
-</style></head>
+  <link rel="stylesheet" href="broadcast-presentation.css?v=31.5" />
+<style>.broadcast-preview-controls{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;gap:7px;padding:10px;background:#091620;align-items:center;flex-wrap:wrap}.broadcast-preview-controls button{background:#23445c;color:white;border:1px solid #63829a;border-radius:4px;padding:7px;cursor:pointer}.broadcast-preview-controls a{color:#edcb74}.topbar{display:none}.game-screen{padding-bottom:60px}</style></head>
 <body>
   <div class="app-shell">
     <header class="topbar">
@@ -77,7 +76,7 @@
   <script src="motion-calibration.js?v=30.1"></script>
   <script src="stadium-data.js?v=30.1"></script>
   <script src="baseball-engine.js?v=31.4"></script>
-<script src="baseball-rules.js?v=31.4"></script>
+<script src="baseball-rules.js?v=31.5"></script>
   <script src="broadcast.js?v=31.4"></script>
   <script src="rosters-data.js?v=30.1"></script>
   <script src="pitch-profiles.js?v=30.1"></script>
@@ -85,7 +84,7 @@
   <script src="cheer-midi.js?v=30.1"></script>
   <script src="cheer-audio.js?v=30.1"></script>
 <script src="cheer-files.js?v=30.1"></script>
-  <script src="roster.js?v=30.1"></script>
+  <script src="roster.js?v=31.5"></script>
   <script src="season.js?v=30.1"></script>
   <script src="stadium-setup.js?v=30.1"></script>
   <script src="vendor/three.min.js?v=30.1"></script>
@@ -97,9 +96,14 @@
   <script src="xinzhuang-model.js?v=31.2r6"></script>
   <script src="broadcast-camera.js?v=31.5"></script>
   <script src="stadium3d.js?v=31.5"></script>
-<div class="model-hint">新莊球場 · 依參考影像重建，遮擋尺寸為推估</div>
-<div class="model-tools"><b>新莊｜場地模型 v31.2</b><select id="modelView" aria-label="模型視角"><option value="overview">全場</option><option value="logo">本壘後方隊徽</option><option value="home">本壘後方</option><option value="batter">打者視角</option><option value="roof">棚架與上層</option><option value="dugout">球員休息室</option><option value="outfield">外野與螢幕</option><option value="stage">外野應援舞台</option><option value="seat">D13 座位視野</option></select><button id="modelDay">日間</button><button id="modelNight">夜間</button><a href="./?v=31.2">進入遊戲</a><a href="assets/stadiums/xinzhuang-v31.zip?v=31.2" download>模型檔</a></div>
+  <script src="broadcast-data.js?v=31.5"></script>
+  <script src="broadcast-presentation.js?v=31.5"></script>
 <script>
-(function(){const views={logo:{eye:[0,3.2,-16],target:[0,.05,-8.0],fov:58},stage:{eye:[75,15,91],target:[60,4.0,105],fov:44},batter:{eye:[0,1.65,-2.6],target:[0,1.2,18.44],fov:43},overview:{eye:[-88,48,140],target:[0,8,32],fov:58},home:{eye:[0,9,58],target:[0,9,-13],fov:50},roof:{eye:[-30,10,10],target:[-28,17,-18],fov:57},dugout:{eye:[27,3.8,14],target:[35,1.7,5],fov:55},outfield:{eye:[0,13,73],target:[0,9,124],fov:60},seat:{eye:[83,13,52],target:[0,2,45],fov:65}};function view(){const name=document.getElementById('modelView').value;window.CPBL_RECON_CAMERA={...views[name],name};}function start(light){musicEnabled=false;effectsEnabled=false;window.CPBL_LIGHTING=light;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);view();}document.getElementById('modelView').onchange=view;document.getElementById('modelDay').onclick=()=>start('day');document.getElementById('modelNight').onclick=()=>start('night');start('day');})();
+musicEnabled=false;effectsEnabled=false;
+const bar=document.createElement('nav');bar.className='broadcast-preview-controls';bar.innerHTML='<strong>轉播流程 v31.5</strong><button data-show="matchup">兩隊對戰</button><button data-show="lineup">首局打序</button><button data-show="defense">守位圖</button><button data-show="pitcher">投手數據</button><button data-show="batter">打者數據</button><button id="previewBottom">一局下</button><button id="previewRisp">賽季滿壘</button><a href="./?v=31.5">進入遊戲</a>';document.body.append(bar);
+bar.querySelectorAll('[data-show]').forEach(button=>button.onclick=()=>{CPBLBroadcast.skipAll();CPBLBroadcast.preview(button.dataset.show);});
+bar.querySelector('#previewBottom').onclick=()=>{CPBLBroadcast.skipAll();state.half='bottom';render();};
+bar.querySelector('#previewRisp').onclick=()=>{CPBLBroadcast.skipAll();if(!state.season)state.season=newSeason(3);state.mode='season';state.bases=['測試一壘','測試二壘','測試三壘'];CPBLBroadcast.preview('batter');};
+startGame(3);
 </script></body>
 </html>

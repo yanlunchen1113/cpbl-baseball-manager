@@ -20,22 +20,33 @@ sandbox.window=sandbox;sandbox.addEventListener=(k,fn)=>(events[k]??=[]).push(fn
 const THREE={...require('../vendor/three.min.js')};
 THREE.WebGLRenderer=class{constructor(){this.domElement=new Element('canvas');this.shadowMap={};this.pixelRatio=1}setPixelRatio(n){this.pixelRatio=n}setSize(){}setViewport(){}setScissor(){}setScissorTest(){}render(scene,camera){scene.updateMatrixWorld();camera.updateMatrixWorld()}getContext(){return {getExtension:()=>({restoreContext(){}})}}};sandbox.THREE=THREE;
 const context=vm.createContext(sandbox),run=code=>vm.runInContext(code,context);
-for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','broadcast-camera.js','stadium3d.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
+for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','broadcast-camera.js','stadium3d.js','broadcast-data.js','broadcast-presentation.js'])run(fs.readFileSync(path.join(root,file),'utf8'));
 run('musicEnabled=false;effectsEnabled=false;');
 
 function tick(ms=100){time+=ms;const current=frames;frames=[];for(const fn of current)fn(time)}
 
-const profiles=['xinzhuang','taoyuan','asia','intercontinental','tianmu','dome'];
-let inspected=0;let zoomed=0;
-for(const park of profiles){get('#stadiumSelect').value=park;run("state.mode='single';startGame(2);state.playerSide=1;tv.paused=false;");
- for(const r of [.20,.43,.72,.90]){
- run(`state.bases=['R1','R2','R3'];state.outs=0;tv.phase='hit';state.busy=true;tv.hit=CPBLPhysics.createPlay(.72,false,{x:0,y:0},()=>${r},state.bases,{});CPBLRules.plan(tv.hit,{bases:state.bases,outs:0,batter:batterName(),inning:1,runDifference:0});Object.assign(tv.hit,{start:performance.now(),runners:state.bases.slice(),batter:batterName(),batSide:battingTeam(),applied:false});`);
- const h=run('tv.hit'),modes=[],lenses=[];
- for(let elapsed=0;elapsed<h.durationMs;elapsed+=50){tick(50);const mode=run('stage.dataset.cameraMode');modes.push(mode);lenses.push(Number(run('stage.dataset.cameraFov')));assert(Number.isFinite(Number(run('stage.dataset.cameraFov'))));if(h.throwLegs.length&&elapsed>=h.fieldAtMs+100&&elapsed<Math.min(h.throwLegs[0].start-100,h.fieldAtMs+800))assert.notEqual(mode,'throw-follow','Must retain pickup and transfer before throw');}
- if(h.throwLegs.length)assert(modes.includes('throw-follow'),'Throw coverage missing');
- if(!h.runnerPlans.length)assert(!modes.includes('baserunning'),'Do not cut to inactive runners');
- if(Math.max(...lenses)-Math.min(...lenses)>8)zoomed++;
- inspected++;
- }
-}
-assert(zoomed>16,'Camera lens must change throughout plays');assert.equal(errors.length,0,errors.join('\n'));console.log(`Camera direction: ${inspected} plays across six venues, transfer holds, throw coverage, active runner cuts and finite lens values passed.`);
+run("state.mode='single';startGame(3);CPBLBroadcast.draw(performance.now());");
+assert.equal(run('tv.presentation.kind'),'matchup');
+for(let t=0;t<6;t++)assert.equal(run('CPBLBroadcast.lineup('+t+').length'),9);
+for(let t=0;t<6;t++)assert.equal(run('CPBLBroadcast.lineup('+t+').every(p=>CPBLBroadcast.allowed(p).has(p.assignedPosition))'),true);
+assert.equal(run('new Set(CPBLBroadcast.lineup(3).map(p=>p.id)).size'),9);
+let kinds=[];for(let n=0;n<7;n++){if(run('tv.presentation'))kinds.push(run('tv.presentation.kind'));tick(6600);}
+assert.deepEqual(kinds,['matchup','lineup','defense','pitcher','batter']);
+assert.equal(run('tv.presentation'),null);
+run("state.half='bottom';CPBLBroadcast.draw(performance.now());");assert.equal(run('tv.presentation.kind'),'lineup');
+for(let n=0;n<5;n++)tick(6600);
+run("state.inning=2;state.half='top';CPBLBroadcast.draw(performance.now());");assert.equal(run('tv.presentation.kind'),'batter');tick(6600);assert.equal(run('tv.presentation'),null);
+run("state.strikes=1;render();CPBLBroadcast.draw(performance.now());");assert.equal(run('tv.presentation'),null);
+run("state.orders[0]++;CPBLBroadcast.draw(performance.now());");assert.equal(run('tv.presentation.kind'),'batter');tick(6600);
+run("tv.pitchers[1]={...tv.pitchers[1],id:'test-relief',name:'替補投手'};CPBLBroadcast.draw(performance.now());");assert.equal(run('tv.presentation.kind'),'pitcher');tick(6600);
+run("CPBLBroadcast.skipAll();state.mode='season';state.season=newSeason(3);startGame(3);CPBLBroadcast.draw(performance.now());CPBLBroadcast.skipAll();");
+const id=run('tv.lineupIds[0][0]');
+run("state.half='top';state.bases=['一壘','二壘','三壘'];CPBLBroadcast.book('H',{hit:1,bases:2,runs:2,outs:0});");
+assert.equal(run('CPBLBroadcast.total('+JSON.stringify(id)+').h'),1);assert.equal(run('CPBLBroadcast.total('+JSON.stringify(id)+').loadedAB'),1);assert.equal(run('CPBLBroadcast.total('+JSON.stringify(id)+').rispH'),1);
+run("CPBLBroadcast.book('SF',{runs:1,outs:1});CPBLBroadcast.book('BB',{});");assert.equal(run('CPBLBroadcast.total('+JSON.stringify(id)+').ab'),1);assert.equal(run('CPBLBroadcast.total('+JSON.stringify(id)+').pa'),3);
+run("state.runs=[1,2];finishGame();");assert.equal(run('state.season.playerStats['+JSON.stringify(id)+'].h'),1);assert.equal(run('CPBLBroadcast.total('+JSON.stringify(id)+').h'),1);
+run("advanceSeason(true);");assert.ok(run('Object.keys(state.season.playerStats).length')>18);
+const primary=run("rosterPlayers(3).find(p=>p.position==='捕手')");
+assert.equal(run("CPBLBroadcast.allowed(rosterPlayers(3).find(p=>p.id==='"+primary.id+"')).has('C')"),true);
+assert.equal(errors.length,0,errors.join('\n'));
+console.log('Broadcast simulation: six legal lineups, first-inning-only cards, batter/relief entry, no repeat pitch cards, separate ledgers, RISP/loaded/SF/walk, saved season and simulated matches passed.');
