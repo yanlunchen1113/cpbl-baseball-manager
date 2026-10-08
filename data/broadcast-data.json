@@ -1,7 +1,7 @@
 {
   "version": 1,
   "year": 2026,
-  "updatedAt": "2026-10-08T15:58:54.148825+08:00",
+  "updatedAt": "2026-10-08T16:14:45.836234+08:00",
   "source": "https://stats.cpbl.com.tw/rankings",
   "batters": {
     "0000007239": {
@@ -4981,8 +4981,8 @@
       "1B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 118,
+        "kindCode": "A",
+        "gameSno": 5,
         "source": "https://stats.cpbl.com.tw/players/0000003609"
       }
     },
@@ -4990,8 +4990,8 @@
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 5,
+        "kindCode": "D",
+        "gameSno": 84,
         "source": "https://stats.cpbl.com.tw/players/0000002297"
       }
     },
@@ -5278,8 +5278,8 @@
       "C": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 189,
+        "kindCode": "D",
+        "gameSno": 231,
         "source": "https://stats.cpbl.com.tw/players/0000006732"
       }
     },
@@ -5561,15 +5561,15 @@
       "RF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 118,
+        "kindCode": "A",
+        "gameSno": 14,
         "source": "https://stats.cpbl.com.tw/players/0000004641"
       },
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 219,
+        "kindCode": "A",
+        "gameSno": 351,
         "source": "https://stats.cpbl.com.tw/players/0000004641"
       },
       "CF": {
@@ -5802,15 +5802,15 @@
       "2B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 152,
+        "kindCode": "A",
+        "gameSno": 355,
         "source": "https://stats.cpbl.com.tw/players/0000001339"
       },
       "1B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 140,
+        "kindCode": "A",
+        "gameSno": 284,
         "source": "https://stats.cpbl.com.tw/players/0000001339"
       },
       "3B": {
@@ -5864,8 +5864,8 @@
       "SS": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 180,
+        "kindCode": "A",
+        "gameSno": 14,
         "source": "https://stats.cpbl.com.tw/players/0000007071"
       },
       "2B": {
@@ -5999,8 +5999,8 @@
       "1B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 95,
+        "kindCode": "A",
+        "gameSno": 344,
         "source": "https://stats.cpbl.com.tw/players/0000002661"
       }
     },
@@ -6181,8 +6181,8 @@
       "2B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 165,
+        "kindCode": "A",
+        "gameSno": 256,
         "source": "https://stats.cpbl.com.tw/players/0000004642"
       },
       "SS": {
@@ -6237,15 +6237,15 @@
       "3B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 356,
+        "kindCode": "D",
+        "gameSno": 97,
         "source": "https://stats.cpbl.com.tw/players/0000000132"
       },
       "1B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 345,
+        "kindCode": "D",
+        "gameSno": 107,
         "source": "https://stats.cpbl.com.tw/players/0000000132"
       }
     },
@@ -6253,15 +6253,15 @@
       "SS": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 97,
+        "kindCode": "A",
+        "gameSno": 280,
         "source": "https://stats.cpbl.com.tw/players/0000000153"
       },
       "3B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 196,
+        "kindCode": "A",
+        "gameSno": 345,
         "source": "https://stats.cpbl.com.tw/players/0000000153"
       }
     },
@@ -6291,22 +6291,22 @@
       "RF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 239,
+        "kindCode": "A",
+        "gameSno": 9,
         "source": "https://stats.cpbl.com.tw/players/0000000159"
       },
       "CF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 224,
+        "kindCode": "A",
+        "gameSno": 121,
         "source": "https://stats.cpbl.com.tw/players/0000000159"
       },
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 221,
+        "kindCode": "A",
+        "gameSno": 356,
         "source": "https://stats.cpbl.com.tw/players/0000000159"
       }
     },
@@ -6366,8 +6366,8 @@
       "C": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 15,
+        "kindCode": "A",
+        "gameSno": 356,
         "source": "https://stats.cpbl.com.tw/players/0000004032"
       }
     },
@@ -7009,15 +7009,15 @@
       "CF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 274,
+        "kindCode": "D",
+        "gameSno": 191,
         "source": "https://stats.cpbl.com.tw/players/0000001754"
       },
       "RF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 344,
+        "kindCode": "D",
+        "gameSno": 219,
         "source": "https://stats.cpbl.com.tw/players/0000001754"
       },
       "LF": {
@@ -7041,15 +7041,15 @@
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 113,
+        "kindCode": "D",
+        "gameSno": 240,
         "source": "https://stats.cpbl.com.tw/players/0000000361"
       },
       "RF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 274,
+        "kindCode": "D",
+        "gameSno": 164,
         "source": "https://stats.cpbl.com.tw/players/0000000361"
       },
       "CF": {
@@ -7417,15 +7417,15 @@
       "CF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 219,
+        "kindCode": "A",
+        "gameSno": 255,
         "source": "https://stats.cpbl.com.tw/players/0000000362"
       },
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 205,
+        "kindCode": "A",
+        "gameSno": 357,
         "source": "https://stats.cpbl.com.tw/players/0000000362"
       }
     },
@@ -7437,8 +7437,8 @@
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 179,
+        "kindCode": "A",
+        "gameSno": 354,
         "source": "https://stats.cpbl.com.tw/players/0000002305"
       }
     },
@@ -7511,15 +7511,15 @@
       "2B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 60,
+        "kindCode": "D",
+        "gameSno": 164,
         "source": "https://stats.cpbl.com.tw/players/0000006872"
       },
       "3B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 291,
+        "kindCode": "D",
+        "gameSno": 108,
         "source": "https://stats.cpbl.com.tw/players/0000006872"
       },
       "RF": {
@@ -7890,8 +7890,8 @@
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 10,
+        "kindCode": "A",
+        "gameSno": 360,
         "source": "https://stats.cpbl.com.tw/players/0000006216"
       },
       "RF": {
@@ -8243,15 +8243,15 @@
       "RF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 309,
+        "kindCode": "D",
+        "gameSno": 65,
         "source": "https://stats.cpbl.com.tw/players/0000006725"
       },
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "A",
-        "gameSno": 336,
+        "kindCode": "D",
+        "gameSno": 59,
         "source": "https://stats.cpbl.com.tw/players/0000006725"
       },
       "CF": {
@@ -8555,8 +8555,8 @@
       "C": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 201,
+        "kindCode": "A",
+        "gameSno": 349,
         "source": "https://stats.cpbl.com.tw/players/0000006926"
       }
     },
@@ -8656,15 +8656,15 @@
       "RF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 100,
+        "kindCode": "A",
+        "gameSno": 9,
         "source": "https://stats.cpbl.com.tw/players/0000003533"
       },
       "LF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 172,
+        "kindCode": "A",
+        "gameSno": 270,
         "source": "https://stats.cpbl.com.tw/players/0000003533"
       },
       "CF": {
@@ -8841,22 +8841,22 @@
       "2B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 199,
+        "kindCode": "A",
+        "gameSno": 9,
         "source": "https://stats.cpbl.com.tw/players/0000007301"
       },
       "SS": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 87,
+        "kindCode": "A",
+        "gameSno": 120,
         "source": "https://stats.cpbl.com.tw/players/0000007301"
       },
       "3B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 135,
+        "kindCode": "A",
+        "gameSno": 218,
         "source": "https://stats.cpbl.com.tw/players/0000007301"
       },
       "CF": {
@@ -8869,8 +8869,8 @@
       "RF": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 231,
+        "kindCode": "A",
+        "gameSno": 187,
         "source": "https://stats.cpbl.com.tw/players/0000007301"
       },
       "C": {
@@ -8960,15 +8960,15 @@
       "1B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 220,
+        "kindCode": "A",
+        "gameSno": 280,
         "source": "https://stats.cpbl.com.tw/players/0000007302"
       },
       "3B": {
         "basis": "game-log",
         "year": 2026,
-        "kindCode": "D",
-        "gameSno": 225,
+        "kindCode": "A",
+        "gameSno": 355,
         "source": "https://stats.cpbl.com.tw/players/0000007302"
       }
     },
@@ -9048,6 +9048,6 @@
     2025,
     2026
   ],
-  "positionUpdatedAt": "2026-10-08T15:58:54.148825+08:00",
+  "positionUpdatedAt": "2026-10-08T16:14:45.836234+08:00",
   "historyFailures": 0
 }
