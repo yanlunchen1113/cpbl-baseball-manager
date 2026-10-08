@@ -49,3 +49,23 @@ Revisited user video xCfqqtMcVxE at 10:24.657-10:24.857 on 2026-10-08: both hand
 - Visible throw flight begins at the solved release palm, retaining the existing destination and flight time.
 - Earlier base decision poses no longer override an active relay transfer.
 - Left/right throwers and low/upright gathering contact, plus catcher return contact, are checked. This does not implement finger articulation, opening mitts or motion capture.
+
+## v31.6r10：收球轉身、捕手回傳與原地面修正
+
+參考：MLB 官方 [Throwing Fundamentals](https://www.mlb.com/video/throwing-fundamentals)，Frank Moore，2022-02-17。2026-10-08 實際在瀏覽器播放並定格查看：0:33.298 手掌握球示範；1:18.298 手套側向目標伸出、拿球手在胸側；1:33.298 上臂抬起、前臂立起、球在手肘上方。1:48.298 是雙臂放下的畫面，沒有把它當成跨身收臂證據。影片雖不是近期上傳，使用的是官方基本傳球教學。另沿用上述使用者提供的實際美技片段。
+
+### 套用與推估
+
+- 依使用者指出的問題，捕手收球加入胸腔與骨盆轉動；回傳準備有整體側轉，出手後再向目標轉回。
+- 手套先在胸前保留空間讓右手取球；換手完成後移向左側，避免手套與跨身收臂的右手擠在胸前。球仍依實際手套／手掌位置交接。
+- 共用接傳球姿勢增加接球方向到傳球目標方向的轉身，胸前收球點前移，供一般內野、雙殺及外野中繼共用。
+- 右手向對側收臂是使用者指定的修正方向；角度、軌跡、時長為三維動畫推估，沒有宣稱由影片擷取關節座標。
+- 本壘紅土原本是厚度 0.04m 的圓柱，另有草皮／內野重疊層。移除這些原有重疊物件，草皮、紅土改為同一個地面網格的不同材質區域，所有地面頂點 y=0；投手丘斜坡保留。
+- 本壘區域形狀沿用使用者先前提供的新莊高處全場及本壘後方照片；本次不是宣稱由空拍影像重建精確高程。既有光照、陰影與表面材質保留。
+
+### 本次確認範圍
+
+- 瀏覽器實際查看捕手換手、拉臂、出手、收臂的正面與側面定格，以及一般內野、雙殺第二傳、外野第一傳與中繼第二傳的選定定格。這不是逐一確認所有球員所有動畫的宣稱。
+- 自動檢查左右手換手接觸、捕手向前出手與向對側收臂、胸前手套間距；11 座球場抽樣地面點只有單一表面，本壘為同高度紅土。
+- 24 個球路跨六座球場運鏡檢查通過。兩場長時間模擬：214 球、119 次擊球、3,268 個取樣畫面、零場景錯誤。此輪没有取樣到後續跑壘鏡頭機會，該分支另由運鏡檢查覆蓋。
+- 現有骨架仍缺獨立手腕／鎖骨；目前修正位置與相位連續性，沒有宣稱已達真人動捕品質。
