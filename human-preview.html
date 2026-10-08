@@ -91,6 +91,6 @@
   <script src="field-materials.js?v=29"></script>
   <script src="deadball-scenes.js?v=31.6"></script>
   <script src="broadcast-camera.js?v=31.5"></script>
-  <script src="stadium3d.js?v=31.6r3"></script>
+  <script src="stadium3d.js?v=31.6r4"></script>
 <div style="position:fixed;bottom:3px;left:3px;z-index:9999;background:#222;padding:6px"><button onclick="state.half='bottom';tv.phase='ready';tv.hit=null;tv.returnBall=null;tv.paused=false;render();">第一人稱</button><button onclick="state.half='top';tv.phase='ready';tv.hit=null;tv.returnBall=null;tv.paused=false;render();">投球近景</button><button onclick="beginPitch();tv.phase='delivery';tv.start=performance.now()-850;tv.deliveryAt=tv.start;tv.paused=true;tv.pauseAt=performance.now();">出手前</button><button onclick="tv.paused=false;state.strikes=2;beginPitch();tv.flight.cpuSwing=false;tv.swung=false;tv.flight.x=0;tv.flight.y=0;finishPitch();">三振回傳</button><button onclick="tv.paused=false;">繼續</button></div></body>
 </html>
