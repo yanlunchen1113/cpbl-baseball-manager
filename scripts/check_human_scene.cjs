@@ -21,7 +21,7 @@ const THREE={...require('../vendor/three.min.js')};
 THREE.WebGLRenderer=class{constructor(){this.domElement=new Element('canvas');this.shadowMap={};this.pixelRatio=1}setPixelRatio(n){this.pixelRatio=n}setSize(){}setViewport(){}setScissor(){}setScissorTest(){}render(scene,camera){scene.updateMatrixWorld();camera.updateMatrixWorld()}getContext(){return {getExtension:()=>({restoreContext(){}})}}};sandbox.THREE=THREE;
 sandbox.assertRig=(condition,message)=>assert(condition,message);
 const context=vm.createContext(sandbox),run=code=>vm.runInContext(code,context);
-for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','broadcast-camera.js','stadium3d.js']){let source=fs.readFileSync(path.join(root,file),'utf8');if(file==='stadium3d.js')source=source.replace(/\}\)\(\);\s*$/,"window.RIG_TEST={pitcher,batter,catcher,resetPose,armTo,runningPose,battingPose,catcherPose,catcherReturnPose,applyDelivery,actorHand};})();");run(source);}
+for(const file of ['game.js','motion-calibration.js','stadium-data.js','baseball-engine.js','baseball-rules.js','broadcast.js','rosters-data.js','pitch-profiles.js','player-traits.js','roster.js','season.js','stadium-setup.js','xinzhuang-model.js','broadcast-camera.js','stadium3d.js']){let source=fs.readFileSync(path.join(root,file),'utf8');if(file==='stadium3d.js')source=source.replace(/\}\)\(\);\s*$/,"window.RIG_TEST={pitcher,batter,catcher,resetPose,armTo,runningPose,battingPose,catcherPose,catcherReturnPose,applyDelivery,actorHand,chalkMarks,homeCircleChalk};})();");run(source);}
 run('musicEnabled=false;effectsEnabled=false;');
 
 function tick(ms=100){time+=ms;const current=frames;frames=[];for(const fn of current)fn(time)}
@@ -36,7 +36,7 @@ run(fs.readFileSync(path.join(root,'human-assets.js'),'utf8'));run('CPBLHuman.lo
   if(side===0){assert.equal(run('stage.dataset.ballPhase'),'catcher-transfer');}
   tick(1000);assert.equal(run('stage.dataset.ballPhase'),'return-throw');tick(1600);assert.equal(run('tv.phase'),'ready');
  }
- run(`const rig=RIG_TEST;for(const a of [rig.pitcher,rig.batter,rig.catcher]){
+ run(`const rig=RIG_TEST;assertRig(rig.chalkMarks.every(m=>m.geometry.type==='BufferGeometry'&&!m.castShadow),'Chalk must be flat mesh without pipe shadow');assertRig(rig.homeCircleChalk.geometry.type==='RingGeometry','Home circle must be flat');for(const a of [rig.pitcher,rig.batter,rig.catcher]){
   assertRig(a.human,'Missing skinned actor');assertRig(a.capMeshes.every(m=>m.visible),'Cap was hidden with helper head meshes');
   for(const side of ['left','right']){
    const elbow=a.parts[side+'Elbow'],palm=a.human.hands[side];assertRig(Math.abs(palm.x)<1e-8&&Math.abs(palm.z)<1e-8,'Palm must share anatomical forearm axis');
