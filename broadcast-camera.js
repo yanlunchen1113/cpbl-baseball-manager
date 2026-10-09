@@ -4,7 +4,9 @@
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,z:a.z+(b.z-a.z)*t});
  const gantries={xinzhuang:{x:-7,y:26,z:-29},taoyuan:{x:-8,y:25,z:-27},asia:{x:0,y:25,z:-27},intercontinental:{x:-7,y:28,z:-28},tianmu:{x:0,y:22,z:-25},dome:{x:0,y:30,z:-30}};
  function plan(h,t,ball,actors,phase,park){
-  const gantry=h.replay?{x:h.land.x<0?38:-38,y:18,z:-15}:gantries[park]||{x:0,y:27,z:-27},legs=h.throwLegs||[],leg=legs.find(l=>t>=l.start&&t<=l.end+250),fieldAt=h.caught?h.flightMs:h.fieldAtMs,firstThrow=legs[0]?.start??Infinity,defender=actors[h.fielder]||{x:h.land.x,y:1,z:h.land.z};
+  const gantry=h.replay?{x:h.land.x<0?20:-20,y:10,z:-5}:gantries[park]||{x:0,y:27,z:-27},legs=h.throwLegs||[],leg=legs.find(l=>t>=l.start&&t<=l.end+250),fieldAt=h.caught?h.flightMs:h.fieldAtMs,firstThrow=legs[0]?.start??Infinity,defender=actors[h.fielder]||{x:h.land.x,y:1,z:h.land.z};
+  // A double play uses one fixed infield camera through both throws and calls.
+  if(h.event==='doubleplay')return {shot:'double-play',cameraId:[gantry.x,gantry.y,gantry.z].join(':'),eye:gantry,focus:{x:-8,y:1.1,z:29},points:[ball,{x:0,y:2,z:38.8},{x:-19.4,y:2,z:19.4}],margin:3,minFov:18,maxFov:44};
   const tag=(h.basePlays||[]).find(p=>p.kind==='tag'&&t>=p.receiveAt-150&&t<=p.end);
   let shot,eye=gantry,focus,points,margin=4,minFov=4,maxFov=42;
   if(tag){shot='tag-play';eye={x:tag.contact.x+18,y:7,z:tag.contact.z-25};focus={x:tag.contact.x,y:.7,z:tag.contact.z};points=[focus,{x:tag.receiverPosition.x,y:1.8,z:tag.receiverPosition.z}];margin=2.8;minFov=7;}
@@ -33,6 +35,7 @@
    if(last&&runnerActive&&h.event==='hit'){shot='baserunning';focus={x:0,y:1,z:27};points=(h.runnerPlans||[]).filter(r=>r.outAt===undefined).map(r=>({...root.CPBLRules.runnerPoint(r,t),y:1.5}));eye={x:-40,y:17,z:-15};margin=7;minFov=12;}
    else{shot='fielding';focus=last?{...last.to,y:1.1}:{x:defender.x,y:1.1,z:defender.z};points=[focus];eye=last?.base===0?{x:42,y:9,z:-12}:gantry;margin=4;}
   }
+  if(h.replay)eye=gantry;
   return {shot,cameraId:[eye.x,eye.y,eye.z].join(':'),eye,focus,points,margin,minFov,maxFov};
  }
  // Project object extents onto the actual camera axes, including vertical ball height.
