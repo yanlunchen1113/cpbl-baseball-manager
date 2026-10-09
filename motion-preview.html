@@ -75,9 +75,9 @@
   <script src="game.js?v=30.1"></script>
   <script src="motion-calibration.js?v=30.1"></script>
   <script src="stadium-data.js?v=30.1"></script>
-  <script src="baseball-engine.js?v=31.7r4"></script>
-<script src="baseball-rules.js?v=31.7r4"></script>
-  <script src="broadcast.js?v=31.7r4"></script>
+  <script src="baseball-engine.js?v=31.7r5"></script>
+<script src="baseball-rules.js?v=31.7r5"></script>
+  <script src="broadcast.js?v=31.7r5"></script>
   <script src="rosters-data.js?v=30.1"></script>
   <script src="pitch-profiles.js?v=30.1"></script>
   <script src="player-traits.js?v=30.1"></script>
@@ -88,19 +88,19 @@
   <script src="season.js?v=30.1"></script>
   <script src="stadium-setup.js?v=30.1"></script>
   <script src="vendor/three.min.js?v=30.1"></script>
-  <script src="human-assets.js?v=31.7r4"></script>
+  <script src="human-assets.js?v=31.7r5"></script>
   <script src="field-materials.js?v=30.1"></script>
   <script src="vendor/RGBELoader.js?v=30.1"></script>
   <script src="vendor/Sky.js?v=30.1"></script>
   <script src="graphics-pipeline.js?v=31.2r6"></script>
   <script src="xinzhuang-model.js?v=31.2r6"></script>
-  <script src="deadball-scenes.js?v=31.7r4"></script>
-  <script src="broadcast-camera.js?v=31.7r4"></script>
-  <script src="stadium3d.js?v=31.7r4"></script>
+  <script src="deadball-scenes.js?v=31.7r5"></script>
+  <script src="broadcast-camera.js?v=31.7r5"></script>
+  <script src="stadium3d.js?v=31.7r5"></script>
   <script src="broadcast-data.js?v=31.5"></script>
   <script src="broadcast-presentation.js?v=31.6"></script>
 <script>
-const bar=document.createElement('nav');bar.className='broadcast-preview-controls';bar.innerHTML='<strong>投打骨架 v31.7r4</strong><button id="rightPitch">右投</button><button id="leftPitch">左投</button><button id="rightBat">右打</button><button id="leftBat">左打</button><button id="firstBat">第一人稱</button><label>收棒 <select id="swingStyle"><option value="one-hand">放開上手</option><option value="two-hand">雙手持棒</option></select></label><button id="motionPlay">慢動作播放</button><label>時間 <input id="motionTime" type="range" min="0" max="3400" step="10" value="0"></label><span id="motionReadout"></span><a href="./?v=31.7r4">遊戲</a>';document.body.append(bar);
+const bar=document.createElement('nav');bar.className='broadcast-preview-controls';bar.innerHTML='<strong>投打骨架 v31.7r5</strong><button id="rightPitch">右投</button><button id="leftPitch">左投</button><button id="rightBat">右打</button><button id="leftBat">左打</button><button id="firstBat">第一人稱</button><label>收棒 <select id="swingStyle"><option value="one-hand">放開上手</option><option value="two-hand">雙手持棒</option></select></label><button id="motionPlay">慢動作播放</button><label>時間 <input id="motionTime" type="range" min="0" max="3400" step="10" value="0"></label><span id="motionReadout"></span><a href="./?v=31.7r5">遊戲</a>';document.body.append(bar);
 let previewKind='pitch',previewHand='R',previewAge=0,playing=false,motionLastFrame=0;
 function prepareMotion(kind,hand){musicEnabled=false;effectsEnabled=false;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);CPBLBroadcast.draw(performance.now());CPBLBroadcast.skipAll();state.playerSide=1;state.half='top';previewKind=kind;previewHand=hand;previewAge=0;playing=false;beginPitch();tv.hit=tv.interlude=tv.returnBall=null;tv.presentation=null;poseMotion();}
 function poseMotion(){const stamp=performance.now();tv.paused=true;tv.pauseAt=stamp;tv.phase='windup';tv.start=stamp-previewAge;tv.deliveryAt=stamp-previewAge;tv.swung=previewKind!=='pitch';tv.swingStart=stamp-previewAge;window.CPBL_PREVIEW_BAT_HAND=previewHand;window.CPBL_PREVIEW_SWING_STYLE=document.getElementById('swingStyle').value;tv.pitchers[fieldingTeam()]={...tv.pitchers[fieldingTeam()],hand:previewHand};state.playerSide=previewKind==='first'?0:1;window.CPBL_RECON_CAMERA=previewKind==='first'?null:previewKind==='pitch'?{name:'motion-pitch',eye:[3.8,2.3,15],target:[0,1.25,18.1],fov:36}:{name:'motion-bat',eye:[previewHand==='L'?-3.6:3.6,2.1,-2.4],target:[previewHand==='L'?-1.1:1.1,1.15,.15],fov:37};render();document.getElementById('motionTime').value=previewAge;document.getElementById('motionReadout').textContent=Math.round(previewAge)+' ms';}
