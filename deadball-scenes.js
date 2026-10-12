@@ -16,7 +16,7 @@
    tv.pendingPitch=null;tv.returnBall=null;if(!s.caught)foul();
    announce(s.caught?'界外飛球 · 守備追球':'FOUL · 界外球');
   }else{
-   s.runStart=kind==='hbp'?2300:1200;s.runDuration=7200;s.duration=s.runStart+s.runDuration+550;
+   s.gearStart=kind==='hbp'?2800:1250;s.runStart=s.gearStart+3500;s.runDuration=7200;s.duration=s.runStart+s.runDuration+550;
    tv.returnBall=null;announce(kind==='hbp'?'觸身球 · 死球':'四壞球保送');
   }
   tv.interlude=s;tv.phase='deadball';tv.start=s.start;tv.hit=null;state.busy=true;render();return s;
