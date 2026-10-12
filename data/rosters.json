@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-08T19:26:04.313101+00:00",
+  "updatedAt": "2026-10-12T20:36:31.923305+00:00",
   "source": "https://stats.cpbl.com.tw/players",
   "scope": "官網現有一、二軍名單；非單場登錄打線",
   "teams": [
@@ -539,7 +539,7 @@
         {
           "id": "0000006867",
           "name": "徐基麟",
-          "officialName": "*徐基麟",
+          "officialName": "徐基麟",
           "number": "70",
           "height": 190,
           "position": "投手",
