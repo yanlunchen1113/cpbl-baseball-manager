@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#061c1a" />
+  <title>Blender 個別人物初版 · 職棒經理人｜CPBL 棒球模擬</title>
+  <link rel="stylesheet" href="style.css?v=30.1" />
+  <link rel="stylesheet" href="broadcast.css?v=30.1" />
+  <link rel="stylesheet" href="roster.css?v=30.1" />
+  <link rel="stylesheet" href="mobile.css?v=30.1" />
+  <link rel="stylesheet" href="broadcast-presentation.css?v=31.6" />
+<style>.broadcast-preview-controls{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;gap:7px;padding:10px;background:#091620;align-items:center;flex-wrap:wrap}.broadcast-preview-controls button{background:#23445c;color:white;border:1px solid #63829a;border-radius:4px;padding:7px;cursor:pointer}.broadcast-preview-controls a{color:#edcb74}.topbar{display:none}.game-screen{padding-bottom:60px}</style><style>.resume-game,.call-hud,#tvDuel,#tvPitches,#tvAction{display:none!important}</style></head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="職棒經理人首頁"><span>⚾</span> 職棒<span>經理人</span></a>
+      <div class="season" id="seasonLabel"><i></i> 2026 球季・單場模式</div>
+      <button class="icon-button" id="soundToggle" aria-label="靜音">♪</button>
+    </header>
+    <main>
+      <section id="setupScreen" class="setup-screen">
+        <div class="hero-copy">
+          <div class="eyebrow"><span>CPBL</span> INTERACTIVE BASEBALL</div>
+          <h1>你的球賽，<br><em>由你掌握。</em></h1>
+          <p>即時觀看投球、揮棒與球的飛行落點。每一個決策都直接反映在球場上。</p>
+          <div class="feature-list"><span>● 投打動畫</span><span>● 落點追蹤</span><span>● 賽季戰績</span></div>
+        </div>
+        <div class="setup-card">
+          <div class="mode-tabs" role="tablist"><button class="mode-tab active" data-mode="single">單場模式</button><button class="mode-tab" data-mode="season">賽季模式</button></div>
+          <div class="card-heading"><div><span class="eyebrow" id="modeEyebrow">GAME SETUP</span><h2 id="setupTitle">開啟一場比賽</h2></div><span class="setup-ball">⚾</span></div>
+          <label for="teamSelect">選擇你的主場球隊</label>
+          <div class="select-wrap"><select id="teamSelect"></select><span>⌄</span></div>
+          <div class="opponent-preview"><span>對手</span><strong id="opponentPreview">中信兄弟</strong><span class="away-tag">客場</span></div>
+          <div id="seasonSummary" class="season-summary hidden"></div>
+          <div class="rules-note"><span>i</span><p>九局制；九局平手進入延長賽，十局起二壘有人，最多十二局。</p></div>
+          <button id="startGame" class="primary-button">進入球場 <span>→</span></button>
+          <div class="setup-foot" id="setupFoot">2026 中華職棒六隊・模擬賽事</div>
+        </div>
+      </section>
+
+      <section id="gameScreen" class="game-screen hidden">
+        <div class="game-topline"><div class="live-label"><i></i> LIVE BROADCAST</div><div class="game-date"><span id="gameModeLabel">中華職棒・例行賽</span> <b id="stadiumName">臺北大巨蛋</b></div><button class="text-button" id="newGame">離開比賽 ↗</button></div>
+        <div class="scoreboard">
+          <div class="team-side"><div class="team-mark" id="awayMark">兄</div><div><small>客場</small><strong id="awayName">中信兄弟</strong></div><b id="awayScore">0</b></div>
+          <div class="inning-display"><span id="inningHalf">▲</span><strong id="inningNumber">1</strong><small>局</small><em id="gameStatus">比賽進行中</em></div>
+          <div class="team-side home-side"><b id="homeScore">0</b><div><small>主場・你</small><strong id="homeName">味全龍</strong></div><div class="team-mark" id="homeMark">龍</div></div>
+        </div>
+        <div class="game-layout">
+          <section class="field-panel">
+            <div class="panel-head"><div><span class="eyebrow">LIVE CAMERA</span><h2 id="broadcastTitle">球場實況</h2></div><div class="broadcast-chip">● 轉播中</div></div>
+            <div class="field-scene" id="fieldScene">
+              <div class="stands"></div><div class="outfield"></div><div class="infield"></div><div class="mound"></div>
+              <div class="base base-second" id="base2"></div><div class="base base-third" id="base3"></div><div class="base base-first" id="base1"></div><div class="home-plate"></div>
+              <div class="fielder cf">CF</div><div class="fielder lf">LF</div><div class="fielder rf">RF</div><div class="fielder ss">SS</div><div class="fielder b2">2B</div><div class="fielder b3">3B</div><div class="fielder b1">1B</div>
+              <div class="pitcher-player" id="pitcherPlayer"><span></span><b>P</b></div><div class="batter-player" id="batterPlayer"><span></span><b>B</b></div>
+              <div id="runnerDots"></div><div id="baseball" class="baseball"></div><div id="impact" class="impact"></div><div id="landing" class="landing"></div>
+              <div id="fieldOverlay" class="field-overlay"><strong>PLAY BALL</strong><span>投打對決，現在開始</span></div>
+              <div id="broadcastCall" class="broadcast-call"></div>
+            </div>
+            <div class="broadcast-bottom"><div class="count-strip"><span>好球 <b id="strikeLights"></b></span><span>壞球 <b id="ballLights"></b></span><span>出局 <b id="outLights"></b></span></div><div id="pitchReadout">準備開打</div></div>
+          </section>
+          <aside class="action-panel">
+            <div class="batter-card"><div class="avatar" id="batterAvatar">林</div><div><span class="eyebrow" id="roleLabel">投球・第 1 棒</span><strong id="batterName">林安可</strong><small id="batterStats">本場 0 打數・0 安打</small></div><b id="batterBadge">投</b></div>
+            <div id="actionContent" class="action-content"></div>
+            <div class="bench-controls"><div class="bench-title"><b>教練調度</b><span>MANAGER</span></div><div class="bench-actions"><button id="subButton">⇄<small>換投 / 代打</small></button><button id="stealButton">↗<small>盜壘 / 短打</small></button><button id="strategyButton">◇<small>守備佈陣</small></button></div><p id="coachMessage">掌握節奏，等待最佳時機。</p></div>
+          </aside>
+        </div>
+        <section class="play-log"><div><h3>轉播紀錄</h3><span>PLAY BY PLAY</span></div><div id="logList"></div></section>
+      </section>
+      <section id="seasonScreen" class="season-screen hidden"><div class="season-header"><div><span class="eyebrow">2026 CPBL SEASON</span><h2>賽季中心</h2></div><button class="text-button" id="backToSetup">← 返回設定</button></div><div class="season-grid"><section class="season-card"><h3 id="seasonTeamTitle">我的球隊</h3><div id="seasonProgress"></div><button id="nextSeasonGame" class="primary-button">進入下一場比賽 →</button></section><section class="season-card"><h3>聯盟戰績</h3><div id="standingsTable"></div></section><section class="season-card schedule-card"><h3>近期賽程</h3><div id="scheduleList"></div></section></div></section>
+    </main>
+  </div>
+  <div id="modalRoot"></div>
+  <script src="game.js?v=30.1"></script>
+  <script src="motion-calibration.js?v=30.1"></script>
+  <script src="stadium-data.js?v=30.1"></script>
+  <script src="baseball-engine.js?v=31.7r9.4.1"></script>
+<script src="baseball-rules.js?v=31.7r9.4.1"></script>
+  <script src="broadcast.js?v=31.7r9.4.1"></script>
+  <script src="rosters-data.js?v=30.1"></script>
+  <script src="pitch-profiles.js?v=30.1"></script>
+  <script src="player-traits.js?v=30.1"></script>
+  <script src="cheer-midi.js?v=30.1"></script>
+  <script src="cheer-audio.js?v=30.1"></script>
+<script src="cheer-files.js?v=30.1"></script>
+  <script src="roster.js?v=31.5"></script>
+  <script src="season.js?v=30.1"></script>
+  <script src="stadium-setup.js?v=30.1"></script>
+  <script src="vendor/three.min.js?v=30.1"></script>
+  <script src="human-assets.js?v=31.7r9.4.1"></script>
+  <script src="field-materials.js?v=30.1"></script>
+  <script src="vendor/RGBELoader.js?v=30.1"></script>
+  <script src="vendor/Sky.js?v=30.1"></script>
+  <script src="graphics-pipeline.js?v=31.2r6"></script>
+  <script src="xinzhuang-model.js?v=31.2r6"></script>
+  <script src="deadball-scenes.js?v=31.7r9.4.1"></script>
+  <script src="broadcast-camera.js?v=31.7r9.4.1"></script>
+  <script src="uniform-names.js?v=31.7r9.4.1"></script>
+<script src="team-uniforms.js?v=31.7r9.4.1"></script>
+<script src="player-layering.js?v=31.7r9.4.1"></script>
+<script src="player-layers.js?v=31.7r9.4.1"></script>
+<script src="uniform-design.js?v=31.7r9.4.1"></script>
+  <script src="player-characters.js?v=32.0-preview1"></script>
+  <script src="stadium3d.js?v=32.0-preview1"></script>
+  <script src="broadcast-data.js?v=31.5"></script>
+  <script src="broadcast-presentation.js?v=31.6"></script>
+<script>
+const bar=document.createElement('nav');bar.className='broadcast-preview-controls';bar.innerHTML='<strong>Blender 人物初版</strong><select id="individual" aria-label="球員"><option value="范國宸">范國宸 #46</option><option value="曾峻岳">曾峻岳 #60</option></select><button id="faceFront">臉部正面</button><button id="faceSide">臉部側面</button><button id="characterAction">專屬動作</button><button id="loadAction">蓄力／抬腿</button><button id="actionPlay">慢動作播放</button><label>時間 <input id="actionTime" type="range" min="0" max="1300" step="20" value="0"></label><span id="characterReadout">照片參考初版，非掃描／動捕</span><a href="references/blender-characters-20261013/README.md">參考紀錄</a>';document.body.append(bar);
+let characterView='front',characterAge=0,characterPlaying=false,characterLast=0;
+const originalBatterName=batterName;batterName=function(){return document.getElementById('individual').value==='范國宸'?'范國宸':originalBatterName();};
+function prepareCharacter(){musicEnabled=false;effectsEnabled=false;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);CPBLBroadcast.draw(performance.now());CPBLBroadcast.skipAll();state.playerSide=1;state.half=document.getElementById('individual').value==='范國宸'?'bottom':'top';const source=window.CPBL_PITCH_PROFILES?.find(p=>p.name==='曾峻岳');tv.pitchers[fieldingTeam()]={...activePitcher(),...source,name:'曾峻岳',hand:'R'};beginPitch();tv.hit=tv.interlude=tv.returnBall=null;tv.presentation=null;characterAge=0;characterPlaying=false;poseCharacter();}
+function poseCharacter(){const name=document.getElementById('individual').value,pitch=name==='曾峻岳',stamp=performance.now();tv.paused=true;tv.pauseAt=stamp;tv.phase='windup';state.playerSide=pitch?1:0;tv.start=stamp-characterAge;tv.deliveryAt=stamp-characterAge;tv.swung=!pitch&&characterView==='action';tv.swingStart=stamp-characterAge;window.CPBL_PREVIEW_BAT_HAND='R';window.CPBL_PREVIEW_SWING_STYLE=null;tv.pitchers[fieldingTeam()]={...tv.pitchers[fieldingTeam()],name:'曾峻岳',hand:'R'};
+if(['front','side'].includes(characterView)){window.CPBL_UNIFORM_AUDIT={name,style:'home',team:3};const height=pitch?1.62:1.70;window.CPBL_RECON_CAMERA={name:'individual-face',eye:characterView==='front'?[0,height,1.30]:[1.2,height,.45],target:[0,height,0],fov:26};}else{window.CPBL_UNIFORM_AUDIT=null;window.CPBL_RECON_CAMERA=pitch?{name:'individual-pitch',eye:[3.8,2.3,15],target:[0,1.2,18.1],fov:36}:{name:'individual-bat',eye:[3.6,2.1,-2.4],target:[1.1,1.15,.15],fov:37};}
+render();document.getElementById('actionTime').max=pitch?3400:characterView==='load'?1500:1300;document.getElementById('actionTime').value=characterAge;document.getElementById('characterReadout').textContent=name+' · '+Math.round(characterAge)+' ms · 照片參考初版';}
+document.getElementById('individual').onchange=prepareCharacter;for(const [id,view] of [['faceFront','front'],['faceSide','side'],['characterAction','action'],['loadAction','load']])document.getElementById(id).onclick=()=>{characterView=view;characterAge=0;characterPlaying=false;poseCharacter();};document.getElementById('actionTime').oninput=e=>{characterPlaying=false;characterAge=+e.target.value;poseCharacter();};document.getElementById('actionPlay').onclick=()=>{characterPlaying=!characterPlaying;if(characterPlaying){if(['front','side'].includes(characterView))characterView='action';characterAge=0;}};
+function characterLoop(now){if(characterPlaying){characterAge+=Math.min(50,now-(characterLast||now))*.25;const limit=+document.getElementById('actionTime').max;if(characterAge>limit){characterAge=limit;characterPlaying=false;}poseCharacter();}characterLast=now;requestAnimationFrame(characterLoop);}prepareCharacter();requestAnimationFrame(characterLoop);
+</script></body></html>
