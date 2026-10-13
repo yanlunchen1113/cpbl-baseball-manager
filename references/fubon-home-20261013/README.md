@@ -25,3 +25,9 @@
 ## 背名修正 31.7r8.2
 
 查閱球團 PlayersList 並讀取與遊戲富邦名單相符的 83 個 PlayersDetail 頁面，保存官方英文全名與來源於 data/fubon-official-names.json。逐頁以英文姓名欄解析，未找到或新增球員改用中文。主場縮寫由官網姓氏與名字各段首字母整理，屬顯示規則推導，並非逐人實穿背名認證；范國宸 K.C.FAN、曾峻岳 J.Y.TSENG 有使用者照片支持。客場十週年仍用中文。將過小的背名字體加大並加寬，下移避免貼領口，限制最大寬度避免伸出肩部。
+
+## 近似字型與弧形背名 31.7r8.3
+
+重新實際查看使用者實穿照片 3，背名字母沿肩背弧形排列，60/62 號為窄身粗體。選擇 Rajdhani Bold 作為近似字型，已渲染 0–9、J.Y.TSENG、K.C.FAN 樣張比較；不是球團原字型。移除 Impact 與 .72 水平壓縮，數字按字型原生比例，主客場各維持實心／描邊樣式。英文逐字沿半徑 620 像素弧線繪製，中間高、兩側低，各字母依切線旋轉；弧度為依照片估計。
+
+字型來源：[Google Fonts 元資料](https://github.com/google/fonts/blob/main/ofl/rajdhani/METADATA.pb)、[設計方原始碼](https://github.com/itfoundry/rajdhani)。字檔為 Google Fonts 官方服務提供的英數子集，OFL 授權與版权保存在 assets/fonts/Rajdhani-OFL.txt。字型載入完成會重繪球衣，避免永久保留替代字型。
