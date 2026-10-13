@@ -2,7 +2,7 @@
    Generic CC0 human anatomy; no claim of individual photographic player likeness. */
 (function(){
  if(!window.THREE)return;
- const T=window.THREE;let renderer;try{renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'default'})}catch(e){return}
+ const T=window.THREE;let renderer;try{renderer=new T.WebGLRenderer({antialias:true,alpha:false,powerPreference:'default'})}catch(e){window.CPBL_WEBGL_ERROR='這個瀏覽器無法啟動 3D 畫面';return}
  renderer.domElement.className='webgl-canvas';renderer.domElement.setAttribute('aria-label','3D 棒球轉播場景');stage.prepend(renderer.domElement);canvas.style.visibility='hidden';stage.classList.add('has-webgl');
  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.25));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
  window.CPBLHuman?.load(T);
@@ -525,7 +525,7 @@
  function render3d(now){requestAnimationFrame(render3d);if(contextLost||document.hidden||$('#gameScreen').classList.contains('hidden')||now-lastPaint<1000/30)return;
   const paintStart=performance.now();lastPaint=now;try{const rawStamp=tv.paused?tv.pauseAt:now,stamp=window.CPBLReplay?.sceneStamp(tv.hit,rawStamp)??rawStamp,elapsed=stamp-tv.start,width=stage.clientWidth,height=stage.clientHeight;if(!width||!height)return;
   if(width!==cssWidth||height!==cssHeight){cssWidth=width;cssHeight=height;renderer.setSize(width,height,false);}camera.aspect=width/height;
-  if(window.CPBLHuman?.ready){for(const a of [pitcher,batter,catcher,umpire,...fielders,...runners,...baseUmpires,...departureActors,gearAssistant])if(!a.human){resetPose(a);CPBLHuman.attach(a,T,skin,dark);}stage.dataset.characterModel='makehuman-skinned';}
+  if(window.CPBLHuman?.ready){for(const a of (window.CPBL_UNIFORM_AUDIT?[fielders[0]]:[pitcher,batter,catcher,umpire,...fielders,...runners,...baseUmpires,...departureActors,gearAssistant]))if(!a.human){resetPose(a);CPBLHuman.attach(a,T,skin,dark);}stage.dataset.characterModel='makehuman-skinned';}
   for(const a of [catcher,...fielders])fitGlove(a,'left');
   updatePark();const h=tv.hit,tracking=!!h&&(tv.phase==='hit'||tv.phase==='result'),viewBatting=tv.returnBall&&['result','return'].includes(tv.phase)?tv.returnBall.side!==state.playerSide:playerBatting(),fs=tracking?1-h.batSide:tv.returnBall&&['result','return'].includes(tv.phase)?tv.returnBall.side:fieldingTeam(),bs=1-fs,profile=tv.pitchers[fs]||activePitcher();
   dress(pitcher,profile.name,teamFor(fs));pitcher.throwHand=profile.hand==='L'?'left':'right';if(window.CPBLBroadcast){const player=window.CPBLBroadcast.fieldPlayer(fs,'C');if(player)dress(catcher,player.name,teamFor(fs));}dress(batter,tracking?h.batter:batterName(),teamFor(bs));resetPose(pitcher);resetPose(batter);resetPose(catcher);resetPose(umpire);

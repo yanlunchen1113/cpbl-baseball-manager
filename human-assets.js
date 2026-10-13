@@ -1,8 +1,8 @@
 /* CC0 MakeHuman anatomy and clothed mesh, skinned to the baseball pose hierarchy. */
 (function(root){
  let asset=null,loading=false;
- function load(T){if(loading)return;loading=true;
-  Promise.all([fetch('assets/players/human.json?v=31.7').then(r=>{if(!r.ok)throw Error('Human manifest unavailable');return r.json()}),fetch('assets/players/human.bin?v=31.7').then(r=>{if(!r.ok)throw Error('Human mesh unavailable');return r.arrayBuffer()}),new Promise((resolve,reject)=>new T.TextureLoader().load('assets/players/skin-asian-male.png',resolve,undefined,reject))]).then(([manifest,buffer,skin])=>{
+ function load(T){if(loading||asset)return;loading=true;root.CPBL_HUMAN_ERROR=null;root.CPBL_HUMAN_LOADING=true;const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),30000);
+  Promise.all([fetch('assets/players/human.json?v=31.7r8.5',{signal:controller.signal,cache:'reload'}).then(r=>{if(!r.ok)throw Error('Human manifest unavailable');return r.json()}),fetch('assets/players/human.bin?v=31.7r8.5',{signal:controller.signal,cache:'reload'}).then(r=>{if(!r.ok)throw Error('Human mesh unavailable');return r.arrayBuffer()}),new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Skin texture timed out')),30000);new T.TextureLoader().load('assets/players/skin-asian-male.png?v=31.7r8.5',t=>{clearTimeout(timer);resolve(t)},undefined,e=>{clearTimeout(timer);reject(e)})})]).then(([manifest,buffer,skin])=>{
    skin.colorSpace=T.SRGBColorSpace;skin.anisotropy=4;
    const geometries=manifest.sections.map(s=>{const g=new T.BufferGeometry();for(const k of ['position','uv','skinIndex','skinWeight']){const a=s[k];g.setAttribute(k,new T.BufferAttribute(new Float32Array(buffer,a.offset,a.count),k==='position'?3:k==='uv'?2:4));}if(s.positionGrip){g.morphAttributes.position=[new T.BufferAttribute(new Float32Array(buffer,s.positionGrip.offset,s.positionGrip.count),3)];}g.setIndex(new T.BufferAttribute(new Uint32Array(buffer,s.index.offset,s.index.count),1));g.computeVertexNormals();return g;});
    // Independent left/right grip morphs also affect triangles crossing the wrist seam.
@@ -14,7 +14,7 @@
    // Tuck the existing shirt hem into the trouser waist; retain its skin weights.
    for(let i=0;i<sp.count;i++){const y=sp.getY(i),t=1-T.MathUtils.smoothstep(y,1.035,1.18);if(t){sp.setXYZ(i,sp.getX(i)*(1-.12*t),Math.max(1.055,y),sp.getZ(i)*(1-.12*t));}}shirt.computeVertexNormals();
    asset={manifest,geometries,skin,handGeometries};
-  }).catch(error=>{root.CPBL_HUMAN_ERROR=String(error);console.warn('Human assets',error)});
+  }).catch(error=>{root.CPBL_HUMAN_ERROR=String(error);console.warn('Human assets',error)}).finally(()=>{clearTimeout(timeout);loading=false;root.CPBL_HUMAN_LOADING=false;});
  }
  function attach(a,T,skinMaterial,darkMaterial){if(!asset||a.human)return false;
   // Retain the pose hierarchy, baseball equipment, cap, belt and shoes.
