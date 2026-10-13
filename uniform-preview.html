@@ -74,9 +74,9 @@
   <script src="game.js?v=29"></script>
   <script src="motion-calibration.js?v=29"></script>
   <script src="stadium-data.js?v=29"></script>
-  <script src="baseball-engine.js?v=31.7r8"></script>
-<script src="baseball-rules.js?v=31.7r8"></script>
-  <script src="broadcast.js?v=31.7r8"></script>
+  <script src="baseball-engine.js?v=31.7r8.1"></script>
+<script src="baseball-rules.js?v=31.7r8.1"></script>
+  <script src="broadcast.js?v=31.7r8.1"></script>
   <script src="rosters-data.js?v=29"></script>
   <script src="pitch-profiles.js?v=29"></script>
   <script src="player-traits.js?v=29"></script>
@@ -87,12 +87,12 @@
   <script src="season.js?v=29"></script>
   <script src="stadium-setup.js?v=29"></script>
   <script src="vendor/three.min.js?v=29"></script>
-  <script src="human-assets.js?v=31.7r8"></script>
+  <script src="human-assets.js?v=31.7r8.1"></script>
   <script src="field-materials.js?v=29"></script>
-  <script src="deadball-scenes.js?v=31.7r8"></script>
-  <script src="broadcast-camera.js?v=31.7r8"></script>
-  <script src="uniform-design.js?v=31.7r8"></script>
-  <script src="stadium3d.js?v=31.7r8"></script>
+  <script src="deadball-scenes.js?v=31.7r8.1"></script>
+  <script src="broadcast-camera.js?v=31.7r8.1"></script>
+  <script src="uniform-design.js?v=31.7r8.1"></script>
+  <script src="stadium3d.js?v=31.7r8.1"></script>
 <style>.topbar,#tvCount,#tvDuel,#tvPitches,#newGame,.scoreboard,.tv-count,.tv-duel,.tv-pitches,.tv-action,.resume-game,.call-hud,.skin-badge,#tvAction,#tvCall{display:none!important}.uniform-audit{position:fixed;bottom:0;left:0;right:0;z-index:10000;background:#101c2b;padding:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:white}.uniform-audit button,.uniform-audit select{padding:7px;background:#214564;color:white;border:1px solid #7395ad;border-radius:5px}</style>
-<nav class="uniform-audit"><b>富邦球衣 v31.7r8</b><select id="uniformStyle" aria-label="球衣"><option value="home">主場白</option><option value="away">客場十週年</option></select><select id="uniformPlayer" aria-label="球員"><option>范國宸</option><option>曾峻岳</option><option>張育成</option><option>戴培峰</option><option>林哲瑄</option></select><button id="uniformFront">正面</button><button id="uniformSide">側面</button><button id="uniformBack">背面</button><span id="uniformLabel"></span><a href="./?v=31.7r8" style="color:#f2d27b">進入比賽</a></nav>
+<nav class="uniform-audit"><b>富邦球衣 v31.7r8.1</b><select id="uniformStyle" aria-label="球衣"><option value="home">主場白</option><option value="away">客場十週年</option></select><select id="uniformPlayer" aria-label="球員"><option>范國宸</option><option>曾峻岳</option><option>張育成</option><option>戴培峰</option><option>林哲瑄</option></select><button id="uniformFront">正面</button><button id="uniformSide">側面</button><button id="uniformBack">背面</button><span id="uniformLabel"></span><a href="./?v=31.7r8.1" style="color:#f2d27b">進入比賽</a></nav>
 <script>(function(){musicEnabled=false;effectsEnabled=false;document.getElementById('stadiumSelect').value='xinzhuang';startGame(3);window.CPBLBroadcast?.skipAll?.();state.half='top';state.playerSide=1;tv.phase='ready';tv.hit=null;tv.paused=true;tv.pauseAt=performance.now();window.CPBL_UNIFORM_AUDIT={name:'范國宸',style:'away'};let angle=0;function show(){const name=document.getElementById('uniformPlayer').value;window.CPBL_UNIFORM_AUDIT.name=name;window.CPBL_UNIFORM_AUDIT.style=document.getElementById('uniformStyle').value;window.CPBL_RECON_CAMERA={name:'uniform-audit',eye:[Math.sin(angle)*3.2,1.22,Math.cos(angle)*3.2],target:[0,1.0,0],fov:34};const p=CPBL_ROSTER.teams.flatMap(t=>t.players).find(p=>p.name===name);document.getElementById('uniformLabel').textContent=name+' #'+(p?.number??'');render();}document.getElementById('uniformStyle').value='away';document.getElementById('uniformStyle').onchange=show;document.getElementById('uniformPlayer').onchange=show;document.getElementById('uniformFront').onclick=()=>{angle=0;show();};document.getElementById('uniformSide').onclick=()=>{angle=Math.PI/2;show();};document.getElementById('uniformBack').onclick=()=>{angle=Math.PI;show();};show();})();</script></body></html>
