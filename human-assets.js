@@ -13,9 +13,10 @@
    const shirt=geometries[1],sp=shirt.attributes.position,sn=shirt.attributes.normal,normalByPosition=new Map();const key=i=>[sp.getX(i),sp.getY(i),sp.getZ(i)].map(v=>v.toFixed(6)).join(',');for(let i=0;i<sp.count;i++){const k=key(i),n=normalByPosition.get(k)||new T.Vector3();n.add(new T.Vector3().fromBufferAttribute(sn,i));normalByPosition.set(k,n);}for(let i=0;i<sp.count;i++){const y=sp.getY(i),x=Math.abs(sp.getX(i));if(y>1.40&&y<1.76&&x>.12&&x<.40){const n=normalByPosition.get(key(i)).clone().normalize(),clearance=.008*T.MathUtils.smoothstep(x,.12,.20);sp.setXYZ(i,sp.getX(i)+n.x*clearance,y+n.y*clearance,sp.getZ(i)+n.z*clearance);}}shirt.computeVertexNormals();
    // Raise the existing trouser rise to the natural waist without moving hips or feet.
    // A smooth upper-leg falloff lengthens the rise, retaining the original skin weights.
-   const trousers=geometries[2];for(const attr of [trousers.attributes.position,...(trousers.morphAttributes.position||[])])for(let i=0;i<attr.count;i++){const y=attr.getY(i),t=T.MathUtils.smoothstep(y,.78,1.05);attr.setY(i,y+.11*t);}trousers.computeVertexNormals();
-   // Tuck the existing shirt into the raised waist, leaving a small fabric ease above it.
-   for(let i=0;i<sp.count;i++){const y=sp.getY(i),t=1-T.MathUtils.smoothstep(y,1.13,1.28);if(t){sp.setXYZ(i,sp.getX(i)*(1-.18*t),Math.max(1.12,y),sp.getZ(i)*(1-.25*t));}}shirt.computeVertexNormals();
+   const trousers=geometries[2];for(const attr of [trousers.attributes.position,...(trousers.morphAttributes.position||[])])for(let i=0;i<attr.count;i++){const y=attr.getY(i),x=attr.getX(i),z=attr.getZ(i),rise=T.MathUtils.smoothstep(y,.78,1.05),waist=T.MathUtils.smoothstep(y,.96,1.025),radius=Math.hypot(x/.188,z/.133),fit=1+waist*(Math.min(1,1/Math.max(1,radius))-1);attr.setXYZ(i,x*fit,y+.11*rise+.022*waist*T.MathUtils.smoothstep(z,0,.12),z*fit);}trousers.computeVertexNormals();
+   // Compress the hem vertically with a monotonic curve, avoiding a collapsed ring.
+   // Keep the abdomen's original volume; only the tucked fabric enters the waist.
+   for(let i=0;i<sp.count;i++){const y=sp.getY(i),lift=.105*(1-T.MathUtils.smoothstep(y,1.013,1.28)),newY=y+lift,t=1-T.MathUtils.smoothstep(newY,1.12,1.25);sp.setXYZ(i,sp.getX(i)*(1-.06*t),newY,sp.getZ(i)*(1-.22*t));}shirt.computeVertexNormals();
    asset={manifest,geometries,skin,handGeometries};
   }).catch(error=>{root.CPBL_HUMAN_ERROR=String(error);console.warn('Human assets',error)}).finally(()=>{clearTimeout(timeout);loading=false;root.CPBL_HUMAN_LOADING=false;});
  }
