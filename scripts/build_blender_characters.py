@@ -25,6 +25,8 @@ def delta(v,f):
  if abs(x)>.075:dx+=x*w*(f['ear']-1)*math.exp(-((y-1.82)/.05)**2)
  dx+=x*(f['noseWidth']-1)*nose
  dy=(y-1.86)*(f['faceLength']-1)*w*front
+ eye_region=math.exp(-((abs(x)-.0405)/.018)**2-((y-1.847)/.018)**2)*front
+ dy+=(1.847-y)*f.get('eyeLid',0)*eye_region
  dz=f['noseProjection']*nose+ .003*(f['lip']-1)*math.exp(-((y-1.76)/.018)**2)*front
  return (dx,dy,dz)
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
@@ -46,12 +48,6 @@ for n,(name,p) in enumerate(author['players'].items()):
   if parent:arm.edit_bones[b].parent=arm.edit_bones[parent]
  bpy.ops.object.mode_set(mode='OBJECT');rig.show_in_front=True;rig.location.x=n*2.8
  headmat=bpy.data.materials.new(p['id']+' face');headmat.use_nodes=True;nodes=headmat.node_tree.nodes;tex=nodes.new('ShaderNodeTexImage');tex.image=bpy.data.images.load(str(ROOT/('assets/players/characters/'+p['id']+'-head.webp')));headmat.node_tree.links.new(tex.outputs['Color'],nodes.get('Principled BSDF').inputs['Base Color']);nodes.get('Principled BSDF').inputs['Roughness'].default_value=.62
- # Anatomical eyeballs: source skin has no separate eye material.
- for sign in [-1,1]:
-  for label,radius,offset,color,scale in [('sclera',.014,0,(.70,.65,.58,1),(1.05,.86,.65)),('iris',.006,.011,(.055,.024,.014,1),(1,.22,1)),('pupil',.0028,.0125,(.005,.004,.003,1),(1,.12,1))]:
-   bpy.ops.mesh.primitive_uv_sphere_add(segments=24,ring_count=16,radius=radius,location=Vector(xyz((sign*.043,1.844,.149+offset)))+rig.location);eye=move(bpy.context.object);eye.name=name+' '+label;eye.scale=scale
-   em=bpy.data.materials.new(eye.name);em.diffuse_color=color;eye.data.materials.append(em)
-   matrix=eye.matrix_world.copy();eye.parent=rig;eye.parent_type='BONE';eye.parent_bone='head';eye.matrix_world=matrix
  deltas=[]
  for si,s in enumerate(meta['sections']):
   pos=values(s,'position');uv=values(s,'uv');indices=values(s,'index','I');ids=values(s,'skinIndex');weights=values(s,'skinWeight');verts=[pos[i:i+3] for i in range(0,len(pos),3)]
@@ -59,7 +55,7 @@ for n,(name,p) in enumerate(author['players'].items()):
   layer=mesh.uv_layers.new(name='Original UV')
   for loop in mesh.loops:
    i=loop.vertex_index;u,v=uv[i*2:i*2+2]
-   if si==0 and verts[i][1]>1.63 and u>.60 and .12<v<.88:u,v=remap(p['uvMap']['u'],u),remap(p['uvMap']['v'],v)
+   # Preserve original anatomical face UV.
    layer.data[loop.index].uv=(u,v)
   mat=bpy.data.materials.new(mesh.name+' material');mat.use_nodes=True;bs=mat.node_tree.nodes.get('Principled BSDF');bs.inputs['Base Color'].default_value=(.9,.92,.95,1) if si else (.55,.32,.19,1);bs.inputs['Roughness'].default_value=.95 if si else .62
   if si==0:
@@ -68,7 +64,7 @@ for n,(name,p) in enumerate(author['players'].items()):
   if si==0:
    mesh.materials.append(headmat)
    for face in mesh.polygons:
-    if all(verts[i][1]>1.63 and uv[i*2]>.60 and .12<uv[i*2+1]<.88 for i in face.vertices):face.material_index=1
+    pass # Generated portrait atlas retained as an unused experiment, not a face material.
    o.shape_key_add(name='Basis');key=o.shape_key_add(name=name+' photo proportions');key.value=1
    for i,v in enumerate(verts):
     d=delta(v,p['face']);key.data[i].co=Vector(xyz([v[k]+d[k] for k in range(3)]))
@@ -107,13 +103,19 @@ for n,(name,p) in enumerate(author['players'].items()):
     u=max(0,(t-a[0])/(b[0]-a[0]));return [x+(y-x)*u for x,y in zip(a[1:],b[1:])]
   return rows[-1][1:]
  active='batting' if p['role']=='batter' else 'delivery'
- for row in curves[active]:
-  t=row[0];m=row[1:];frame=t/20
+ timeline=[(row[0],active,row[1:]) for row in curves[active]]
+ if active=='batting':
+  load_ms=p['sequence']['loadMs'];timeline=[(row[0],'anticipation',row[1:]) for row in curves['anticipation'] if row[0]<load_ms]+[(row[0]+load_ms,'batting',row[1:]) for row in curves['batting']]
+ for t,phase,params in timeline:
+  m=curves['batting'][0][1:] if phase=='anticipation' else params;frame=t/20
   pelvis=rig.pose.bones['pelvis'];chest=rig.pose.bones['body'];pelvis.rotation_mode=chest.rotation_mode='XYZ';pelvis.rotation_euler.z=m[0];chest.rotation_euler.z=m[1];chest.rotation_euler.x=m[2];pelvis.keyframe_insert('rotation_euler',frame=frame);chest.keyframe_insert('rotation_euler',frame=frame)
   if active=='batting':
-   hands=[(m[3]+.04,1.18+m[4],m[5]),(m[3]-.04,1.18+m[4],m[5])];feet=[(.30,.08,.02),(-.30,.08,-.08)]
+   hands=[(m[3]+.04,1.18+m[4],m[5]),(m[3]-.04,1.18+m[4],m[5])];feet=[(.30,.08+(params[0] if phase=='anticipation' else 0),.02),(-.30,.08,-.08)]
+   pelvis.location.x=params[1] if phase=='anticipation' else -.075;pelvis.keyframe_insert('location',frame=frame)
   else:
-   y=interp(curves['pitchHands'],t)[0];hands=[(.18,1.24,0),(-.30,y,.35 if t<1100 else -.3)];feet=[(.12,.08+m[5],-.32-m[4]),(-.12,.08+interp(curves['trailingFoot'],t)[0],-.1)]
+   y=interp(curves['pitchHands'],t)[0];hands=[(.18,1.24,0),(-.30,y,.35 if t<1100 else -.3)];feet=[(.12,.08+m[5],-.32-m[4]),(-.12,.08+interp(curves['trailingFoot'],t)[0],interp(curves['trailingFootPath'],t)[0]-18.44)]
+   if t>=1320:
+    r=interp(curves['recoveryHands'],t);hands=[(-r[3],r[4],r[5]-18.44),(-r[0],r[1],r[2]-18.44)]
   for side,h,f in zip(['left','right'],hands,feet):
    for part,v in [('hand',h),('foot',f)]:targets[side+part].location=Vector(xyz(v))+rig.location;targets[side+part].keyframe_insert('location',frame=frame)
  rig.animation_data.action.name=name+' contact IK prototype'
