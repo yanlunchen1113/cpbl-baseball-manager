@@ -1,0 +1,42 @@
+[
+  {
+    "key": "lions-home",
+    "src": "https://cdn-general.cybassets.com/media/W1siZiIsIjE2MjMxL3Byb2R1Y3RzLzY2NTE1ODUwLzE3NzQyNDg2NzBfYjRiYTQ5OWMyODY1YzkzYzE2ODcuanBlZyJdLFsicCIsInRodW1iIiwiNDgweDQ4MCJdXQ.jpeg?sha=9396e1478ae3823e"
+  },
+  {
+    "key": "lions-away",
+    "src": "https://cdn-general.cybassets.com/media/W1siZiIsIjE2MjMxL3Byb2R1Y3RzLzY2NTE1ODUxLzE3NzQyNDg2NTdfNzM4MWIzODQzMzAzN2JmMjcyYTMuanBlZyJdLFsicCIsInRodW1iIiwiNDgweDQ4MCJdXQ.jpeg?sha=e5ab1228303e5e1e"
+  },
+  {
+    "key": "monkeys-home",
+    "src": "https://tshop.r10s.com/f9e/fbc/2bfb/998d/eb2e/db82/5e18/4596fcb89023bb5bbc9ba4.jpg?_ex=330x330"
+  },
+  {
+    "key": "monkeys-away",
+    "src": "https://tshop.r10s.com/d0e/d5d/ae48/90d7/a149/11d1/ad68/4036ef84a3e5611fa7d080.jpg?_ex=330x330"
+  },
+  {
+    "key": "dragons-home",
+    "src": "https://cdn-general.cybassets.com/media/W1siZiIsIjIwNjYxL3Byb2R1Y3RzLzM1ODMwNTYxLzE3Njg0NjY5MzdfNjg5YWEzMDczNmY5MTAzZTkxYmMuanBlZyJdLFsicCIsInRodW1iIiwiNDgweDQ4MCJdXQ.jpeg?sha=77e22807837f83bf"
+  },
+  {
+    "key": "dragons-away",
+    "src": "https://cdn-general.cybassets.com/media/W1siZiIsIjIwNjYxL3Byb2R1Y3RzLzQwMjg3Njc3LzE3Njg0NjcxNDVfNmRlMGZkM2UwN2ZlNzY2MWZjYzYuanBlZyJdLFsicCIsInRodW1iIiwiNDgweDQ4MCJdXQ.jpeg?sha=59f62f7f8c9f4f8a"
+  },
+  {
+    "key": "hawks-home",
+    "src": "https://wpmediaCDN-dmapfjgpdke9gmf4.a02.azurefd.net/2026/03/\u4e3b\u5834\u7403\u8863-\u5546\u54c1\u5716.jpg"
+  },
+  {
+    "key": "hawks-away",
+    "src": "https://wpmediaCDN-dmapfjgpdke9gmf4.a02.azurefd.net/2026/03/2026\u53f0\u92fc\u96c4\u9df9\u5ba2\u5834\u7403\u8863.jpg"
+  },
+  {
+    "key": "brothers-home (2023 reference)",
+    "src": "https://megapx-assets.dcard.tw/images/53e1b812-7e94-42c3-a75b-7e9c311838e7/1280.jpeg"
+  },
+  {
+    "key": "brothers-away (2023 game reference)",
+    "src": "https://imgs.tsna.com/article/1680517947_4ReZM.jpg"
+  }
+]
