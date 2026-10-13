@@ -47,7 +47,7 @@
   const meshes=asset.geometries.map((g,i)=>{const m=new T.SkinnedMesh(g,materials[i]);m.castShadow=true;m.receiveShadow=true;m.frustumCulled=false;a.group.add(m);m.updateMatrixWorld(true);m.bind(skeleton);return m;});
   for(const [bone,rotation] of saved)bone.rotation.copy(rotation);
   if(['ump','baseump','catch'].includes(a.kind)){a.front.visible=false;a.back.visible=false;}a.front.position.z=.205;a.back.position.z=-.20;a.front.renderOrder=a.back.renderOrder=1;
-  const handMeshes={};for(const side of ['left','right']){const m=new T.SkinnedMesh(asset.handGeometries[side],skin);m.castShadow=true;m.receiveShadow=true;m.frustumCulled=false;a.group.add(m);m.bind(skeleton,meshes[0].bindMatrix);handMeshes[side]=m;}a.human={meshes,skeleton,hands,handMeshes,legs,gripNormals,wrists,gripAxes,fingerAxes,gripOffsets};a.key='';return true;
+  const handMeshes={};for(const side of ['left','right']){const m=new T.SkinnedMesh(asset.handGeometries[side],skin);m.castShadow=true;m.receiveShadow=true;m.frustumCulled=false;a.group.add(m);m.bind(skeleton,meshes[0].bindMatrix);handMeshes[side]=m;}a.human={armJoints:asset.manifest.armJoints,meshes,skeleton,hands,handMeshes,legs,gripNormals,wrists,gripAxes,fingerAxes,gripOffsets};a.key='';return true;
  }
  root.CPBLHuman={load,attach,get ready(){return !!asset}};
 })(window);
