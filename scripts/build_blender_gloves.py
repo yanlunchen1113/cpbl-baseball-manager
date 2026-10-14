@@ -75,8 +75,6 @@ for kind in ['field','pitch','catch']:
   for j in range(M):
    for i in range(N):
     ids=[j*N+i,j*N+(i+1)%N,(j+1)*N+(i+1)%N,(j+1)*N+i];x=sum(verts[k][0] for k in ids)/4;y=sum(verts[k][1] for k in ids)/4
-    web=kind!='catch' and ((x-.057)/.031)**2+((y-.106)/.029)**2<1
-    if web:continue
     faces.append(ids if back else ids[::-1])
   mesh(('Dorsal wrist aperture' if back else 'Continuous concave palm'),verts,faces,backMat if back else palmMat)
  # Connect front/back perimeter, giving leather panels actual thickness.
@@ -118,9 +116,22 @@ for kind in ['field','pitch','catch']:
      a=row*(res+1)+col;faces.append((a,a+1,a+res+2,a+res+1))
    o=mesh('Closed pitcher web',verts,faces,backMat);solid=o.modifiers.new('Web leather thickness','SOLIDIFY');solid.thickness=.006
   else:
-   strip('Index-side web anchor',[(.027,y,surface(.027,y)+.003) for y in [.080,.095,.112,.130,.143]],.013)
-   strip('Thumb-side web anchor',[(.096,y,surface(.096,y)+.003) for y in [.073,.087,.102,.118,.133]],.013)
-   strip('Recessed H web crosspiece',[(x,y,surface(x,y)+rise) for x,y,rise in [(.028,.112,.003),(.048,.108,.012),(.072,.102,.012),(.096,.097,.003)]],.016)
+   # Supplied front photo uses an I-shaped leather web, with ladder lacing
+   # at its two sides. The laces attach the web to the finger/thumb shells.
+   def webpoint(u,v):
+    left=.026+.001*v;right=.108-.013*v
+    x=left*(1-u)+right*u;y=.092+.061*v-.008*u
+    return (x,y,surface(x,y)+.005+.008*math.sin(math.pi*u))
+   strip('I web central leather', [webpoint(.50,v) for v in [i/16 for i in range(17)]],.022)
+   strip('I web top crossbar', [webpoint(u,.94) for u in [i/20 for i in range(21)]],.016)
+   strip('I web heel crossbar', [webpoint(u,.07) for u in [i/20 for i in range(21)]],.014)
+   for side in [0,1]:
+    for row in range(4):
+     v=.18+row*.19;edge=side;inner=.36 if side==0 else .64
+     a=webpoint(edge,v);b=webpoint(inner,v+.035)
+     # Two short legs form a leather loop, rather than a loose full-width cord.
+     c=webpoint(inner,v+.105);d=webpoint(edge,v+.07)
+     tube('Web side attachment',[(a[0],a[1],a[2]+.002),(b[0],b[1],b[2]+.004),(c[0],c[1],c[2]+.004),(d[0],d[1],d[2]+.002)],.0019,laceMat)
   tube('Thumb padded seam',[(.092+.021*math.sin(i/24*math.pi),-.041+i/24*.181,surface(.092+.021*math.sin(i/24*math.pi),-.041+i/24*.181,True)-.002) for i in range(25)],.0022,bindingMat)
  else:
   # Catcher's mitt: broad crescent cushions, closed fingers and a separate thumb pad.
@@ -134,9 +145,6 @@ for kind in ['field','pitch','catch']:
   x,y=outline[i];xx,yy=outline[(i+2)%len(outline)];inset=.94
   rise=.017 if kind=='catch' else .005
   tube('Perimeter stitch',[(x*inset,y*inset,surface(x,y)+rise),(x,y,surface(x,y)+rise),(xx,yy,surface(xx,yy)+rise),(xx*inset,yy*inset,surface(xx,yy)+rise)],.0027 if kind=='catch' else .0019,laceMat)
- if kind!='catch':
-  for y in [.083,.101,.119,.135]:
-   tube('Web cross lace',[(.028,y,surface(.028,y)+.008),(.046,y+.009,surface(.046,y)+.008),(.07,y,surface(.07,y)+.008),(.092,y+.007,surface(.092,y)+.008)],.0018,laceMat)
  # Bake editable curves/modifiers into a single GLB mesh with material groups and two closure shapes.
  bpy.ops.object.select_all(action='DESELECT')
  for o in objects:o.select_set(True)
@@ -179,6 +187,7 @@ for loc,energy,size in [((0,-1,1.4),130,1.4),((-.8,.6,1),90,1.1)]:
  bpy.ops.object.light_add(type='AREA',location=loc);o=bpy.context.object;o.data.energy=energy;o.data.shape='DISK';o.data.size=size;o.rotation_euler=(-o.location).to_track_quat('-Z','Y').to_euler()
 text=bpy.data.texts.new('REFERENCE AND ANATOMY');text.write('Compare supplied images-18 (front/back channels), images-19 (wrist insertion), images-10 (closed pitcher web), images-17/12 (catcher mitt). Geometry and closure are hand-authored, not scans. Source curves are baked in meshes; generator retained in repository. GLB contains HalfClose / Close morph targets.\n')
 bpy.ops.wm.save_as_mainfile(filepath=str(R/'assets/players/blender/baseball-gloves.blend'))
-scene.render.filepath=str(R/'references/blender-gloves/studio-front.png');bpy.ops.render.render(write_still=True)
-cam.location=(0,1.5,.30);cam.rotation_euler=(Vector((0,0,.04))-cam.location).to_track_quat('-Z','Y').to_euler();scene.render.filepath=str(R/'references/blender-gloves/studio-back.png');bpy.ops.render.render(write_still=True)
+if '--render' in __import__('sys').argv:
+ scene.render.filepath=str(R/'references/blender-gloves/studio-front.png');bpy.ops.render.render(write_still=True)
+ cam.location=(0,1.5,.30);cam.rotation_euler=(Vector((0,0,.04))-cam.location).to_track_quat('-Z','Y').to_euler();scene.render.filepath=str(R/'references/blender-gloves/studio-back.png');bpy.ops.render.render(write_still=True)
 print('Saved editable Blender gloves, three GLBs, and front/back renders')
