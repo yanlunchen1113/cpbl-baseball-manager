@@ -93,7 +93,7 @@
   <script src="vendor/Sky.js?v=30qa4"></script><script src="graphics-pipeline.js?v=31.1r4"></script>
   <script>const qaCreate=CPBLGraphics.create;CPBLGraphics.create=function(...args){const pipeline=qaCreate(...args);window.qaGraphics=pipeline;return pipeline;};</script><script src="xinzhuang-model.js?v=31.1r4"></script>
   <script src="glove-assets.js?v=32.0-preview14.3"></script>
-  <script src="pitch-mechanics.js?v=32.0-preview16.4"></script>
+  <script src="pitch-mechanics.js?v=32.0-preview16.5"></script>
   <script src="stadium3d.js?v=32.0-preview16.4"></script>
 <div style="position:fixed;bottom:2px;left:2px;z-index:9999;background:#132332;padding:5px;display:flex;gap:4px;flex-wrap:wrap"><select id="qaPark"></select><button onclick="CPBL_LIGHTING='day';qaStart();">日間</button><button onclick="CPBL_LIGHTING='night';qaStart();">夜間</button><button onclick="state.half='bottom';tv.phase='ready';tv.hit=null;tv.returnBall=null;tv.paused=false;render();">打者視角</button><button onclick="qaGraphics.reduce();">降低畫質</button><button onclick="document.querySelector('.webgl-canvas').getContext('webgl2').getExtension('WEBGL_lose_context').loseContext();">恢復測試</button></div><script>document.querySelector('#qaPark').innerHTML=CPBLStadiums.parks.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join('');function qaStart(){document.querySelector('#stadiumSelect').value=document.querySelector('#qaPark').value;startGame(4);}document.querySelector('#qaPark').value='xinzhuang';</script></body>
 </html>
