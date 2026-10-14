@@ -8,7 +8,7 @@
   const blend=(a,b,t)=>{const skin=new Map();for(const [id,v]of a.skin)skin.set(id,v*(1-t));for(const[id,v]of b.skin)skin.set(id,(skin.get(id)||0)+v*t);return {p:a.p.clone().lerp(b.p,t),n:a.n.clone().lerp(b.n,t).normalize(),skin};};
   const clip=(polygon,distance)=>{const out=[];for(let i=0;i<polygon.length;i++){const a=polygon[i],b=polygon[(i+1)%polygon.length],da=distance(a),db=distance(b);if(da<=0)out.push(a);if((da<=0)!==(db<=0))out.push(blend(a,b,da/(da-db)));}return out;};
   let cut;if(kind==='neck'){cut=v=>v.p.y-(1.695-.032*T.MathUtils.smoothstep(v.p.z,0,.09));}else{const j=a.human.armJoints[kind],e=new T.Vector3(...j.elbow),axis=new T.Vector3(...j.palm).sub(e),limit=length==='long'?.91:.08;cut=v=>v.p.clone().sub(e).dot(axis)/axis.lengthSq()-limit;}
-  const armWeight=(v,side)=>{let sum=0;for(const [id,weight]of v.skin)if((side==='left'?[2,3,10]:[4,5,11]).includes(id))sum+=weight;return sum;};
+  const armWeight=(v,side)=>{let sum=0;for(const [id,weight]of v.skin)if((side==='left'?[2,3,10,45,46]:[4,5,11,47,48]).includes(id))sum+=weight;return sum;};
   for(let i=0;i<index.length;i+=3){let polygon=[0,1,2].map(k=>vertex(index[i+k]));
    if(kind==='neck'){if(polygon.some(v=>Math.abs(v.p.x)>.21)||polygon.reduce((s,v)=>s+v.p.y,0)/3<1.45)continue;polygon=clip(polygon,v=>1.46-v.p.y);}else if(polygon.reduce((s,v)=>s+armWeight(v,kind),0)<1.35)continue;
    polygon=clip(polygon,cut);if(polygon.length<3)continue;
