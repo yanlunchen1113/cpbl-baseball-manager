@@ -109,13 +109,13 @@ for n,(name,p) in enumerate(author['players'].items()):
  active='batting' if p['role']=='batter' else 'delivery'
  timeline=[(row[0],active,row[1:]) for row in curves[active]]
  if active=='batting':
-  load_ms=p['sequence']['loadMs'];timeline=[(row[0],'anticipation',row[1:]) for row in curves['anticipation'] if row[0]<load_ms]+[(row[0]+load_ms,'batting',row[1:]) for row in curves['batting']]
+  timeline=[(row[0],'battingFull',row[1:]) for row in curves['battingFull']]
  for t,phase,params in timeline:
   m=curves['batting'][0][1:] if phase=='anticipation' else params;frame=t/20
-  pelvis=rig.pose.bones['pelvis'];chest=rig.pose.bones['body'];pelvis.rotation_mode=chest.rotation_mode='XYZ';pelvis.rotation_euler.y=m[0];chest.rotation_euler.y=m[1];chest.rotation_euler.x=m[2];pelvis.keyframe_insert('rotation_euler',frame=frame);chest.keyframe_insert('rotation_euler',frame=frame)
+  pelvis=rig.pose.bones['pelvis'];chest=rig.pose.bones['body'];pelvis.rotation_mode=chest.rotation_mode='XYZ';pelvis.rotation_euler.y=m[0];chest.rotation_euler.y=m[1];chest.rotation_euler.x=m[10] if phase=='battingFull' else m[2];pelvis.keyframe_insert('rotation_euler',frame=frame);chest.keyframe_insert('rotation_euler',frame=frame)
   if active=='batting':
-   hands=[(m[3]+.04,1.18+m[4],m[5]),(m[3]-.04,1.18+m[4],m[5])];feet=[(.30,.08+(params[0] if phase=='anticipation' else 0),.02),(-.30,.08,-.08)]
-   pelvis.location.x=params[1] if phase=='anticipation' else -.075;pelvis.keyframe_insert('location',frame=frame)
+   hands=[(m[3]+.04,1.18+m[4],m[5]),(m[3]-.04,1.18+m[4],m[5])];feet=[(m[12] if phase=='battingFull' else .30,.08+(m[11] if phase=='battingFull' else 0),.02),(-.30,.08,-.08)]
+   pelvis.location.x=m[9] if phase=='battingFull' else -.075;pelvis.keyframe_insert('location',frame=frame)
   else:
    y=interp(curves['pitchHands'],t)[0];hands=[(.18,1.24,0),(-.30,y,.35 if t<1100 else -.3)];feet=[(.12,.08+m[5],-.32-m[4]),(-.12,.08+interp(curves['trailingFoot'],t)[0],interp(curves['trailingFootPath'],t)[0]-18.44)]
    if t>=1320:
