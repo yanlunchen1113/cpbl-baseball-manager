@@ -421,6 +421,18 @@
  function swingStyle(){const name=tv.hit?.batter||batterName(),specified=window.CPBL_PREVIEW_SWING_STYLE||window.CPBLCharacters?.profile(name)?.swingFinish||playerData(name).swingFinish;if(['one-hand','two-hand'].includes(specified))return specified;if(name==='林智勝')return 'one-hand';let hash=0;for(const c of name||'')hash=(hash*31+c.charCodeAt(0))>>>0;return hash%2?'one-hand':'two-hand';}
  function swingRelease(age){return swingStyle()==='two-hand'?0:CPBLPhysics.smooth((age-swingTiming.release)/(swingTiming.releaseEnd-swingTiming.release));}
 
+ function battingHeadPose(actor,left,age,fullClock,contactHeight){
+  if(!actor.parts.head)return;
+  const rows=fullClock&&window.CPBLCharacters?.curve(fullClock.name,'battingGaze'),key=rows?motionKey(rows,fullClock.elapsed):null;
+  // World-space fixation progresses from pitcher to contact, then to the batted-ball direction.
+  const incoming=CPBLPhysics.smooth(age/140),follow=CPBLPhysics.smooth((age-320)/650),aim=tv.swingAim||tv.aim||{x:0,y:0};
+  let target=key?new T.Vector3(...key):new T.Vector3(0,1.60,18.44).lerp(new T.Vector3(-aim.x*.3,contactHeight,.35),incoming);
+  if(!key){const hit=tv.hit?.land,targetField=hit?new T.Vector3(hit.x,Math.max(2.5,(tv.hit.fieldHeight||0)+2),hit.z):new T.Vector3(0,4,32);target.lerp(targetField,follow);}
+  actor.group.updateMatrixWorld(true);const origin=actor.parts.head.getWorldPosition(new T.Vector3()),world=new T.Quaternion().setFromRotationMatrix(new T.Matrix4().lookAt(target,origin,new T.Vector3(0,1,0))),local=actor.body.getWorldQuaternion(new T.Quaternion()).invert().multiply(world),e=new T.Euler().setFromQuaternion(local,'YXZ');
+  e.x=CPBLPhysics.clamp(e.x,-.50,.65);e.y=CPBLPhysics.clamp(e.y,-1.75,1.75);e.z=CPBLPhysics.clamp(e.z,-.35,.35);local.setFromEuler(e);
+  actor.parts.neck.quaternion.identity().slerp(local,.30);actor.parts.head.quaternion.copy(actor.parts.neck.quaternion).invert().multiply(local);
+  actor.group.updateMatrixWorld(true);stage.dataset.batterHeadYaw=(e.y*180/Math.PI).toFixed(1);stage.dataset.batterGaze=target.toArray().map(v=>v.toFixed(2)).join(',');
+ }
  function battingPose(actor,left,stamp){const sign=left?-1:1;if(actor.earFlap){actor.earFlap.position.x=sign*.118;actor.earFlap.rotation.y=sign*Math.PI/2;}const age=tv.swung?Math.max(0,stamp-(tv.swingStart||stamp)):0;if(age<(actor.wristClipAge??0)-80)actor.wristRolls={};actor.wristClipAge=age;
   const clock=window.CPBL_CHARACTER_SEQUENCE,fullRows=clock&&clock.name===actor.human?.characterName?window.CPBLCharacters?.curve(clock.name,'battingFull'):null,full=fullRows?motionKey(fullRows,clock.elapsed):null;
   const rest=[-.18,-.12,-.06,-.28,.35,.29,-.50,1.12,-.24];
@@ -430,6 +442,7 @@
 
   const contactWeight=full?0:CPBLPhysics.smooth((age-80)/60)*(1-CPBLPhysics.smooth((age-220)/150)),sz=tv.flight?.zone||window.CPBL_BATTER_ZONE,aim=tv.swingAim||tv.aim||{x:0,y:0},contactHeight=(sz?.center||1.1)-aim.y*(sz?.halfHeight||.35),drive=full?full[14]:CPBLPhysics.smooth((age-80)/80);
   const preRows=window.CPBLCharacters?.curve(actor.human?.characterName,'anticipation'),pre=!full&&preRows&&!tv.swung&&tv.phase==='windup'?motionKey(preRows,stamp-tv.start):null;const gather=CPBLPhysics.smooth(age/80);actor.pelvis.rotation.y=sign*m[0];actor.pelvis.position.x=sign*(full?full[9]:pre?pre[1]:-.075-.051*gather+.206*drive);actor.pelvis.position.y=.98;actor.pelvis.rotation.z=sign*.35*drive;actor.body.rotation.z=-sign*.18*drive;actor.body.position.y=.20;actor.body.rotation.y=sign*m[1];actor.body.rotation.x=(full?full[10]:.09+(pre?pre[2]:0))+Math.max(0,1.1-contactHeight)*.20*contactWeight;
+  battingHeadPose(actor,left,age,full?clock:null,contactHeight);
   actor.group.updateMatrixWorld(true);const front=left?'right':'left',back=left?'left':'right';const foot=(side,x,z,lift=0)=>actor.group.localToWorld(new T.Vector3(x,.08+lift,z));legTo(actor,front,foot(front,sign*(full?full[12]:.28+.10*drive),.02,(full?full[11]:pre?pre[0]:preRows?0:.035*Math.sin(Math.PI*drive))));const kneeDrive=full?full[13]:CPBLPhysics.smooth((age-80)/140);const rearPole=new T.Vector3(sign*.90*kneeDrive,0,1-.25*kneeDrive);legTo(actor,back,foot(back,-sign*.30,-.08),rearPole);
   actor.group.updateMatrixWorld(true);
   const release=swingRelease(age);actor.swingRelease=release;stage.dataset.swingFinish=swingStyle();const grip=new T.Vector3(sign*m[3],m[4],m[5]),tip=new T.Vector3(sign*m[6],m[7],m[8]),extend=CPBLPhysics.smooth((age-140)/80),contact=new T.Vector3((tv.flight?.viewSign||-1)*aim.x*(sz?.halfWidth||.3)-sign*.18*extend,contactHeight,.2+.50*extend),shoulderY=(actor.parts.leftArm.getWorldPosition(new T.Vector3()).y+actor.parts.rightArm.getWorldPosition(new T.Vector3()).y)/2;
