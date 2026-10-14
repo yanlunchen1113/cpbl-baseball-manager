@@ -429,7 +429,7 @@
   let target=key?new T.Vector3(...key):new T.Vector3(0,1.60,18.44).lerp(new T.Vector3(-aim.x*.3,contactHeight,.35),incoming);
   if(!key){const hit=tv.hit?.land,targetField=hit?new T.Vector3(hit.x,Math.max(2.5,(tv.hit.fieldHeight||0)+2),hit.z):new T.Vector3(0,4,32);target.lerp(targetField,follow);}
   actor.group.updateMatrixWorld(true);const origin=actor.parts.head.getWorldPosition(new T.Vector3()),world=new T.Quaternion().setFromRotationMatrix(new T.Matrix4().lookAt(target,origin,new T.Vector3(0,1,0))),local=actor.body.getWorldQuaternion(new T.Quaternion()).invert().multiply(world),e=new T.Euler().setFromQuaternion(local,'YXZ');
-  e.x=CPBLPhysics.clamp(e.x,-.50,.65);e.y=CPBLPhysics.clamp(e.y,-1.75,1.75);e.z=CPBLPhysics.clamp(e.z,-.35,.35);local.setFromEuler(e);
+  e.x=CPBLPhysics.clamp(e.x*.65,-.32,.42);e.y=CPBLPhysics.clamp(e.y,-1.75,1.75);e.z=CPBLPhysics.clamp(e.z,-.35,.35);local.setFromEuler(e);
   actor.parts.neck.quaternion.identity().slerp(local,.30);actor.parts.head.quaternion.copy(actor.parts.neck.quaternion).invert().multiply(local);
   actor.group.updateMatrixWorld(true);stage.dataset.batterHeadYaw=(e.y*180/Math.PI).toFixed(1);stage.dataset.batterGaze=target.toArray().map(v=>v.toFixed(2)).join(',');
  }
