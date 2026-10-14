@@ -92,11 +92,15 @@ for n,(name,p) in enumerate(author['players'].items()):
   times=list(range(0,int(rows[-1][0]),20))+[rows[-1][0]]
   curves[control]=[[t,*[round(next(fc for fc in fcurves if fc.data_path=='["v'+str(k)+'"]').evaluate(t/20),6) for k in range(count)]] for t in times]
  # Pose armature in the timeline with hand/foot IK targets. Both control actions remain editable.
- targets={}
+ targets={};poles={}
  for side in ['left','right']:
   for part,end,chain in [('hand','Elbow',2),('foot','Knee',2)]:
    target=bpy.data.objects.new(name+' '+side+' '+part+' IK',None);coll.objects.link(target);target.empty_display_type='SPHERE';target.empty_display_size=.035;target.location=Vector(xyz(meta['armJoints'][side]['palm'] if part=='hand' else meta['legJoints'][side]['ankle']))+rig.location;targets[side+part]=target
    con=rig.pose.bones[side+end].constraints.new('IK');con.target=target;con.chain_count=chain;con.use_stretch=False
+   if part=='hand':
+    pole=bpy.data.objects.new(name+' '+side+' elbow pole',None);coll.objects.link(pole);pole.empty_display_type='CUBE';pole.empty_display_size=.04;poles[side]=pole
+    j=meta['armJoints'][side];a=Vector(xyz(j['shoulder']));b=Vector(xyz(meta['handFrames'][side]['wrist']));joint=Vector(xyz(j['elbow']));axis=(b-a).normalized();projection=a+axis*(joint-a).dot(axis);pole.location=joint+(joint-projection).normalized()*.35+rig.location;con.pole_target=pole
+    upper=arm.bones[side+'Arm'];upper_axis=upper.tail_local-upper.head_local;normal=(b-a).cross(pole.location-rig.location-a);projected=normal.cross(upper_axis);xaxis=upper.matrix_local.to_3x3().col[0];angle=xaxis.angle(projected);con.pole_angle=-angle if xaxis.cross(projected).dot(upper_axis)<0 else angle
  def interp(rows,t):
   for a,b in zip(rows,rows[1:]):
    if t<=b[0]:
@@ -108,7 +112,7 @@ for n,(name,p) in enumerate(author['players'].items()):
   load_ms=p['sequence']['loadMs'];timeline=[(row[0],'anticipation',row[1:]) for row in curves['anticipation'] if row[0]<load_ms]+[(row[0]+load_ms,'batting',row[1:]) for row in curves['batting']]
  for t,phase,params in timeline:
   m=curves['batting'][0][1:] if phase=='anticipation' else params;frame=t/20
-  pelvis=rig.pose.bones['pelvis'];chest=rig.pose.bones['body'];pelvis.rotation_mode=chest.rotation_mode='XYZ';pelvis.rotation_euler.z=m[0];chest.rotation_euler.z=m[1];chest.rotation_euler.x=m[2];pelvis.keyframe_insert('rotation_euler',frame=frame);chest.keyframe_insert('rotation_euler',frame=frame)
+  pelvis=rig.pose.bones['pelvis'];chest=rig.pose.bones['body'];pelvis.rotation_mode=chest.rotation_mode='XYZ';pelvis.rotation_euler.y=m[0];chest.rotation_euler.y=m[1];chest.rotation_euler.x=m[2];pelvis.keyframe_insert('rotation_euler',frame=frame);chest.keyframe_insert('rotation_euler',frame=frame)
   if active=='batting':
    hands=[(m[3]+.04,1.18+m[4],m[5]),(m[3]-.04,1.18+m[4],m[5])];feet=[(.30,.08+(params[0] if phase=='anticipation' else 0),.02),(-.30,.08,-.08)]
    pelvis.location.x=params[1] if phase=='anticipation' else -.075;pelvis.keyframe_insert('location',frame=frame)
@@ -117,6 +121,11 @@ for n,(name,p) in enumerate(author['players'].items()):
    if t>=1320:
     r=interp(curves['recoveryHands'],t);hands=[(-r[3],r[4],r[5]-18.44),(-r[0],r[1],r[2]-18.44)]
   for side,h,f in zip(['left','right'],hands,feet):
+   sign=1 if side=='left' else -1;pole=(sign*.40,1.44,.15)
+   if active=='delivery' and side=='right':
+    e=interp(curves['throwElbow'],t);pole=(-e[0],1.18+e[1],e[2])
+   elif active=='batting':pole=(sign*.34,1.18+(.12 if side=='left' else .28),.18)
+   poles[side].location=Vector(xyz(pole))+rig.location;poles[side].keyframe_insert('location',frame=frame)
    for part,v in [('hand',h),('foot',f)]:targets[side+part].location=Vector(xyz(v))+rig.location;targets[side+part].keyframe_insert('location',frame=frame)
  rig.animation_data.action.name=name+' contact IK prototype'
  export['players'][name]={**{k:v for k,v in p.items() if k!='controls'},'controls':curves,'headDeltas':deltas,'texture':'assets/players/characters/'+p['id']+'-head.webp'}

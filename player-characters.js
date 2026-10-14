@@ -1,6 +1,6 @@
 /* Blender proportions + continuous control curves. Portrait texture experiments are not applied to faces. */
 (function(root){let data=null,started=false,rev=0;
- function load(T){if(started)return;started=true;fetch('assets/players/characters/manifest.json?v=32.0-preview2').then(r=>{if(!r.ok)throw Error('Character manifest unavailable');return r.json();}).then(d=>{data=d;rev++;}).catch(e=>console.warn('Individual characters',e));}
+ function load(T){if(started)return;started=true;fetch('assets/players/characters/manifest.json?v=32.0-preview3').then(r=>{if(!r.ok)throw Error('Character manifest unavailable');return r.json();}).then(d=>{data=d;rev++;}).catch(e=>console.warn('Individual characters',e));}
  const profile=name=>data?.players[name],curve=(name,kind)=>profile(name)?.controls[kind];
  function apply(T,a,name){if(!a.human)return;const h=a.human,m=h.meshes[0],p=profile(name);if(!h.characterBase)h.characterBase={geometry:m.geometry,material:m.material};if(h.characterName===name&&h.characterProfile===p)return;
  if(m.geometry!==h.characterBase.geometry)m.geometry.dispose();if(Array.isArray(m.material))m.material[1].dispose();m.geometry=h.characterBase.geometry;m.material=h.characterBase.material;h.characterName=name;h.characterProfile=p;a.character=p||null;if(h.characterEyes)h.characterEyes.visible=false;if(!p)return;
