@@ -102,36 +102,38 @@ for kind in ['field','pitch','catch']:
    tube('Palm finger seam',[(x,.07+t*(tip-.07),surface(x,.07+t*(tip-.07))+.0008) for t in [i/20 for i in range(21)]],.00085,backMat)
   tube('Thumb inner bolster',[(.087+.025*math.sin(t*math.pi),-.055+t*.197,surface(.087+.025*math.sin(t*math.pi),-.055+t*.197)+.002) for t in [i/28 for i in range(29)]],.010,palmMat)
   tube('Pinky heel bolster',[(x*.93,y*.94,surface(x,y)-.002) for x,y in outline[:32]],.0065,palmMat)
-  # Web spans the thumb-index cleft; field glove is H-web, pitcher has a closed leather panel.
-  if kind=='pitch':
-   verts=[];faces=[];res=16
-   for row in range(res+1):
-    v=row/res
-    for col in range(res+1):
-     u=col/res;x=(.025+.002*v)*(1-u)+(.110-.015*v)*u
-     y=(.078+.065*v)*(1-u)+(.073+.060*v)*u
-     verts.append((x,y,surface(x,y)+.006+.009*math.sin(math.pi*u)))
-   for row in range(res):
-    for col in range(res):
-     a=row*(res+1)+col;faces.append((a,a+1,a+res+2,a+res+1))
-   o=mesh('Closed pitcher web',verts,faces,backMat);solid=o.modifiers.new('Web leather thickness','SOLIDIFY');solid.thickness=.006
+  # A continuous web has shared attachment coordinates at the index and
+  # thumb front edges. It is not suspended below the fingertips by cords.
+  def webpoint(u,v):
+   lx=.028-.008*v;ly=.100+.094*v
+   rx=.052+.048*v;ry=.088+.067*v
+   x=lx*(1-u)+rx*u;y=ly*(1-u)+ry*u
+   return (x,y,surface(x,y)+.002+.008*math.sin(math.pi*u)*math.sin(math.pi*v))
+  def webpanel(name,u0,u1,v0,v1):
+   verts=[];faces=[];nu=20;nv=16
+   for row in range(nv+1):
+    for col in range(nu+1):verts.append(webpoint(u0+(u1-u0)*col/nu,v0+(v1-v0)*row/nv))
+   for row in range(nv):
+    for col in range(nu):
+     a=row*(nu+1)+col;faces.append((a,a+1,a+nu+2,a+nu+1))
+   o=mesh(name,verts,faces,backMat);solid=o.modifiers.new('Double leather web','SOLIDIFY');solid.thickness=.004
+   bevel=o.modifiers.new('Rounded web edges','BEVEL');bevel.width=.001;bevel.segments=2
+  if kind=='pitch':webpanel('Closed pitcher web',0,1,0,1)
   else:
-   # Supplied front photo uses an I-shaped leather web, with ladder lacing
-   # at its two sides. The laces attach the web to the finger/thumb shells.
-   def webpoint(u,v):
-    left=.026+.001*v;right=.108-.013*v
-    x=left*(1-u)+right*u;y=.092+.061*v-.008*u
-    return (x,y,surface(x,y)+.005+.008*math.sin(math.pi*u))
-   strip('I web central leather', [webpoint(.50,v) for v in [i/16 for i in range(17)]],.022)
-   strip('I web top crossbar', [webpoint(u,.94) for u in [i/20 for i in range(21)]],.016)
-   strip('I web heel crossbar', [webpoint(u,.07) for u in [i/20 for i in range(21)]],.014)
-   for side in [0,1]:
-    for row in range(4):
-     v=.18+row*.19;edge=side;inner=.36 if side==0 else .64
-     a=webpoint(edge,v);b=webpoint(inner,v+.035)
-     # Two short legs form a leather loop, rather than a loose full-width cord.
-     c=webpoint(inner,v+.105);d=webpoint(edge,v+.07)
-     tube('Web side attachment',[(a[0],a[1],a[2]+.002),(b[0],b[1],b[2]+.004),(c[0],c[1],c[2]+.004),(d[0],d[1],d[2]+.002)],.0019,laceMat)
+   webpanel('I web index sewn flange',0,.14,0,1)
+   webpanel('I web thumb sewn flange',.86,1,0,1)
+   webpanel('I web central leather',.38,.62,.12,.90)
+   webpanel('I web tip bridge',0,1,.80,1)
+   webpanel('I web lower bridge',0,1,.12,.34)
+  tube('Continuous fingertip web binding',[webpoint(i/32,1) for i in range(33)],.003,bindingMat)
+  for side in [0,1]:
+   for row in range(9):
+    v=.08+row*.10;inner=.11 if side==0 else .89
+    a=webpoint(side,v);b=webpoint(inner,v+.025);c=webpoint(side,v+.045)
+    tube('Web sewn edge lace',[(a[0],a[1],a[2]-.003),(a[0],a[1],a[2]+.004),(b[0],b[1],b[2]+.004),(c[0],c[1],c[2]-.003)],.0017,laceMat)
+  for col in range(11):
+   u=.025+col*.095;a=webpoint(u,.99);b=webpoint(u+.025,.83)
+   tube('Web top binding lace',[(a[0],a[1],a[2]-.003),(a[0],a[1],a[2]+.005),(b[0],b[1],b[2]+.004)],.0017,laceMat)
   tube('Thumb padded seam',[(.092+.021*math.sin(i/24*math.pi),-.041+i/24*.181,surface(.092+.021*math.sin(i/24*math.pi),-.041+i/24*.181,True)-.002) for i in range(25)],.0022,bindingMat)
  else:
   # Catcher's mitt: broad crescent cushions, closed fingers and a separate thumb pad.
