@@ -32,9 +32,11 @@ for kind in ['field','pitch','catch']:
   if kind=='catch':z=.022+.073*(x/.16)**2+.037*((y-.005)/.18)**2
   else:z=.009+.070*(x/.135)**2+.032*((y-.02)/.205)**2+.012*math.exp(-((x-.11)/.033)**2-((y-.07)/.08)**2)
   if back:
-   z-=.052+.012*math.exp(-(x/.07)**2-((y+.015)/.1)**2)
-   if kind!='catch':z-=.012*sum(math.exp(-((x-c)/.014)**2)*smooth((y-.005)/.07)*(1-smooth((y-tip+.015)/.025)) for c,tip in [(-.10,.173),(-.064,.198),(-.027,.215),(.007,.207)])
-   if kind!='catch':z-=.011*math.exp(-((x-.112)/.027)**2-((y-.055)/.095)**2)
+   edge=min((Vector((x,y))-Vector(a)).length if Vector(b).to_2d()==Vector(a).to_2d() else (Vector((x,y))- (Vector(a)+(Vector(b)-Vector(a))*max(0,min(1,(Vector((x,y))-Vector(a)).dot(Vector(b)-Vector(a))/(Vector(b)-Vector(a)).length_squared)))).length for a,b in zip(outline,outline[1:]+outline[:1]))
+   cap=smooth(edge/.025) if not(y<-.070 and abs(x)<.065) else 1
+   z-=.006+.046*cap+.012*cap*math.exp(-(x/.07)**2-((y+.015)/.1)**2)
+   if kind!='catch':z-=.012*cap*sum(math.exp(-((x-c)/.014)**2)*smooth((y-.005)/.07)*(1-smooth((y-tip+.015)/.025)) for c,tip in [(-.10,.173),(-.064,.198),(-.027,.215),(.007,.207)])
+   if kind!='catch':z-=.011*cap*math.exp(-((x-.112)/.027)**2-((y-.055)/.095)**2)
   return z
  def boundary(cx,cy,a):
   dx,dy=math.cos(a),math.sin(a);best=1
@@ -73,7 +75,7 @@ for kind in ['field','pitch','catch']:
   for j in range(M):
    for i in range(N):
     ids=[j*N+i,j*N+(i+1)%N,(j+1)*N+(i+1)%N,(j+1)*N+i];x=sum(verts[k][0] for k in ids)/4;y=sum(verts[k][1] for k in ids)/4
-    web=kind!='catch' and ((x-.055)/.027)**2+((y-.122)/.036)**2<1
+    web=kind!='catch' and ((x-.057)/.031)**2+((y-.106)/.029)**2<1
     if web:continue
     faces.append(ids if back else ids[::-1])
   mesh(('Dorsal wrist aperture' if back else 'Continuous concave palm'),verts,faces,backMat if back else palmMat)
@@ -104,11 +106,21 @@ for kind in ['field','pitch','catch']:
   tube('Pinky heel bolster',[(x*.93,y*.94,surface(x,y)-.002) for x,y in outline[:32]],.0065,palmMat)
   # Web spans the thumb-index cleft; field glove is H-web, pitcher has a closed leather panel.
   if kind=='pitch':
-   verts=[(x,y,surface(x,y)+.002) for x,y in [(.026,.088),(.026,.151),(.096,.166),(.116,.122),(.092,.086)]]
-   o=mesh('Closed pitcher web',verts,[list(range(5))],backMat);solid=o.modifiers.new('Web leather thickness','SOLIDIFY');solid.thickness=.006
+   verts=[];faces=[];res=16
+   for row in range(res+1):
+    v=row/res
+    for col in range(res+1):
+     u=col/res;x=(.025+.002*v)*(1-u)+(.110-.015*v)*u
+     y=(.078+.065*v)*(1-u)+(.073+.060*v)*u
+     verts.append((x,y,surface(x,y)+.006+.009*math.sin(math.pi*u)))
+   for row in range(res):
+    for col in range(res):
+     a=row*(res+1)+col;faces.append((a,a+1,a+res+2,a+res+1))
+   o=mesh('Closed pitcher web',verts,faces,backMat);solid=o.modifiers.new('Web leather thickness','SOLIDIFY');solid.thickness=.006
   else:
-   for x in [.034,.088]:strip('H web upright',[(x,y,surface(x,y)) for y in [.09,.105,.125,.145,.156]],.013)
-   strip('H web crosspiece',[(x,.123,surface(x,.123)+.002) for x in [.034,.05,.07,.088]],.016)
+   strip('Index-side web anchor',[(.027,y,surface(.027,y)+.003) for y in [.080,.095,.112,.130,.143]],.013)
+   strip('Thumb-side web anchor',[(.096,y,surface(.096,y)+.003) for y in [.073,.087,.102,.118,.133]],.013)
+   strip('Recessed H web crosspiece',[(x,y,surface(x,y)+rise) for x,y,rise in [(.028,.112,.003),(.048,.108,.012),(.072,.102,.012),(.096,.097,.003)]],.016)
   tube('Thumb padded seam',[(.092+.021*math.sin(i/24*math.pi),-.041+i/24*.181,surface(.092+.021*math.sin(i/24*math.pi),-.041+i/24*.181,True)-.002) for i in range(25)],.0022,bindingMat)
  else:
   # Catcher's mitt: broad crescent cushions, closed fingers and a separate thumb pad.
@@ -123,7 +135,7 @@ for kind in ['field','pitch','catch']:
   rise=.017 if kind=='catch' else .005
   tube('Perimeter stitch',[(x*inset,y*inset,surface(x,y)+rise),(x,y,surface(x,y)+rise),(xx,yy,surface(xx,yy)+rise),(xx*inset,yy*inset,surface(xx,yy)+rise)],.0027 if kind=='catch' else .0019,laceMat)
  if kind!='catch':
-  for y in [.090,.112,.135,.153]:
+  for y in [.083,.101,.119,.135]:
    tube('Web cross lace',[(.028,y,surface(.028,y)+.008),(.046,y+.009,surface(.046,y)+.008),(.07,y,surface(.07,y)+.008),(.092,y+.007,surface(.092,y)+.008)],.0018,laceMat)
  # Bake editable curves/modifiers into a single GLB mesh with material groups and two closure shapes.
  bpy.ops.object.select_all(action='DESELECT')
