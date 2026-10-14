@@ -14,7 +14,7 @@
    polygon=clip(polygon,cut);if(polygon.length<3)continue;
    for(let k=1;k<polygon.length-1;k++)for(const v of [polygon[0],polygon[k],polygon[k+1]]){const pt=v.p.clone().addScaledVector(v.n,.003);positions.push(pt.x,pt.y,pt.z);const packed=[...v.skin].sort((a,b)=>b[1]-a[1]).slice(0,4),sum=packed.reduce((s,p)=>s+p[1],0);for(let j=0;j<4;j++){indices.push(packed[j]?.[0]||0);weights.push((packed[j]?.[1]||0)/(sum||1));}}
   }
-  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setAttribute('skinIndex',new T.Float32BufferAttribute(indices,4));g.setAttribute('skinWeight',new T.Float32BufferAttribute(weights,4));g.computeVertexNormals();return g;
+  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setAttribute('skinIndex',new T.Float32BufferAttribute(indices,4));g.setAttribute('skinWeight',new T.Float32BufferAttribute(weights,4));root.CPBLHuman.smoothNormals(T,g);return g;
  }
  function apply(T,a,p,team){if(!a.human)return;const name=(p.name||'').replace(/^[◎#*\s]+/,''),profile=root.CPBLLayering?.[team+'/'+name],key=team+'/'+name+'/'+JSON.stringify(profile||null);if(a.baseLayers?.key===key)return;clear(a);a.baseLayers={key,meshes:[],profile};if(!profile)return;
   const add=(kind,length,color)=>{const g=geometry(T,a,kind,length);if(!g.attributes.position.count){g.dispose();return;}const mesh=new T.SkinnedMesh(g,new T.MeshStandardMaterial({color,roughness:.93,side:T.DoubleSide}));mesh.castShadow=mesh.receiveShadow=true;mesh.frustumCulled=false;a.group.add(mesh);mesh.bind(a.human.skeleton,a.human.meshes[0].bindMatrix);a.baseLayers.meshes.push(mesh);};

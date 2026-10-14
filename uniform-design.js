@@ -30,7 +30,7 @@
  }
  function shirtGeometry(T,a){const source=a.human.meshes[1].geometry,g=source.index?source.toNonIndexed():source.clone(),p=g.attributes.position,ids=g.attributes.skinIndex,w=g.attributes.skinWeight,uv=new Float32Array(p.count*2);
   // Open the round source neckline into the shallow V of a button-front jersey.
-  for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),front=T.MathUtils.smoothstep(z,.005,.07),upper=T.MathUtils.smoothstep(y,1.54,1.635),center=Math.pow(Math.max(0,1-Math.abs(x)/.105),1.35);p.setY(i,y-.052*front*upper*center);}g.computeVertexNormals();
+  for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),front=T.MathUtils.smoothstep(z,.005,.07),upper=T.MathUtils.smoothstep(y,1.54,1.635),center=Math.pow(Math.max(0,1-Math.abs(x)/.105),1.35);p.setY(i,y-.052*front*upper*center);}root.CPBLHuman.smoothNormals(T,g);
   const basis={};for(const side of ['left','right']){const arm=a.parts[side+'Arm'],elbow=a.parts[side+'Elbow'];const shoulder=arm.getWorldPosition(new T.Vector3()),end=elbow.getWorldPosition(new T.Vector3());a.group.worldToLocal(shoulder);a.group.worldToLocal(end);const axis=end.sub(shoulder).normalize(),front=new T.Vector3(0,0,1).addScaledVector(axis,-axis.z).normalize(),cross=axis.clone().cross(front).normalize();basis[side]={shoulder,axis,front,cross};}
   // Rest-space sleeve axes come from asset joints, independent of the current animation.
   const joints=a.human.armJoints;for(const side of ['left','right'])if(joints?.[side]){const j=joints[side],shoulder=new T.Vector3(...j.shoulder),axis=new T.Vector3(...j.elbow).sub(shoulder).normalize(),front=new T.Vector3(0,0,1).addScaledVector(axis,-axis.z).normalize();basis[side]={shoulder,axis,front,cross:axis.clone().cross(front).normalize()};}
