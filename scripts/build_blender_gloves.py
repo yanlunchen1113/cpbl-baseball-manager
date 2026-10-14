@@ -4,6 +4,7 @@ References and observed/inferred details: references/blender-gloves/README.md
 import bpy, math, json
 from pathlib import Path
 from mathutils import Vector
+from mathutils.geometry import tessellate_polygon, delaunay_2d_cdt
 R=Path(__file__).resolve().parents[1];OUT=R/'assets/equipment';OUT.mkdir(parents=True,exist_ok=True)
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
 def xyz(p):return (p[0],-p[2],p[1])
@@ -34,7 +35,7 @@ for kind in ['field','pitch','catch']:
   if back:
    edge=min((Vector((x,y))-Vector(a)).length if Vector(b).to_2d()==Vector(a).to_2d() else (Vector((x,y))- (Vector(a)+(Vector(b)-Vector(a))*max(0,min(1,(Vector((x,y))-Vector(a)).dot(Vector(b)-Vector(a))/(Vector(b)-Vector(a)).length_squared)))).length for a,b in zip(outline,outline[1:]+outline[:1]))
    cap=smooth(edge/.025) if not(y<-.070 and abs(x)<.065) else 1
-   z-=.006+.046*cap+.012*cap*math.exp(-(x/.07)**2-((y+.015)/.1)**2)
+   z-=.006+.046*cap+.024*cap*math.exp(-((x-.025)/.075)**2-((y-.040)/.090)**2)
    if kind!='catch':z-=.012*cap*sum(math.exp(-((x-c)/.014)**2)*smooth((y-.005)/.07)*(1-smooth((y-tip+.015)/.025)) for c,tip in [(-.10,.173),(-.064,.198),(-.027,.215),(.007,.207)])
    if kind!='catch':z-=.011*cap*math.exp(-((x-.112)/.027)**2-((y-.055)/.095)**2)
   return z
@@ -63,20 +64,27 @@ for kind in ['field','pitch','catch']:
     k=i*4
     for j in range(4):faces.append([k-4+j,k-4+(j+1)%4,k+(j+1)%4,k+j])
   faces.extend([[3,2,1,0],list(range(len(verts)-4,len(verts)))]);o=mesh(name,verts,faces,backMat);bevel=o.modifiers.new('Soft leather edges','BEVEL');bevel.width=.001;bevel.segments=2
- N=112;M=16
- # Front leather pocket: shallow for fielders, deeper rounded pad for catchers.
+ # Use one constrained, evenly sampled triangulation for each leather panel.
+ # The shared boundary removes gaps; constrained edges preserve the concave cleft.
+ def inside_polygon(x,y):
+  inside=False
+  for a,b in zip(outline,outline[1:]+outline[:1]):
+   if (a[1]>y)!=(b[1]>y) and x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0]:inside=not inside
+  return inside
  for back in [False,True]:
-  cx,cy=(0,-.060) if back else (-.012,.018);verts=[];faces=[]
-  for j in range(M+1):
-   t=j/M
-   for i in range(N):
-    a=2*math.pi*i/N;r=boundary(cx,cy,a);inner=1/math.sqrt((math.cos(a)/.050)**2+(math.sin(a)/.032)**2) if back else 0
-    rho=inner+(r-inner)*t;x=cx+rho*math.cos(a);y=cy+rho*math.sin(a);verts.append((x,y,surface(x,y,back)))
-  for j in range(M):
-   for i in range(N):
-    ids=[j*N+i,j*N+(i+1)%N,(j+1)*N+(i+1)%N,(j+1)*N+i];x=sum(verts[k][0] for k in ids)/4;y=sum(verts[k][1] for k in ids)/4
-    faces.append(ids if back else ids[::-1])
-  mesh(('Dorsal wrist aperture' if back else 'Continuous concave palm'),verts,faces,backMat if back else palmMat)
+  hole=[(.050*math.cos(a),-.060+.032*math.sin(a)) for a in [2*math.pi*i/64 for i in range(64)]] if back else []
+  coords=[Vector(v) for v in outline+hole];edges=[(i,(i+1)%len(outline)) for i in range(len(outline))]
+  if hole:edges.extend((len(outline)+i,len(outline)+(i+1)%len(hole)) for i in range(len(hole)))
+  for ix in range(-24,25):
+   for iy in range(-21,33):
+    x=ix*.007;y=iy*.007
+    if inside_polygon(x,y) and not(back and (x/.050)**2+((y+.060)/.032)**2<1.03):coords.append(Vector((x,y)))
+  cv,ce,cf,*_=delaunay_2d_cdt(coords,edges,[],0,1e-8,False)
+  verts=[(v.x,v.y,surface(v.x,v.y,back)) for v in cv];faces=[]
+  for face in cf:
+   x=sum(cv[i].x for i in face)/len(face);y=sum(cv[i].y for i in face)/len(face)
+   if inside_polygon(x,y) and not(back and (x/.050)**2+((y+.060)/.032)**2<1):faces.append(face)
+  mesh('Dorsal shell with wrist aperture' if back else 'Continuous triangulated palm',verts,faces,backMat if back else palmMat)
  # Connect front/back perimeter, giving leather panels actual thickness.
  verts=[];faces=[]
  for x,y in outline:verts.extend([(x,y,surface(x,y)),(x,y,surface(x,y,True))])
@@ -140,8 +148,17 @@ for kind in ['field','pitch','catch']:
   finger=outline[:int(len(outline)*.55)];thumb=outline[int(len(outline)*.57):]
   tube('Finger crescent padding',[(x*.92,y*.92,surface(x,y)-.005) for x,y in finger],.0135,palmMat)
   tube('Thumb crescent padding',[(x*.91,y*.92,surface(x,y)-.004) for x,y in thumb],.0145,palmMat)
-  strip('Catcher web bridge',[(.026,.122,.065),(.05,.129,.075),(.075,.12,.085),(.092,.108,.09)],.022)
-  strip('Catcher web lower',[(.035,.102,.055),(.055,.11,.065),(.078,.098,.08)],.012)
+  verts=[];faces=[];res=16
+  for row in range(res+1):
+   v=row/res
+   for col in range(res+1):
+    u=col/res;x=(.039-.024*v)*(1-u)+(.087+.035*v)*u;y=(.105+.050*v)*(1-u)+(.094+.025*v)*u
+    verts.append((x,y,surface(x,y)+.004+.006*math.sin(math.pi*u)))
+  for row in range(res):
+   for col in range(res):
+    a=row*(res+1)+col;faces.append((a,a+1,a+res+2,a+res+1))
+  o=mesh('Continuous catcher web',verts,faces,backMat);solid=o.modifiers.new('Padded web leather','SOLIDIFY');solid.thickness=.007
+  tube('Catcher web top binding',[verts[res*(res+1)+i] for i in range(res+1)],.004,bindingMat)
  # Short laces sit against the leather, with small knots rather than long spaghetti.
  for i in range(0,len(outline),3 if kind=='catch' else 5):
   x,y=outline[i];xx,yy=outline[(i+2)%len(outline)];inset=.94
@@ -158,13 +175,14 @@ for kind in ['field','pitch','catch']:
   v=o.data.vertices[loop.vertex_index].co;uv.data[loop.index].uv=(v.x*3+.5,v.z*3+.5)
  o.shape_key_add(name='Basis')
  def fold(v,amount):
-  x,y,z=v;heel=smooth((y+.080)/.115);side=-1 if x<.025 else 1;wing=smooth(abs(x-.018)/.11)*heel;a=-side*(1.05 if side<0 else 1.10)*amount*wing
+  x,y,z=v;heel=smooth((y+.115)/.100);side=-1 if x<.018 else 1;a=-math.tanh((x-.018)/.025)*1.00*amount*heel
   dx=x-.018;dz=z-.005;x=.018+dx*math.cos(a)+dz*math.sin(a);z=.005-dx*math.sin(a)+dz*math.cos(a)
-  curl=.28*amount*smooth((y-.045)/.15);dy=y-.045;dz=z-.025;y=.045+dy*math.cos(curl)-dz*math.sin(curl);z=.025+dy*math.sin(curl)+dz*math.cos(curl);return (x,y,z)
+  curl=.16*amount*smooth((y-.045)/.15);dy=y-.045;dz=z-.025;y=.045+dy*math.cos(curl)-dz*math.sin(curl);z=.025+dy*math.sin(curl)+dz*math.cos(curl);return (x,y,z)
  # Bake the natural cupped rest pose into Basis. 'Open' is not an unfolded flat pattern.
  def proportions(v):
   x,y,z=v
-  if kind!='catch':x=x*1.10+(.015*smooth((y+.01)/.14) if x>.07 else 0);y=y if y<.03 else .03+(y-.03)*.78
+  if kind!='catch':
+   x=(x*1.10+(.015*smooth((y+.01)/.14) if x>.07 else 0))*(.83+.17*smooth((y+.08)/.14));y=y if y<.03 else .03+(y-.03)*.78
   else:x*=1.08;y*=.94
   return (x,y,z)
  rest=[proportions((v.co.x,v.co.z,-v.co.y)) for v in o.data.vertices]
@@ -192,4 +210,4 @@ bpy.ops.wm.save_as_mainfile(filepath=str(R/'assets/players/blender/baseball-glov
 if '--render' in __import__('sys').argv:
  scene.render.filepath=str(R/'references/blender-gloves/studio-front.png');bpy.ops.render.render(write_still=True)
  cam.location=(0,1.5,.30);cam.rotation_euler=(Vector((0,0,.04))-cam.location).to_track_quat('-Z','Y').to_euler();scene.render.filepath=str(R/'references/blender-gloves/studio-back.png');bpy.ops.render.render(write_still=True)
-print('Saved editable Blender gloves, three GLBs, and front/back renders')
+print('Saved editable Blender gloves and three GLBs; use --render for studio images')
