@@ -4,7 +4,7 @@ Coordinates convert runtime Y-up to Blender Z-up. Not mocap or scans.
 """
 import bpy, json, struct, math
 from pathlib import Path
-from mathutils import Vector
+from mathutils import Vector, Matrix, Euler, Quaternion
 ROOT=Path(__file__).resolve().parents[1]
 meta=json.loads((ROOT/'assets/players/human.json').read_text())
 author=json.loads((ROOT/'data/character-authoring.json').read_text())
@@ -31,7 +31,7 @@ def delta(v,f):
  return (dx,dy,dz)
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
 scene=bpy.context.scene;scene.render.fps=50
-export={'revision':author['revision'],'method':'Blender AUTO_CLAMPED authored controls + runtime contact IK','players':{}}
+export={'revision':author['revision'],'method':'Blender AUTO_CLAMPED controls; contact IK before release and authored FK in pitch recovery','players':{}}
 for n,(name,p) in enumerate(author['players'].items()):
  coll=bpy.data.collections.new(name);scene.collection.children.link(coll)
  def move(o):
@@ -106,6 +106,30 @@ for n,(name,p) in enumerate(author['players'].items()):
    if t<=b[0]:
     u=max(0,(t-a[0])/(b[0]-a[0]));return [x+(y-x)*u for x,y in zip(a[1:],b[1:])]
   return rows[-1][1:]
+ fk_last_quaternions={}
+ def recovery_fk_keys(t,frame):
+  if 'recoveryFK' not in curves:return
+  w=smooth(1320,1460,t)
+  if w<=0:
+   for side in ['left','right']:
+    con=next(c for c in rig.pose.bones[side+'Elbow'].constraints if c.type=='IK');con.influence=1;con.keyframe_insert('influence',frame=frame)
+   return
+  values=interp(curves['recoveryFK'],t)
+  for side in ['left','right']:
+   con=next(c for c in rig.pose.bones[side+'Elbow'].constraints if c.type=='IK');con.influence=1-w;con.keyframe_insert('influence',frame=frame)
+  bpy.context.view_layer.update()
+  S=Matrix(((1,0,0),(0,0,-1),(0,1,0)));body_delta=rig.pose.bones['body'].matrix @ arm.bones['body'].matrix_local.inverted();body_rotation=body_delta.to_3x3()
+  for side in ['left','right']:
+   offset=0 if side=='right' else 4;flex,spread,twist,bend=values[offset:offset+4];sign=1 if side=='left' else -1
+   rq=Euler((-flex,0,sign*spread),'XYZ').to_quaternion() @ Quaternion((0,1,0),math.pi+twist);target=S @ rq.to_matrix()
+   j=meta['armJoints'][side];shoulder=Vector(xyz(j['shoulder']));elbow=Vector(xyz(j['elbow']));palm=Vector(xyz(j['palm']));upper_vector=elbow-shoulder;u=upper_vector.normalized();lower=(palm-elbow).normalized();hinge=u.cross(lower).normalized();up=-u;basis=Matrix((hinge,up,hinge.cross(up).normalized())).transposed();bind_bend=math.acos(max(-1,min(1,u.dot(lower))))
+   up_pose=rig.pose.bones[side+'Arm'];low_pose=rig.pose.bones[side+'Elbow'];up_pose.rotation_mode=low_pose.rotation_mode='QUATERNION'
+   up_matrix=(body_rotation @ target @ basis.inverted() @ arm.bones[side+'Arm'].matrix_local.to_3x3()).to_4x4();up_matrix.translation=body_delta @ shoulder;up_pose.matrix=up_matrix
+   low_matrix=(body_rotation @ target @ Matrix.Rotation(bend,3,'X') @ (basis @ Matrix.Rotation(bind_bend,3,'X')).inverted() @ arm.bones[side+'Elbow'].matrix_local.to_3x3()).to_4x4();low_matrix.translation=body_delta @ (shoulder+target @ Vector((0,-upper_vector.length,0)));low_pose.matrix=low_matrix
+   for pose in [up_pose,low_pose]:
+    previous=fk_last_quaternions.get(pose.name)
+    if previous is not None and pose.rotation_quaternion.dot(previous)<0:pose.rotation_quaternion.negate()
+    fk_last_quaternions[pose.name]=pose.rotation_quaternion.copy();pose.keyframe_insert('rotation_quaternion',frame=frame)
  active='batting' if p['role']=='batter' else 'delivery'
  timeline=[(row[0],active,row[1:]) for row in curves[active]]
  if active=='batting':
@@ -127,7 +151,14 @@ for n,(name,p) in enumerate(author['players'].items()):
    elif active=='batting':pole=(sign*.34,1.18+(.12 if side=='left' else .28),.18)
    poles[side].location=Vector(xyz(pole))+rig.location;poles[side].keyframe_insert('location',frame=frame)
    for part,v in [('hand',h),('foot',f)]:targets[side+part].location=Vector(xyz(v))+rig.location;targets[side+part].keyframe_insert('location',frame=frame)
- rig.animation_data.action.name=name+' contact IK prototype'
+  if active=='delivery':recovery_fk_keys(t,frame)
+ rig.animation_data.action.name=name+' authored motion prototype'
+ for layer in rig.animation_data.action.layers:
+  for strip in layer.strips:
+   for bag in strip.channelbags:
+    for fc in bag.fcurves:
+     if fc.data_path.endswith('rotation_quaternion'):
+      for key in fc.keyframe_points:key.interpolation='LINEAR'
  export['players'][name]={**{k:v for k,v in p.items() if k!='controls'},'controls':curves,'headDeltas':deltas,'texture':'assets/players/characters/'+p['id']+'-head.webp'}
  rig.select_set(False)
 scene.frame_end=170;scene.frame_set(0)
