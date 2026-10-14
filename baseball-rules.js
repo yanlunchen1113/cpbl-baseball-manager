@@ -14,6 +14,7 @@
    runner.slide=leg.base!==0&&(kind==='tag'||Math.abs(arrival-time)<700);runner.slideStart=arrival-550;
    const contact=runnerPoint(runner,time),play={kind,base:leg.base,receiver:leg.receiver,runner:runner.index,receiveAt:leg.end,begin:forced?leg.end:Math.max(leg.end+80,arrival-420),time,end:time+950,arrival,out,contact:{x:contact.x,y:runner.slide?.38:.88,z:contact.z},receiverPosition:forced?base:{x:base.x-dx*(runner.slide?1.2:.7)-dz*.35,z:base.z-dz*(runner.slide?1.2:.7)+dx*.35}};
    // Non-force plays require possession plus contact with the runner before the bag.
+   if(kind==='tag'){leg.receiverPosition={...play.receiverPosition};leg.to={x:play.receiverPosition.x,y:1.15,z:play.receiverPosition.z};}
    play.possessionAt=leg.end;play.contactAt=kind==='tag'?time:null;play.contactDistance=Math.hypot(contact.x-play.receiverPosition.x,contact.z-play.receiverPosition.z);if(kind==='tag'&&play.contactDistance>.90)play.out=false;plays.push(play);calls.push({...play});if(play.out){runner.outAt=time;runner.outKind=kind;}else delete runner.outKind;
   }
   calls.sort((a,b)=>a.time-b.time);let outsAdded=0,third=null;for(const c of calls){if(!c.out)continue;if(context.outs+outsAdded>=3){c.out=false;const r=plans.find(p=>p.index===c.runner);if(r){delete r.outAt;delete r.outKind;}continue;}outsAdded++;if(context.outs+outsAdded===3)third=c;}

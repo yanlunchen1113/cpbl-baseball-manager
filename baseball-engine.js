@@ -114,7 +114,7 @@
  // Every defender reacts, while one pursues and the others cover or back up.
  function supportPoint(h,index,elapsed){let start=h.defenseStarts?.[index]||fielders[index];if(index===h.fielder)return fielderPoint(h,elapsed);if(h.event==='homer')return {...start,moving:false,speed:0};
   const receiving=(h.throwLegs||[]).find(l=>l.receiver===index);let target,role;
-  if(receiving){target=receiving.receiverPosition||receiving.to;role=index===7&&receiving.base===0?'cover-first':'cover';}
+  if(receiving){const tag=(h.basePlays||[]).find(p=>p.receiver===index&&p.kind==='tag');target=tag?.receiverPosition||receiving.receiverPosition||receiving.to;role=index===7&&receiving.base===0?'cover-first':'cover';}
   else if(index===7){
    if(h.kind==='ground'&&h.pickup?.x<0&&elapsed<(h.fieldAtMs||h.pickupMs)+700){target=bases[0];role='prepare-first';}
    else if(h.caught&&!h.throwLegs?.length||h.event==='catch'&&!h.throwLegs?.length){target={x:0,z:17.65};role='hold';}
