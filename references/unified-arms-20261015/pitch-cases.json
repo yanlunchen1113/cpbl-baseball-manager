@@ -1,0 +1,74 @@
+[
+  {
+    "label": "四縫線",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "二縫線",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "伸卡球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "卡特球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "滑球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "橫掃球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "曲球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "變速球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "指叉球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "掌心球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "蝴蝶球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  },
+  {
+    "label": "快速球",
+    "flex": "90.0,79.6",
+    "ms": "1800",
+    "system": "bilateral-rig-21"
+  }
+]
