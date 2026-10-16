@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-12T20:36:31.923305+00:00",
+  "updatedAt": "2026-10-16T20:48:18.479188+00:00",
   "source": "https://stats.cpbl.com.tw/players",
   "scope": "官網現有一、二軍名單；非單場登錄打線",
   "teams": [
@@ -3861,6 +3861,39 @@
           "source": "https://stats.cpbl.com.tw/players/0000007083"
         },
         {
+          "id": "0000007581",
+          "name": "黃暐傑",
+          "officialName": "黃暐傑",
+          "number": "14",
+          "height": 185,
+          "position": "投手",
+          "isPitcher": true,
+          "level": 1,
+          "source": "https://stats.cpbl.com.tw/players/0000007581"
+        },
+        {
+          "id": "0000007779",
+          "name": "蔣銲",
+          "officialName": "蔣銲",
+          "number": "33",
+          "height": 193,
+          "position": "投手",
+          "isPitcher": true,
+          "level": 1,
+          "source": "https://stats.cpbl.com.tw/players/0000007779"
+        },
+        {
+          "id": "0000006497",
+          "name": "鋼龍",
+          "officialName": "鋼龍",
+          "number": "37",
+          "height": 193,
+          "position": "投手",
+          "isPitcher": true,
+          "level": 1,
+          "source": "https://stats.cpbl.com.tw/players/0000006497"
+        },
+        {
           "id": "0000005552",
           "name": "呂偉晟",
           "officialName": "呂偉晟",
@@ -3883,26 +3916,15 @@
           "source": "https://stats.cpbl.com.tw/players/0000006215"
         },
         {
-          "id": "0000006159",
-          "name": "林逸達",
-          "officialName": "林逸達",
-          "number": "48",
+          "id": "0000000762",
+          "name": "伍鐸",
+          "officialName": "伍鐸",
+          "number": "52",
           "height": 185,
           "position": "投手",
           "isPitcher": true,
           "level": 1,
-          "source": "https://stats.cpbl.com.tw/players/0000006159"
-        },
-        {
-          "id": "0000006910",
-          "name": "王伯洋",
-          "officialName": "王伯洋",
-          "number": "54",
-          "height": 180,
-          "position": "投手",
-          "isPitcher": true,
-          "level": 1,
-          "source": "https://stats.cpbl.com.tw/players/0000006910"
+          "source": "https://stats.cpbl.com.tw/players/0000000762"
         },
         {
           "id": "0000005555",
@@ -3947,6 +3969,17 @@
           "isPitcher": true,
           "level": 1,
           "source": "https://stats.cpbl.com.tw/players/0000005789"
+        },
+        {
+          "id": "0000006555",
+          "name": "梅賽鍶",
+          "officialName": "梅賽鍶",
+          "number": "95",
+          "height": 190,
+          "position": "投手",
+          "isPitcher": true,
+          "level": 1,
+          "source": "https://stats.cpbl.com.tw/players/0000006555"
         },
         {
           "id": "0000005788",
@@ -4004,17 +4037,6 @@
           "source": "https://stats.cpbl.com.tw/players/0000001318"
         },
         {
-          "id": "0000005538",
-          "name": "黃柏豪",
-          "officialName": "黃柏豪",
-          "number": "16",
-          "height": 178,
-          "position": "一壘手",
-          "isPitcher": false,
-          "level": 1,
-          "source": "https://stats.cpbl.com.tw/players/0000005538"
-        },
-        {
           "id": "0000005540",
           "name": "李凱威",
           "officialName": "李凱威",
@@ -4070,6 +4092,17 @@
           "source": "https://stats.cpbl.com.tw/players/0000005553"
         },
         {
+          "id": "0000006726",
+          "name": "李展毅",
+          "officialName": "李展毅",
+          "number": "36",
+          "height": 188,
+          "position": "一壘手",
+          "isPitcher": false,
+          "level": 1,
+          "source": "https://stats.cpbl.com.tw/players/0000006726"
+        },
+        {
           "id": "0000005545",
           "name": "劉基鴻",
           "officialName": "劉基鴻",
@@ -4114,6 +4147,17 @@
           "source": "https://stats.cpbl.com.tw/players/0000005291"
         },
         {
+          "id": "0000005563",
+          "name": "姚冠瑋",
+          "officialName": "姚冠瑋",
+          "number": "65",
+          "height": 170,
+          "position": "捕手",
+          "isPitcher": false,
+          "level": 1,
+          "source": "https://stats.cpbl.com.tw/players/0000005563"
+        },
+        {
           "id": "0000000356",
           "name": "石翔宇",
           "officialName": "石翔宇",
@@ -4125,15 +4169,15 @@
           "source": "https://stats.cpbl.com.tw/players/0000000356"
         },
         {
-          "id": "0000006879",
-          "name": "冉皓燐",
-          "officialName": "冉皓燐",
-          "number": "82",
-          "height": 183,
-          "position": "中外野手",
+          "id": "0000006725",
+          "name": "張祐嘉",
+          "officialName": "張祐嘉",
+          "number": "81",
+          "height": 185,
+          "position": "右外野手",
           "isPitcher": false,
           "level": 1,
-          "source": "https://stats.cpbl.com.tw/players/0000006879"
+          "source": "https://stats.cpbl.com.tw/players/0000006725"
         },
         {
           "id": "0000004646",
@@ -4156,17 +4200,6 @@
           "isPitcher": true,
           "level": 2,
           "source": "https://stats.cpbl.com.tw/players/0000007264"
-        },
-        {
-          "id": "0000007581",
-          "name": "黃暐傑",
-          "officialName": "黃暐傑",
-          "number": "14",
-          "height": 185,
-          "position": "投手",
-          "isPitcher": true,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000007581"
         },
         {
           "id": "0000006236",
@@ -4213,28 +4246,6 @@
           "source": "https://stats.cpbl.com.tw/players/0000007081"
         },
         {
-          "id": "0000007779",
-          "name": "蔣銲",
-          "officialName": "蔣銲",
-          "number": "33",
-          "height": 193,
-          "position": "投手",
-          "isPitcher": true,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000007779"
-        },
-        {
-          "id": "0000006497",
-          "name": "鋼龍",
-          "officialName": "鋼龍",
-          "number": "37",
-          "height": 193,
-          "position": "投手",
-          "isPitcher": true,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000006497"
-        },
-        {
           "id": "0000007305",
           "name": "李致霖",
           "officialName": "李致霖",
@@ -4268,6 +4279,17 @@
           "source": "https://stats.cpbl.com.tw/players/0000006729"
         },
         {
+          "id": "0000006159",
+          "name": "林逸達",
+          "officialName": "林逸達",
+          "number": "48",
+          "height": 185,
+          "position": "投手",
+          "isPitcher": true,
+          "level": 2,
+          "source": "https://stats.cpbl.com.tw/players/0000006159"
+        },
+        {
           "id": "0000007055",
           "name": "張景淯",
           "officialName": "張景淯",
@@ -4279,15 +4301,15 @@
           "source": "https://stats.cpbl.com.tw/players/0000007055"
         },
         {
-          "id": "0000000762",
-          "name": "伍鐸",
-          "officialName": "伍鐸",
-          "number": "52",
-          "height": 185,
+          "id": "0000006910",
+          "name": "王伯洋",
+          "officialName": "王伯洋",
+          "number": "54",
+          "height": 180,
           "position": "投手",
           "isPitcher": true,
           "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000000762"
+          "source": "https://stats.cpbl.com.tw/players/0000006910"
         },
         {
           "id": "0000003608",
@@ -4365,17 +4387,6 @@
           "isPitcher": true,
           "level": 2,
           "source": "https://stats.cpbl.com.tw/players/0000002278"
-        },
-        {
-          "id": "0000006555",
-          "name": "梅賽鍶",
-          "officialName": "梅賽鍶",
-          "number": "95",
-          "height": 190,
-          "position": "投手",
-          "isPitcher": true,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000006555"
         },
         {
           "id": "0000007307",
@@ -4521,6 +4532,17 @@
           "source": "https://stats.cpbl.com.tw/players/0000005548"
         },
         {
+          "id": "0000005538",
+          "name": "黃柏豪",
+          "officialName": "黃柏豪",
+          "number": "16",
+          "height": 178,
+          "position": "一壘手",
+          "isPitcher": false,
+          "level": 2,
+          "source": "https://stats.cpbl.com.tw/players/0000005538"
+        },
+        {
           "id": "0000005532",
           "name": "全浩瑋",
           "officialName": "全浩瑋",
@@ -4541,17 +4563,6 @@
           "isPitcher": false,
           "level": 2,
           "source": "https://stats.cpbl.com.tw/players/0000007082"
-        },
-        {
-          "id": "0000006726",
-          "name": "李展毅",
-          "officialName": "李展毅",
-          "number": "36",
-          "height": 188,
-          "position": "一壘手",
-          "isPitcher": false,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000006726"
         },
         {
           "id": "0000006728",
@@ -4587,26 +4598,15 @@
           "source": "https://stats.cpbl.com.tw/players/0000001409"
         },
         {
-          "id": "0000005563",
-          "name": "姚冠瑋",
-          "officialName": "姚冠瑋",
-          "number": "65",
-          "height": 170,
-          "position": "捕手",
+          "id": "0000006879",
+          "name": "冉皓燐",
+          "officialName": "冉皓燐",
+          "number": "82",
+          "height": 183,
+          "position": "中外野手",
           "isPitcher": false,
           "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000005563"
-        },
-        {
-          "id": "0000006725",
-          "name": "張祐嘉",
-          "officialName": "張祐嘉",
-          "number": "81",
-          "height": 185,
-          "position": "右外野手",
-          "isPitcher": false,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000006725"
+          "source": "https://stats.cpbl.com.tw/players/0000006879"
         },
         {
           "id": "0000006731",
