@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-16T20:48:18.479188+00:00",
+  "updatedAt": "2026-11-04T21:05:47.439350+00:00",
   "source": "https://stats.cpbl.com.tw/players",
   "scope": "官網現有一、二軍名單；非單場登錄打線",
   "teams": [
@@ -407,7 +407,7 @@
         {
           "id": "0000007625",
           "name": "陳英睿",
-          "officialName": "*陳英睿",
+          "officialName": "陳英睿",
           "number": "25",
           "height": 183,
           "position": "投手",
@@ -451,7 +451,7 @@
         {
           "id": "0000007623",
           "name": "呂昱廷",
-          "officialName": "*呂昱廷",
+          "officialName": "呂昱廷",
           "number": "41",
           "height": 181,
           "position": "投手",
@@ -1403,7 +1403,7 @@
         {
           "id": "0000007604",
           "name": "曾偉喆",
-          "officialName": "*曾偉喆",
+          "officialName": "曾偉喆",
           "number": "21",
           "height": 185,
           "position": "投手",
@@ -1447,7 +1447,7 @@
         {
           "id": "0000007599",
           "name": "陳定均",
-          "officialName": "*陳定均",
+          "officialName": "陳定均",
           "number": "43",
           "height": 181,
           "position": "投手",
@@ -1535,7 +1535,7 @@
         {
           "id": "0000007606",
           "name": "吳紹遠",
-          "officialName": "#吳紹遠",
+          "officialName": "吳紹遠",
           "number": "78",
           "height": 182,
           "position": "投手",
@@ -1722,7 +1722,7 @@
         {
           "id": "0000007605",
           "name": "王翾祐",
-          "officialName": "#王翾祐",
+          "officialName": "王翾祐",
           "number": "15",
           "height": 178,
           "position": "二壘手",
@@ -1832,7 +1832,7 @@
         {
           "id": "0000007860",
           "name": "黃靖哲",
-          "officialName": "*黃靖哲",
+          "officialName": "黃靖哲",
           "number": "151",
           "height": 170,
           "position": "二壘手",
@@ -1854,7 +1854,7 @@
         {
           "id": "0000007863",
           "name": "黃靖智",
-          "officialName": "*黃靖智",
+          "officialName": "黃靖智",
           "number": "156",
           "height": 175,
           "position": "捕手",
@@ -2432,7 +2432,7 @@
         {
           "id": "0000007830",
           "name": "吳柏霆",
-          "officialName": "*吳柏霆",
+          "officialName": "吳柏霆",
           "number": "166",
           "height": 173,
           "position": "投手",
@@ -3142,7 +3142,7 @@
         {
           "id": "0000007596",
           "name": "高慶麟",
-          "officialName": "*高慶麟",
+          "officialName": "高慶麟",
           "number": "018",
           "height": 178,
           "position": "投手",
@@ -3252,7 +3252,7 @@
         {
           "id": "0000007296",
           "name": "黃英奇",
-          "officialName": "*黃英奇",
+          "officialName": "黃英奇",
           "number": "049",
           "height": 175,
           "position": "投手",
@@ -3417,7 +3417,7 @@
         {
           "id": "0000006865",
           "name": "黃子宸",
-          "officialName": "*黃子宸",
+          "officialName": "黃子宸",
           "number": "178",
           "height": 188,
           "position": "投手",
@@ -3494,7 +3494,7 @@
         {
           "id": "0000007592",
           "name": "劉承佑",
-          "officialName": "*劉承佑",
+          "officialName": "劉承佑",
           "number": "013",
           "height": 181,
           "position": "左外野手",
@@ -4347,7 +4347,7 @@
         {
           "id": "0000007311",
           "name": "吳承翰",
-          "officialName": "*吳承翰",
+          "officialName": "吳承翰",
           "number": "73",
           "height": 178,
           "position": "投手",
@@ -4369,7 +4369,7 @@
         {
           "id": "0000006878",
           "name": "吳君奕",
-          "officialName": "#吳君奕",
+          "officialName": "吳君奕",
           "number": "78",
           "height": 181,
           "position": "投手",
@@ -5365,7 +5365,7 @@
         {
           "id": "0000006933",
           "name": "林威漢",
-          "officialName": "*林威漢",
+          "officialName": "林威漢",
           "number": "8",
           "height": 176,
           "position": "中外野手",
