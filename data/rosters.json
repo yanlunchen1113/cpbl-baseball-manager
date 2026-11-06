@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-04T21:05:47.439350+00:00",
+  "updatedAt": "2026-11-06T00:58:07.721065+00:00",
   "source": "https://stats.cpbl.com.tw/players",
   "scope": "官網現有一、二軍名單；非單場登錄打線",
   "teams": [
@@ -363,7 +363,7 @@
         {
           "id": "0000007285",
           "name": "林展樟",
-          "officialName": "*林展樟",
+          "officialName": "林展樟",
           "number": "11",
           "height": 177,
           "position": "投手",
