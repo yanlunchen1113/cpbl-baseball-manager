@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-06T00:58:07.721065+00:00",
+  "updatedAt": "2026-11-27T02:54:03.577964+00:00",
   "source": "https://stats.cpbl.com.tw/players",
   "scope": "官網現有一、二軍名單；非單場登錄打線",
   "teams": [
@@ -4233,17 +4233,6 @@
           "isPitcher": true,
           "level": 2,
           "source": "https://stats.cpbl.com.tw/players/0000002279"
-        },
-        {
-          "id": "0000007081",
-          "name": "黃侰程",
-          "officialName": "黃侰程",
-          "number": "29",
-          "height": 180,
-          "position": "投手",
-          "isPitcher": true,
-          "level": 2,
-          "source": "https://stats.cpbl.com.tw/players/0000007081"
         },
         {
           "id": "0000007305",
